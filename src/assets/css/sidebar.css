@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'sidebar';
+  src:  url('fonts/sidebar.eot?o6ngtj');
+  src:  url('fonts/sidebar.eot?o6ngtj#iefix') format('embedded-opentype'),
+    url('fonts/sidebar.ttf?o6ngtj') format('truetype'),
+    url('fonts/sidebar.woff?o6ngtj') format('woff'),
+    url('fonts/sidebar.svg?o6ngtj#sidebar') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon_"], [class*=" icon_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'sidebar';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon_sb_bill:before {
+  content: "\f900";
+}
+.icon_sb_content:before {
+  content: "\f901";
+}
+.icon_sb_customer:before {
+  content: "\f902";
+}
+.icon_sb_good1:before {
+  content: "\f903";
+}
+.icon_sb_good2:before {
+  content: "\f904";
+}
+.icon_sb_home:before {
+  content: "\f905";
+}
+.icon_sb_menu:before {
+  content: "\f906";
+}
+.icon_sb_operate:before {
+  content: "\f907";
+}
+.icon_sb_setup:before {
+  content: "\f908";
+}
+.icon_sb_statistics:before {
+  content: "\f909";
+}

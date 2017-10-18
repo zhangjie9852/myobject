@@ -1,0 +1,615 @@
+<template>
+  <div>
+    <HjCrumb :crumbMsg="CrumbBox"></HjCrumb>
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>文章列表</h5>
+            </div>
+            <div class="ibox-content">
+              <form action="#" class="form-inline m-b-md" role="form">
+                <div class="form-group m-r-xs m-t-xs">
+                  <input type="text" class="form-control" name="keyword" placeholder="文章内容" v-model="keyword">
+                </div>
+                <div class="form-group m-r-xs m-t-xs">
+                  <input type="text" class="form-control" name="articleCateId" placeholder="文章分类ID"
+                         v-model="articleCateId">
+                </div>
+                <div class="form-group m-r-xs m-t-xs">
+                  <select class="form-control" name="is_publish" v-model="isPublish">
+                    <option :value="null">是否发布</option>
+                    <option value="0">未发布</option>
+                    <option value="1">已发布</option>
+                  </select>
+                </div>
+                <div class="form-group m-r-xs m-t-xs">
+                  <select class="form-control" name="is_jump" v-model="isJump">
+                    <option :value="null">是否外链</option>
+                    <option value="0">本站</option>
+                    <option value="1">外链</option>
+                  </select>
+                </div>
+                <div class="form-group m-r-xs m-t-xs">
+                  <button type="button" class="btn btn-primary" @click="getArticleList(1,pageData.Perpage,true)">查询
+                  </button>
+                </div>
+              </form>
+              <div class="btn-group m-b-md">
+                <button type="button" class="btn btn-primary m-r-xs" @click="remove">批量删除</button>
+                <button type="button" class="btn btn-primary m-r-xs" @click="batchPublish">批量发布</button>
+                <button type="button" class="btn btn-primary m-r-xs" @click="batchWithdrawal">批量撤回</button>
+                <router-link to="/article/list/add" class="btn btn-warning m-r-xs">添加文章</router-link>
+              </div>
+              <div class="table-responsive clearfix">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>
+                      <div class="checkbox-square-green" :class="{'checked':checkAllFlag}"
+                           @click="checkedAll(articleList)">
+                        <input type="checkbox" class="checks">
+                      </div>
+                    </th>
+                    <th>文章标题</th>
+                    <th>文章分类</th>
+                    <th>排序</th>
+                    <th>是否发布</th>
+                    <th>添加时间</th>
+                    <th>发布时间</th>
+                    <th class="opt-select">操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="(item,index) in articleList">
+                    <td>
+                      <div class="checkbox-square-green" :class="{'checked':item.isChecked}"
+                           @click="chkSelectAndAll(articleList,item)">
+                        <input type="checkbox" class="checks">
+                      </div>
+                    </td>
+                    <td>{{item.article_title}}</td>
+                    <td>{{item.article_cate_name}}</td>
+                    <td>
+                      <input type="number" class="w100" v-model="item.article_sort" @blur="sort(item)" @keyup.enter="sort(item)">
+                    </td>
+                    <td>
+                      <!--<el-switch-->
+                        <!--v-model="item.is_publish"-->
+                        <!--on-text=""-->
+                        <!--off-text="" :on-value="1" :off-value="0" @change="changeIsPublish(item)">-->
+                      <!--</el-switch>-->
+                      {{item.is_publish==1?'是':'否'}}
+                    </td>
+                    <td>{{item.time_create}}</td>
+                    <td>{{item.time_publish}}</td>
+                    <td class="opt-select">
+                      <div class="opt" @click.stop="viewOpt(articleList,'id',item.id)">处理<i
+                        class="fa fa-caret-down"></i></div>
+                      <ul v-show="item.isOptShow">
+                        <li v-if="index!=0" @click="toTop(item)"><a href="javascript:;"><i class="fa fa-arrow-up"></i>
+                          置顶</a>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a>
+                        </li>
+                        <li>
+                          <router-link :to="'/article/list/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link>
+                        </li>
+                        <li v-if="item.is_publish==0" @click="changeIsPublish(item)"><a href="javascript:;"><i class="fa fa-send-o"></i> 发布</a>
+                        </li>
+                        <li v-if="item.is_publish==1" @click="changeIsPublish(item)"><a href="javascript:;"><i class="icon_lb_reject"></i> 取消发布</a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div v-if="articleList.length==0" class="text-center">暂无信息</div>
+                <div class="hj_fr">
+                  <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="pageData.PageID"
+                    :page-sizes="PSLists"
+                    :page-size="pageData.Perpage"
+                    v-show="articleList.length>0"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="pageData.Results">
+                  </el-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  import HjCrumb from '../comms/BreadCrumb.vue'
+  import {CustomFun, pageSizes} from '../comms/main.js'
+  export default{
+    components: {
+      HjCrumb
+    },
+    data () {
+      return {
+        CrumbBox: {
+          CrumbList: [
+            {
+              title: '内容管理',
+              url: '/article/list'
+            },
+            {
+              title: '文章管理',
+              url: '/article/list'
+            },
+            {
+              title: '文章列表',
+              url: ''
+            }
+          ]
+        },
+        articleList: [],
+        keyword: "",
+        articleCateId: '',
+        isPublish: null,
+        isJump: null,
+        checkAllFlag: false,
+        selectedList: [],
+        PSLists: pageSizes,
+        pageData: {
+          PageID: 1,
+          Perpage: 10,
+          Results: 1,
+          Pages: 1
+        },
+        queryFlag: false
+      }
+    },
+    methods: {
+      viewOpt: CustomFun.viewOpt,
+      checkedAll: CustomFun.checkedAll,
+      chkSelectAndAll: CustomFun.chkSelectAndAll,
+      /*
+       * pageID 请求的是第几页
+       * Perpage 每页几条数据
+       * flag true代表有查询条件，false代表无查询条件
+       * */
+      getArticleList (pageID, Perpage, flag) {
+        var that = this;
+        that.queryFlag = flag;
+        that.checkAllFlag = false;
+        that.selectedList = [];
+        var paramObj = {
+          PageID: pageID,
+          Perpage: Perpage
+        };
+        if (flag) {
+          if (that.keyword != "") {
+            paramObj["keyword"] = that.keyword;
+          }
+          if (that.articleCateId != "") {
+            paramObj["article_cate_id"] = that.articleCateId;
+          }
+          if (that.isPublish) {
+            paramObj["is_publish"] = that.isPublish;
+          }
+          if (that.isJump) {
+            paramObj["is_jump"] = that.isJump;
+          }
+        } else {
+          that.keyword = "";
+          that.articleCateId = "";
+          that.isPublish = null;
+          that.isJump = null;
+        }
+        that.$http({
+          method: 'post',
+          url: '/article/listdata',
+          params: paramObj
+        }).then(function (res) {
+          if(res.data.error=='0'){
+            that.articleList = res.data.data.table_data;
+            that.pageData.Results = res.data.data.Results;
+            that.pageData.Pages = res.data.data.Pages;
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.data.desc
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      handleSizeChange(val) {
+        this.pageData.Perpage = val;
+        this.getArticleList(1, this.pageData.Perpage, this.queryFlag);
+      },
+      handleCurrentChange(val) {
+        this.getArticleList(val, this.pageData.Perpage, this.queryFlag);
+      },
+      sort (item) {
+        var that = this;
+        that.$http({
+          method: 'post',
+          url: '/article/editsubmit',
+          params: {
+            id: item.id,
+            article_sort: item.article_sort
+          }
+        }).then(function (res) {
+          if(res.data.error=='0'){
+            that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.data.desc
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      changeIsPublish(item){
+        var that = this;
+        var flag = item.is_publish==1 ? 0 : 1;
+        that.$http({
+          method: 'post',
+          url: '/article/editsubmit',
+          params: {
+            id: item.id,
+            is_publish: flag
+          }
+        }).then(function (res) {
+          if(res.data.error=='0'){
+            that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.data.desc
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      toTop(item){
+        var that = this;
+        that.$http({
+          method: 'post',
+          url: '/article/editsubmit',
+          params: {
+            id: item.id,
+            is_top_page: 1
+          }
+        }).then(function (res) {
+          if(res.data.error=='0'){
+            that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.data.desc
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      remove () {
+        var that = this;
+        if (that.selectedList.length > 0) {
+          var selectedId = [];
+          that.selectedList.forEach(function (item, index) {
+            selectedId.push(item.id);
+          })
+          this.$confirm('确认删除此文章信息吗？', '提示', {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+            closeOnClickModal:false
+          }).then(() => {
+            that.$http({
+              method: 'post',
+              url: '/article/batchsubmit',
+              params: {
+                article_ids: selectedId.join(','),
+                method: "-2"
+              }
+            }).then(function (res) {
+              if(res.data.error=='0'){
+                that.$message({
+                  type: 'success',
+                  message: '文章删除成功!'
+                });
+                that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+              }else{
+                that.$message({
+                  type: 'error',
+                  message: res.data.desc
+                });
+              }
+            }).catch(function (error) {
+              console.log(error);
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消操作'
+            });
+          });
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '请至少选择一条数据!'
+          });
+        }
+      },
+      removeSingle (id) {
+        var that = this;
+        this.$confirm('确认删除此文章信息吗？', '提示', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+          closeOnClickModal:false
+        }).then(() => {
+          that.$http({
+            method: 'post',
+            url: '/article/batchsubmit',
+            params: {
+              article_ids: id,
+              method: "-2"
+            }
+          }).then(function (res) {
+            if(res.data.error=='0'){
+              that.$message({
+                type: 'success',
+                message: '文章删除成功!'
+              });
+              that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+            }else{
+              that.$message({
+                type: 'error',
+                message: res.data.desc
+              });
+            }
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消操作'
+          });
+        });
+      },
+      batchPublish () {
+        var that = this;
+        if (that.selectedList.length > 0) {
+          var selectedId = [];
+          var isRight = true;
+          that.selectedList.forEach(function (item, index) {
+            if (item.is_publish) {
+              that.$message({
+                type: 'warning',
+                message: '所选项包含已发布文章，请重新选择!'
+              });
+              isRight = false;
+              return;
+            } else {
+              selectedId.push(item.id);
+            }
+          })
+          if (isRight) {
+            this.$confirm('确认发布此文章信息吗？', '提示', {
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
+              type: 'warning',
+              closeOnClickModal:false
+            }).then(() => {
+              that.$http({
+                method: 'post',
+                url: '/article/batchsubmit',
+                params: {
+                  article_ids: selectedId.join(','),
+                  method: "1"
+                }
+              }).then(function (res) {
+                if(res.data.error=='0'){
+                  that.$message({
+                    type: 'success',
+                    message: '文章发布成功!'
+                  });
+                  that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+                }else{
+                  that.$message({
+                    type: 'error',
+                    message: res.data.desc
+                  });
+                }
+              }).catch(function (error) {
+                console.log(error);
+              });
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消操作'
+              });
+            });
+          }
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '请至少选择一条数据!'
+          });
+        }
+      },
+      publishSingle (id) {
+        var that = this;
+        this.$confirm('确认发布此文章信息吗？', '提示', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+          closeOnClickModal:false
+        }).then(() => {
+          that.$http({
+            method: 'post',
+            url: '/article/batchsubmit',
+            params: {
+              article_ids: id,
+              method: "1"
+            }
+          }).then(function (res) {
+            if(res.data.error=='0'){
+              that.$message({
+                type: 'success',
+                message: '文章发布成功!'
+              });
+              that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+            }else{
+              that.$message({
+                type: 'error',
+                message: res.data.desc
+              });
+            }
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消操作'
+          });
+        });
+      },
+      batchWithdrawal () {
+        var that = this;
+        if (that.selectedList.length > 0) {
+          var selectedId = [];
+          that.selectedList.forEach(function (item, index) {
+            selectedId.push(item.id);
+          })
+          this.$confirm('确认撤回此文章信息吗？', '提示', {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+            closeOnClickModal:false
+          }).then(() => {
+            that.$http({
+              method: 'post',
+              url: '/article/batchsubmit',
+              params: {
+                article_ids: selectedId.join(','),
+                method: "-1"
+              }
+            }).then(function (res) {
+              if(res.data.error=='0'){
+                that.$message({
+                  type: 'success',
+                  message: '文章撤回成功!'
+                });
+                that.getArticleList(1, that.pageData.Perpage, that.queryFlag);
+              }else{
+                that.$message({
+                  type: 'error',
+                  message: res.data.desc
+                });
+              }
+            }).catch(function (error) {
+              console.log(error);
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消操作'
+            });
+          });
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '请至少选择一条数据!'
+          });
+        }
+      }
+    },
+    mounted () {
+      this.$nextTick(function () {
+        this.getArticleList(1, this.pageData.Perpage, false);
+        // 点击操作以外的地方，操作隐藏
+        var that = this;
+        document.addEventListener("click", function (event) {
+          if (!this.contains(this.$el, event.target)) {
+            if (that.articleList.length > 0) {
+              that.articleList.forEach(function (item, index) {
+                if (typeof item.isOptShow == "undefined") {
+                  that.$set(item, "isOptShow", false);
+                } else {
+                  item.isOptShow = false;
+                }
+              })
+            }
+          }
+        }, false);
+      })
+    }
+  }
+</script>
+
+<style scoped>
+  .table thead tr th, .table tbody tr td {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .table thead tr .opt-select {
+    min-width:96px;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .table tbody tr .opt-select {
+    min-width:96px;
+    position: relative;
+    text-align: right;
+  }
+
+  .opt-select .opt {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .opt-select .opt i {
+    margin-left: 5px;
+  }
+
+  .opt-select ul {
+    margin-top: 12px;
+    background-color: #fff;
+    border: 1px solid #d2d2d2;
+    padding: 0 8px;
+    text-align: left;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    z-index: 1000;
+  }
+
+  .opt-select ul li {
+    line-height: 32px;
+    border-top: 1px dashed #d2d2d2;
+  }
+
+  .opt-select ul li:first-child {
+    border-top: 0;
+  }
+
+  .opt-select ul li a {
+    color: #676a6c;
+  }
+
+  .opt-select ul li:hover a {
+    color: #3EA0C4;
+  }
+</style>

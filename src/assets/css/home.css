@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'home';
+  src:  url('fonts/home.eot?el7gux');
+  src:  url('fonts/home.eot?el7gux#iefix') format('embedded-opentype'),
+    url('fonts/home.ttf?el7gux') format('truetype'),
+    url('fonts/home.woff?el7gux') format('woff'),
+    url('fonts/home.svg?el7gux#home') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon_"], [class*=" icon_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'home';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon_bt_member:before {
+  content: "\b900";
+}
+.icon_bt_orderm:before {
+  content: "\b901";
+}
+.icon_bt_orders:before {
+  content: "\b902";
+}
+.icon_bt_sale:before {
+  content: "\b903";
+}
+.icon_hb_comment:before {
+  content: "\b904";
+}
+.icon_hb_order:before {
+  content: "\b905";
+}
+.icon_hb_sale:before {
+  content: "\b906";
+}
+.icon_hb_shop:before {
+  content: "\b907";
+}
