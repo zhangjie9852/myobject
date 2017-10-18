@@ -169,8 +169,7 @@ input[type="number"]{-moz-appearance:textfield;}
 
 .col-sm-0{position:relative;min-height:1px;padding-right:15px;padding-left:15px; float:left;width:12.33333333%}
 
-
-
+.nav > li.active{border-left: none; }
 /*v-form*/
 .form-control-callback .error{color: #cc5965; display: inline-block; margin-left: 5px; font-size: 14px}
 .form-control-callback .valid{color: #5cb85c; display: none;}

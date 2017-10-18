@@ -1,0 +1,5 @@
+.icon-color{ color: #2FB2E6;}
+.bg-color{ background-color: #2FB2E6; color: #FFF;}
+.nav > li.nav-current,.nav > li.nav-current a{color: #FFF; background-color: #2FB2E6;}
+.nav > li.nav-current a:hover,.nav > li.nav-current a:focus{background-color: #2FB2E6;}
+.nav-icon-color{ color: #2FB2E6;}

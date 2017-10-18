@@ -10,24 +10,20 @@
 	                  <div class="logo-element">
 	                      管理<br/>后台
 	                  </div>
-	              </li>
-	              <router-link :to="item.path_url" tag="li" v-for="(item,index) in menu" active-class="active" :key="index" @click.native="toggle(item.menu_id),navActive(item.menu_id,0)" v-if="!menu[index].submenu">
+	              </li><!-- 一级分类 -->
+	              <router-link :to="item.path_url" tag="li" v-for="(item,index) in menu" active-class="nav-current" :key="index" @click.native="toggle(item.menu_id),navActive(item.menu_id,0)" v-if="!menu[index].submenu">
 	              	<a><i class="fa" :class="item.menu_class"></i><span class="nav-label">{{item.menu_title}}</span><span class="fa arrow" v-if="menu[index].submenu"></span></a>
 	              </router-link>
-
+					<!-- 二级分类 -->
 	              <li v-for="(item,index) in menu" :class="item.opens?'active':''" :key="index" v-if="menu[index].submenu">
 	              	<a @click="toggle(item.menu_id)"><i class="fa" :class="item.menu_class"></i><span class="nav-label">{{item.menu_title}}</span><span class="fa arrow" v-if="menu[index].submenu"></span></a>
                     <ul class="nav nav-second-level collapse" :class="item.opens?'in':''">
-                        <li v-for="(sec,sindex) in menu[index].submenu" v-if="!menu[index].submenu[sindex].submenu">
-                        	<router-link :to="sec.path_url" active-class="active" @click.native="navActive(item.menu_id,sec.menu_id)">{{sec.menu_title}}<span class="fa arrow" v-if="menu[index].submenu[sindex].submenu"></span></router-link>                            
-                        </li>
-
+                    	<router-link tag="li" v-for="(sec,sindex) in menu[index].submenu" v-if="!menu[index].submenu[sindex].submenu" :to="sec.path_url" active-class="nav-current" @click.native="navActive(item.menu_id,sec.menu_id)"><a>{{sec.menu_title}}<span class="fa arrow" v-if="menu[index].submenu[sindex].submenu"></span></a></router-link>
+						<!-- 三级分类 -->
                         <li v-for="(sec,sindex) in menu[index].submenu" v-if="menu[index].submenu[sindex].submenu" :class="sec.secOpen?'active':''">
                         	<a @click="toggle2(sec.menu_id,index)" class="sec-class">{{sec.menu_title}}<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level collapse" :class="sec.secOpen?'in':''">
-                                <li v-for="third in menu[index].submenu[sindex].submenu">
-                                    <router-link :to="third.path_url" @click.native="navActive(item.menu_id,sec.menu_id)" active-class="active">{{third.menu_title}}</router-link>    
-                                </li>
+                                <router-link :to="third.path_url" tag="li" v-for="third in menu[index].submenu[sindex].submenu" @click.native="navActive(item.menu_id,sec.menu_id)" active-class="nav-current"><a>{{third.menu_title}}</a></router-link>
                             </ul>
                         </li>
                     </ul>
@@ -41,27 +37,39 @@
 	import "../assets/css/sidebar.css"	
 	export default {
 		data(){
-			return {
-				pageError:false, 
+			return {				
 				menu:[],
 				current:5,
 				navsecid:0,
 				sysLogo:''
 			}
 		},
+		computed:{	       
+	        baseurl:function(){
+	            var url = this.$route.path.split("/");
+	            if(url.length>1){
+	                return "/"+url[1];
+	            }else{
+	                return "/index"
+	            }
+	        },
+	        seurl:function(){
+	            var url = this.$route.path.split("/");
+	            if(url.length>1){
+	                return "/"+url[1]+"/"+url[2];
+	            }else{
+	                return "/workbench/index"
+	            }
+
+	        }
+	    },
 		mounted(){
 			//获取数据
 			this.getLeftMenu();	
 			this.baseMain()		
 			this.current = sessionStorage.getItem("navId");
 			this.navsecid = sessionStorage.getItem("secId");						
-		},
-		// beforeUpdate(){
-		// 	if(this.pageError){
-		// 		this.getLeftMenu();
-		// 		this.baseMain();
-		// 	}
-		// },
+		},		
 		methods:{
 			getLeftMenu() {	//菜单
 	      		var that = this;	      		    		
@@ -76,8 +84,8 @@
 									if(that.current == that.menu[i].menu_id){//判断当前展开栏目
 									   that.menu[i].opens= true
 								   }								   
-								   if(that.menu[i].submenu != undefined){								   		
-									   	that.menu[i].submenu.forEach(function (item,index) {					      
+								   if(that.menu[i].submenu != undefined){							   		
+									   	that.menu[i].submenu.forEach(function (item,index) {
 									        that.$set(item,"secOpen",false);
 									    });
 									    for(var j=0; j<that.menu[i].submenu.length; j++){
@@ -87,9 +95,11 @@
 										}
 								   }								 							  
 								}								
-							}else{
-								console.log(res.data.desc);	
-								that.pageError = true;
+							}else{								
+								that.$message({
+                                  message: res.data.desc,
+                                  type: 'warning'
+                                });
 							}						
 						}).catch(function (error) {
 							console.log(error);
@@ -127,8 +137,10 @@
                             	var  fieldList =  res.data.data;
                                 that.sysLogo = fieldList.site_logo_backend;
                             }else{
-                                console.log(res.data.desc)
-                                that.pageError = true;                                                        
+                                that.$message({
+                                  message: res.data.desc,
+                                  type: 'warning'
+                                });                                        
                             }                                                        
                         }).catch(function (error) {
                             console.log(error);

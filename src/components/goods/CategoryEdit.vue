@@ -59,8 +59,7 @@
                                                   class="avatar-uploader"
                                                   :action="sevUrl+'/admin/upload'"
                                                   :show-file-list="false"
-                                                  :data="usermsg"
-                                                  :on-preview="wappic"
+                                                  :data="usermsg"                                  
                                                   :on-success="handleAvatarSuccess2"
                                                   :before-upload="beforeAvatarUpload">
                                                   <img v-if="fields.category_pic" :src="fields.category_pic" class="avatar">
