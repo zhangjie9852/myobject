@@ -8,7 +8,7 @@
 	                      <img alt="image" :src="sysLogo" />
 	                  </div>
 	                  <div class="logo-element">
-	                      管理<br/>后台
+	                      和佳
 	                  </div>
 	              </li><!-- 一级分类 -->
 	              <router-link :to="item.path_url" tag="li" v-for="(item,index) in menu" active-class="nav-current" :key="index" @click.native="toggle(item.menu_id),navActive(item.menu_id,0)" v-if="!menu[index].submenu">
