@@ -152,14 +152,29 @@ input[type="number"]{-moz-appearance:textfield;}
 /*Blue style*/
 .blue-style{background:#2eb3e5;}
 /*header*/
-.nav-header{padding:10px; }
-.nav-header .nav-header-img{height:32px; line-height:32px; text-align:center; vertical-align:middle}
+.nav-header{padding:10px;/* border-bottom: none !important;*/ }
+.nav-header .nav-header-img{height:33px; line-height:33px; text-align:center; vertical-align:middle}
 .nav-header .nav-header-img img{ max-height:32px; max-width:200px; }
 .logo-title{width: 380px;  font-size: 16px; font-weight: 700;  float: left;  padding: 10px; height: 30px;  line-height: 30px;  color: #666;  font-family: "YaHei";}
 
+/*2017-10 update*/
+.navbar{min-height: 53px;}
+a.minimalize-styl-2{color: #9DA7C0}
+.minimalize-styl-2 i{ font-size: 23px}
+.logo-element{font-size: 16px; height: 54px;}
+
+
+.side-menu > li > a {
+  font-size: 14px;
+  padding:0 20px 0 25px;
+  height: 53px;
+  line-height: 53px;  
+}
+.side-menu > li > a .arrow{margin-top: 20px;}
 /*crumbs*/
-.crumbs{padding:15px 0 15px 0px; font-size:14px}
+.crumbs{ height: 54px; line-height: 53px; font-size:14px}
 .crumbs a{color:#676a6c}
+.border-none{border-bottom: none;}
 
 
 

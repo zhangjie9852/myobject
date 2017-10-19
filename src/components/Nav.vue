@@ -2,7 +2,7 @@
 	<div class="Leftnav">
 		<nav class="navbar-default navbar-static-side" role="navigation" >
 	      <div class="sidebar-collapse">
-	          <ul class="nav animated" id="side-menu">
+	          <ul class="nav side-menu animated" id="side-menu">
 	              <li class="nav-header">
 	                  <div class="nav-header-img profile-element">
 	                      <img alt="image" :src="sysLogo" />

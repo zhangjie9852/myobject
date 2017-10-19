@@ -5,7 +5,7 @@
           <div class="row border-bottom">
               <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="minimalize-styl-2" href="javascript:;"><i class="shop icon-caidanzhedie"></i> </a>
+                    <a class="navbar-minimalize minimalize-styl-2" href="javascript:;"><i class="shop icon-caidanzhedie"></i> </a>
                 </div>
                 <div class="logo-title"></div>
                 <ul class="navbar-top-links navbar-right">

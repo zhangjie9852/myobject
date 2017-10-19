@@ -15,9 +15,10 @@ import './assets/font-awesome/css/font-awesome.css';
 import './assets/css/iconfont.css';
 import './assets/css/animate.css';
 import './assets/css/style.css';
-import { Dialog,Switch,Upload,Button,MessageBox,Message,Pagination,Select,Option,DatePicker,Input,Tabs,TabPane,Tooltip,Cascader,Radio,RadioGroup,RadioButton,Checkbox,CheckboxGroup} from 'element-ui'
+//import { Dialog,Switch,Upload,Button,MessageBox,Message,Pagination,Select,Option,DatePicker,Input,Tabs,TabPane,Tooltip,Cascader,Radio,RadioGroup,RadioButton,Checkbox,CheckboxGroup} from 'element-ui'
+import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-//import "./assets/css/radio_checkbox.css"
+import "./assets/css/radio_checkbox.css"
 import "./assets/css/public.css"
 import './assets/css/main.css'
 import './assets/css/skin.css'
@@ -27,25 +28,26 @@ import './assets/css/skin.css'
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
 
 Vue.use(Loading);
-Vue.use(Pagination);
-Vue.use(vueForm);
-Vue.use(Upload);
-Vue.use(Switch);
-Vue.use(Dialog);
-Vue.use(Button);
-Vue.use(Select);
-Vue.use(Option);
-Vue.use(DatePicker);
-Vue.use(Input);
-Vue.use(Tabs);
-Vue.use(TabPane);
-Vue.use(Tooltip);
-Vue.use(Cascader);
-Vue.use(Radio);
-Vue.use(RadioGroup);
-Vue.use(RadioButton);
-Vue.use(Checkbox);
-Vue.use(CheckboxGroup);
+Vue.use(ElementUI);
+// Vue.use(Pagination);
+// Vue.use(vueForm);
+// Vue.use(Upload);
+// Vue.use(Switch);
+// Vue.use(Dialog);
+// Vue.use(Button);
+// Vue.use(Select);
+// Vue.use(Option);
+// Vue.use(DatePicker);
+// Vue.use(Input);
+// Vue.use(Tabs);
+// Vue.use(TabPane);
+// Vue.use(Tooltip);
+// Vue.use(Cascader);
+// Vue.use(Radio);
+// Vue.use(RadioGroup);
+// Vue.use(RadioButton);
+// Vue.use(Checkbox);
+// Vue.use(CheckboxGroup);
 
 axios.interceptors.request.use(function (config) {  //配置发送请求的信息
   stores.dispatch('showLoading')
@@ -77,11 +79,11 @@ axios.interceptors.response.use(function (response) { //配置请求回来的信
 axios.defaults.baseURL='/hjshop';
 
 Vue.prototype.$http = axios;
-Vue.prototype.$msgbox = MessageBox;
-Vue.prototype.$alert = MessageBox.alert;
-Vue.prototype.$confirm = MessageBox.confirm;
-Vue.prototype.$prompt = MessageBox.prompt;
-Vue.prototype.$message = Message;
+// Vue.prototype.$msgbox = MessageBox;
+// Vue.prototype.$alert = MessageBox.alert;
+// Vue.prototype.$confirm = MessageBox.confirm;
+// Vue.prototype.$prompt = MessageBox.prompt;
+// Vue.prototype.$message = Message;
 Vue.config.productionTip = false
 
 

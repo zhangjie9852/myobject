@@ -411,6 +411,7 @@
                   type: 'error'
                 });
               }
+              console.log(that.selectedList)
             },
             onSubmit:function(){//提交                
                 var that = this;
