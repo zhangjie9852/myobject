@@ -126,6 +126,10 @@
                             url:'/goods/list'
                         },
                         {
+                            title:'商品管理',
+                            url:'/goods/list'
+                        },
+                        {
                             title:'用户评论',
                             url:'/goods/evaluate/list'
                         },

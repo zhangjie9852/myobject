@@ -181,7 +181,8 @@ a.minimalize-styl-2{color: #9DA7C0}
 
 
 /*crumbs*/
-.crumbs{ height: 54px; line-height: 53px; font-size:14px}
+.crumbs-tit{font-size: 18px; margin-right: 10px}
+.crumbs{ height: 54px; line-height: 53px; font-size:14px; display: inline-block;}
 .crumbs a{color:#676a6c}
 .border-none{border-bottom: none;}
 

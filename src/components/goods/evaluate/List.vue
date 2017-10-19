@@ -110,6 +110,10 @@
 			    		{
 				    		title:'商品中心',
 				    		url:'/goods/list'
+			    		},
+			    		{
+				    		title:'商品管理',
+				    		url:'/goods/list'
 			    		},			    		
 			    		{
 				    		title:'用户评论',

@@ -95,7 +95,11 @@
 			    		{
 				    		title:'商品中心',
 				    		url:'/goods/list'
-			    		},			    		
+			    		},	
+			    		{
+				    		title:'商品管理',
+				    		url:'/goods/list'
+			    		},		    		
 			    		{
 				    		title:'商品咨询',
 				    		url:''
