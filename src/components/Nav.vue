@@ -18,12 +18,12 @@
 	              <li v-for="(item,index) in menu" :class="item.opens?'active':''" :key="index" v-if="menu[index].submenu">
 	              	<a @click="toggle(item.menu_id)"><i class="fa" :class="item.menu_class"></i><span class="nav-label">{{item.menu_title}}</span><span class="fa arrow" v-if="menu[index].submenu"></span></a>
                     <ul class="nav nav-second-level collapse" :class="item.opens?'in':''">
-                    	<router-link tag="li" v-for="(sec,sindex) in menu[index].submenu" v-if="!menu[index].submenu[sindex].submenu" :to="sec.path_url" active-class="nav-current" @click.native="navActive(item.menu_id,sec.menu_id)"><a>{{sec.menu_title}}<span class="fa arrow" v-if="menu[index].submenu[sindex].submenu"></span></a></router-link>
+                    	<router-link tag="li" v-for="(sec,sindex) in menu[index].submenu" v-if="!menu[index].submenu[sindex].submenu" :to="sec.path_url" :key="sindex" active-class="nav-current" @click.native="navActive(item.menu_id,sec.menu_id)"><a>{{sec.menu_title}}<span class="fa arrow" v-if="menu[index].submenu[sindex].submenu"></span></a></router-link>
 						<!-- 三级分类 -->
                         <li v-for="(sec,sindex) in menu[index].submenu" v-if="menu[index].submenu[sindex].submenu" :class="sec.secOpen?'active':''">
                         	<a @click="toggle2(sec.menu_id,index)" class="sec-class">{{sec.menu_title}}<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level collapse" :class="sec.secOpen?'in':''">
-                                <router-link :to="third.path_url" tag="li" v-for="third in menu[index].submenu[sindex].submenu" @click.native="navActive(item.menu_id,sec.menu_id)" active-class="nav-current"><a>{{third.menu_title}}</a></router-link>
+                                <router-link :to="third.path_url" tag="li" v-for="(third,tindex) in menu[index].submenu[sindex].submenu" :key="tindex" @click.native="navActive(item.menu_id,sec.menu_id)" active-class="nav-current"><a>{{third.menu_title}}</a></router-link>
                             </ul>
                         </li>
                     </ul>

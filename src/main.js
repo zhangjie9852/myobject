@@ -12,11 +12,12 @@ import $ from 'jquery'
 
 import './assets/css/bootstrap.min.css';
 import './assets/font-awesome/css/font-awesome.css';
+import './assets/css/iconfont.css';
 import './assets/css/animate.css';
 import './assets/css/style.css';
 import { Dialog,Switch,Upload,Button,MessageBox,Message,Pagination,Select,Option,DatePicker,Input,Tabs,TabPane,Tooltip,Cascader,Radio,RadioGroup,RadioButton,Checkbox,CheckboxGroup} from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import "./assets/css/radio_checkbox.css"
+//import "./assets/css/radio_checkbox.css"
 import "./assets/css/public.css"
 import './assets/css/main.css'
 import './assets/css/skin.css'
