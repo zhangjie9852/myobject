@@ -8,14 +8,29 @@
                     <a class="navbar-minimalize minimalize-styl-2" href="javascript:;"><i class="shop icon-caidanzhedie"></i> </a>
                 </div>
                 <div class="logo-title"></div>
-                <ul class="navbar-top-links navbar-right">
-                    <li>你好，{{realname}}</li>
-                    <li>
-                        <a href="javascript:;" @click="logout">
-                            <i class="fa fa-sign-out"></i> 退出
-                        </a>
-                    </li>
-                </ul>
+                
+                <div class="head-top-right">
+                  <div class="search">
+                    <el-input
+                      placeholder="请输入功能关键词，例如商品"
+                      icon="search"
+                      v-model="searchVal">
+                    </el-input>
+                  </div>
+                  <span>
+                  <img src="../assets/img/man.png" >
+                  <el-dropdown trigger="click" @command="userinfo">
+                    <em>
+                    你好，{{realname}}
+                    <i class="shop icon-jiantouxia font12"></i>
+                    </em>
+                    <el-dropdown-menu slot="dropdown" class="dropList">
+                      <el-dropdown-item command="password"><i class="shop icon-mima1"></i> 修改密码</el-dropdown-item>
+                      <el-dropdown-item command="logout"><i class="shop icon-tuichu1"></i> 退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                    </el-dropdown>
+                  </span>
+                </div>
               </nav>
           </div> 
           <loading v-if="loading"></loading>
@@ -35,16 +50,15 @@
     data(){
       return {
         realname:'',
-        token:''           
+        token:'',
+        searchVal:''          
       }
     },
     computed:mapGetters([
       'userInfo',
       'loading'  
     ]),       
-    mounted(){
-      //this.$http.defaults.headers['token_admin'] = JSON.parse(window.localStorage.getItem('access_token'));
-      //this.$http.defaults.headers['admin_id'] = window.localStorage.getItem('userid'); 
+    mounted(){      
       var that=this;
       $('.navbar-minimalize').click(function () {
           $("body").toggleClass("mini-navbar");
@@ -110,13 +124,13 @@
               }
           })
         },
-        logout: function () { //退出登录           
-          var that = this;                    
-              that.$http({
+        userinfo(command) { //退出登录           
+          var that = this;
+          if(command =='logout'){
+            that.$http({
                 method:'post',
                 url: '/user/logout'                                              
-              }).then(function (res) {
-                //console.log(res);
+              }).then(function (res) {                
                 if(res.data.error==0){//退出成功                   
                    sessionStorage.clear();
                    window.localStorage.clear();
@@ -125,11 +139,35 @@
                     message: res.data.desc
                    });
                    that.$router.push('/login');
-                }                      
+                }                     
               }).catch(function (error) {
                 console.log(error);
-              }); 
+              });
+          }
+          if(command=='password'){
+            that.$router.push('/setting/freight/list/');
+          } 
         }
+        // logout: function () { //退出登录           
+        //   var that = this;                    
+        //       that.$http({
+        //         method:'post',
+        //         url: '/user/logout'                                              
+        //       }).then(function (res) {
+        //         //console.log(res);
+        //         if(res.data.error==0){//退出成功                   
+        //            sessionStorage.clear();
+        //            window.localStorage.clear();
+        //            that.$message({
+        //             type: 'success',
+        //             message: res.data.desc
+        //            });
+        //            that.$router.push('/login');
+        //         }                      
+        //       }).catch(function (error) {
+        //         console.log(error);
+        //       }); 
+        // }
     }
   }
 </script>

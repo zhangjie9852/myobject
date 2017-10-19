@@ -171,6 +171,15 @@ a.minimalize-styl-2{color: #9DA7C0}
   line-height: 53px;  
 }
 .side-menu > li > a .arrow{margin-top: 20px;}
+
+.head-top-right{ width: 500px; float: right; text-align: right; padding-right: 30px; margin-top: 9px;}
+.head-top-right .search{width: 240px; display: inline-block; margin-right: 40px; }
+.head-top-right>span>img{margin-bottom: 5px; max-width: 32px; max-height: 32px; margin-right: 10px}
+
+.dropList i{color: #B4BCD3}
+.font12{font-size: 12px;}
+
+
 /*crumbs*/
 .crumbs{ height: 54px; line-height: 53px; font-size:14px}
 .crumbs a{color:#676a6c}

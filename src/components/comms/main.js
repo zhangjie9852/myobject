@@ -79,6 +79,14 @@ export const CustomFun={
       return false;
     }  
   } ,
+  navSecurl:function(url){
+      var val = url.split("/");
+      if(val.length>1){
+          return "/"+val[1]+"/"+val[2];
+      }else{
+          return ""
+      }
+  },
   /* 价格验证  */
   priceValid(name) {  
     var myval = parseFloat(name);

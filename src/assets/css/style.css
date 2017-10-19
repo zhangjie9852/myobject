@@ -39,6 +39,7 @@ h5 {
 .nav > li > a {
   color: #a7b1c2;
   font-weight: 600;
+  font-size: 12px;
   padding: 17px 20px 17px 25px;
 }
 .nav.navbar-right > li > a {

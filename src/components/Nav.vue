@@ -23,7 +23,7 @@
                         <li v-for="(sec,sindex) in menu[index].submenu" v-if="menu[index].submenu[sindex].submenu" :class="sec.secOpen?'active':''">
                         	<a @click="toggle2(sec.menu_id,index)" class="sec-class">{{sec.menu_title}}<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level collapse" :class="sec.secOpen?'in':''">
-                                <router-link :to="third.path_url" tag="li" v-for="(third,tindex) in menu[index].submenu[sindex].submenu" :key="tindex" @click.native="navActive(item.menu_id,sec.menu_id)" active-class="nav-current"><a>{{third.menu_title}}</a></router-link>
+                                <router-link :to="third.path_url" tag="li" v-for="(third,tindex) in menu[index].submenu[sindex].submenu" :key="tindex" @click.native="navActive(item.menu_id,sec.menu_id)" :class="seurl==navSecurl(third.path_url)?'nav-current':''"><a>{{third.menu_title}}</a></router-link>
                             </ul>
                         </li>
                     </ul>
@@ -34,7 +34,8 @@
 	</div>
 </template>
 <script>
-	import "../assets/css/sidebar.css"	
+	import "../assets/css/sidebar.css"
+	import {CustomFun} from './comms/main.js'
 	export default {
 		data(){
 			return {				
@@ -71,6 +72,7 @@
 			this.navsecid = sessionStorage.getItem("secId");						
 		},		
 		methods:{
+			navSecurl:CustomFun.navSecurl,
 			getLeftMenu() {	//菜单
 	      		var that = this;	      		    		
 	      		that.$http({
