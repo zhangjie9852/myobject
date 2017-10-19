@@ -3368,7 +3368,7 @@ table.table-mail tr td {
   /*margin: 0 0 7px;*/
   padding: 0;
   text-overflow: ellipsis;
-  float: left;
+  /*float: left;*/
   margin:0;
   line-height: 20px;
   font-weight: normal;
