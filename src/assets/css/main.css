@@ -303,6 +303,7 @@ a.minimalize-styl-2{color: #9DA7C0}
 .batch-btn{padding:9px 15px;background:#f7ba2a;color:#fff;border:none;}
 .batch-btn:hover{background:#f7ba2a;color:#fff;}
 .table-main{min-height:480px;background:#fff;}
+.table-responsive .table th{font-size:14px !important;font-weight:normal;}
 .table-responsive .table th,.table-responsive .table td{font-size:12px;border-top:none;border-left:none;border-right:none;padding:13px;text-align:left;}
 .el-pagination{padding:2px 20px;}
 .list-content .form-inline,.list-content .btn-group{padding:0 20px 20px 20px;}
