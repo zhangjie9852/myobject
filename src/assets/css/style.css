@@ -220,7 +220,7 @@ body.body-small .navbar-top-links li:last-child {
   float: right;
 }
 .fa.arrow:before {
-  content: "\f104";
+  content: "\f105";
 }
 .active > a > .fa.arrow:before {
   content: "\f107";
