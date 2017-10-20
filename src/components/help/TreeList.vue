@@ -13,7 +13,7 @@
         </template>
         <template v-else>
           <span>{{item.article_cate_name}}</span>
-          <a class="m-l icon shop icon-xinzeng1" @click="addChild" title="添加分类"></a>
+          <a class="m-l icon shop icon-xinzeng1" @click="addChild" title="添加分类" v-if="item.level<2"></a>
         </template>
       </div>
       <div>
@@ -219,5 +219,5 @@
 </script>
 
 <style scoped>
-  
+
 </style>
