@@ -1,6 +1,6 @@
 <template>
 	<div id="wrapper">
-      <NavList v-if="token"></NavList>
+      <NavList ref="navMenu"></NavList>
       <div id="page-wrapper" class="gray-bg dashbard-1">
           <div class="row border-bottom">
               <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -14,8 +14,14 @@
                     <el-input
                       placeholder="请输入功能关键词，例如商品"
                       icon="search"
-                      v-model="searchVal">
+                      v-model="searchVal" @input="searchFun">
                     </el-input>
+                    <ul v-if="showSearch">
+                      <template v-for="item in searchList">
+                      <li><a @click="jumpUrl(item.path_url)">{{item.label}}</a></li>
+                      </template>
+                      <li @click="showSearch=false"><a class="text-center">关闭</a></li>                    
+                    </ul>
                   </div>
                   <span>
                   <img src="../assets/img/man.png" >
@@ -51,13 +57,27 @@
       return {
         realname:'',
         token:'',
+        showSearch:false,
+        searchObj:[],
         searchVal:''          
       }
-    },
-    computed:mapGetters([
-      'userInfo',
-      'loading'  
-    ]),       
+    },    
+    computed: {     
+        ...mapGetters([           
+          'userInfo',
+          'loading'     
+        ]),
+        searchList:function(){
+          var list=[];
+          var that = this;
+          this.searchObj.forEach(function(val){
+            if(val.label.indexOf(that.searchVal)!=-1){
+              list.push(val);
+            }
+          });
+          return list;
+        }         
+    },      
     mounted(){      
       var that=this;
       $('.navbar-minimalize').click(function () {
@@ -65,23 +85,75 @@
           that.SmoothlyMenu();         
       }); 
        that.bodyW(); 
-       that.baseinfo(); 
-      this.token = window.localStorage.getItem('access_token');          
+       that.baseinfo();
+       this.allMenu();            
     },
     components:{
       NavList,
       FooterView
     },
-    methods:{ 
+    methods:{
+        searchFun(){
+          if(this.searchVal!=''){
+            this.showSearch=true;
+          }else{
+            this.showSearch=false;
+          }
+        },
+        jumpUrl(url){          
+          this.showSearch=false;
+          this.$refs.navMenu.getLeftMenu();
+          this.$router.push(url);
+        },
+        allMenu(){
+          var that = this;                    
+              that.$http({
+                method:'post',
+                url: '/base/navmenu',                                            
+              }).then(function (res) {               
+              var menuList = res.data.data;                           
+                if(res.data.error==0){
+                //一级          
+                  menuList.forEach(function (item,index) {                    
+                    if(item.submenu != undefined){
+                      //二级
+                      item.submenu.forEach(function (item2,index2) {
+                        if(item2.submenu != undefined){
+                          //三级
+                          item2.submenu.forEach(function (item3,index3) {                            
+                            if(item3.path_url !=undefined){                      
+                              that.searchObj.push({
+                                path_url:item3.path_url,
+                                label:item3.menu_title
+                              });
+                            }
+                          });
+                        }
+                        if(item2.path_url !=undefined){                      
+                          that.searchObj.push({
+                            path_url:item2.path_url,
+                            label:item2.menu_title
+                          });
+                        }
+                      });
+                    }                    
+                    if(item.path_url !=undefined){                      
+                      that.searchObj.push({
+                        path_url:item.path_url,
+                        label:item.menu_title
+                      });
+                    }                    
+                  });
+                }                  
+              }).catch(function (error) {
+                console.log(error);
+              });              
+        },
         baseinfo(){
           var that = this;                    
               that.$http({
                 method:'post',
-                url: '/base/main',
-                /*params:{
-                    'token_admin':JSON.parse(window.localStorage.getItem('access_token')),
-                    'admin_id':JSON.parse(window.localStorage.getItem('userid'))
-                  }*/                               
+                url: '/base/main',                                            
               }).then(function (res) {
                 //console.log(res);
                 if(res.data.error==0){           
@@ -147,27 +219,7 @@
           if(command=='password'){
             that.$router.push('/setting/freight/list/');
           } 
-        }
-        // logout: function () { //退出登录           
-        //   var that = this;                    
-        //       that.$http({
-        //         method:'post',
-        //         url: '/user/logout'                                              
-        //       }).then(function (res) {
-        //         //console.log(res);
-        //         if(res.data.error==0){//退出成功                   
-        //            sessionStorage.clear();
-        //            window.localStorage.clear();
-        //            that.$message({
-        //             type: 'success',
-        //             message: res.data.desc
-        //            });
-        //            that.$router.push('/login');
-        //         }                      
-        //       }).catch(function (error) {
-        //         console.log(error);
-        //       }); 
-        // }
+        }        
     }
   }
 </script>

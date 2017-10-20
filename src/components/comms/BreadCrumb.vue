@@ -23,8 +23,7 @@
 	      }
 	    },
         mounted(){ 
-        var title =  this.crumbMsg.CrumbList[this.crumbMsg.CrumbList.length-1].title;    
-	     // console.log(this.crumbMsg.CrumbList[2].title) 
+        var title =  this.crumbMsg.CrumbList[this.crumbMsg.CrumbList.length-1].title;
 	      this.currentTitle = title;        
 	    }
     }  

@@ -172,7 +172,7 @@ input[type="number"]{-moz-appearance:textfield;}
 .nav-header{padding:10px;/* border-bottom: none !important;*/ }
 .nav-header .nav-header-img{height:33px; line-height:33px; text-align:center; vertical-align:middle}
 .nav-header .nav-header-img img{ max-height:32px; max-width:200px; }
-.logo-title{width: 380px;  font-size: 16px; font-weight: 700;  float: left;  padding: 10px; height: 30px;  line-height: 30px;  color: #666;  font-family: "YaHei";}
+.logo-title{width:0px;  font-size: 16px; font-weight: 700;  float: left;  padding: 10px; height: 30px;  line-height: 30px;  color: #666;  font-family: "YaHei";}
 
 /*2017-10 update*/
 .navbar{min-height: 53px;}
@@ -190,7 +190,12 @@ a.minimalize-styl-2{color: #9DA7C0}
 .side-menu > li > a .arrow{margin-top: 20px;}
 
 .head-top-right{ width: 500px; float: right; text-align: right; padding-right: 30px; margin-top: 9px;}
-.head-top-right .search{width: 240px; display: inline-block; margin-right: 40px; }
+.head-top-right .search{width: 240px; display: inline-block; margin-right: 40px; position: relative; }
+.head-top-right .search>ul{width: 240px; position: absolute; top: 35px; left: 0; border: 1px #E5E6E7 solid; background-color: #fff}
+.head-top-right .search>ul li{ text-align: left; border-bottom: 1px #E5E6E7 solid}
+.head-top-right .search>ul li a{display: block;  padding-left: 10px; height: 30px; line-height: 30px;}
+.head-top-right .search>ul li a:hover{background-color: #F5F5F6}
+.head-top-right .search>ul li:last-child{border-bottom: none}
 .head-top-right>span>img{margin-bottom: 5px; max-width: 32px; max-height: 32px; margin-right: 10px}
 
 .dropList i{color: #B4BCD3}

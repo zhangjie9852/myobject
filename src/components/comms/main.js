@@ -79,6 +79,14 @@ export const CustomFun={
       return false;
     }  
   } ,
+  navBaseurl:function(url){
+      var val = url.split("/");
+      if(val.length>1){
+          return "/"+val[1];
+      }else{
+          return "/index"
+      }
+  },
   navSecurl:function(url){
       var val = url.split("/");
       if(val.length>1){

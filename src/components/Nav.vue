@@ -11,19 +11,19 @@
 	                      和佳
 	                  </div>
 	              </li><!-- 一级分类 -->
-	              <router-link :to="item.path_url" tag="li" v-for="(item,index) in menu" active-class="nav-current" :key="index" @click.native="toggle(item.menu_id),navActive(item.menu_id,0)" v-if="!menu[index].submenu">
+	              <router-link :to="item.path_url" tag="li" v-for="(item,index) in menu" active-class="nav-current" :key="index" @click.native="toggle(item.menu_id)" v-if="!menu[index].submenu">
 	              	<a><i class="fa" :class="item.menu_class"></i><span class="nav-label">{{item.menu_title}}</span><span class="fa arrow" v-if="menu[index].submenu"></span></a>
 	              </router-link>
 					<!-- 二级分类 -->
 	              <li v-for="(item,index) in menu" :class="item.opens?'active':''" :key="index" v-if="menu[index].submenu">
 	              	<a @click="toggle(item.menu_id)"><i class="fa" :class="item.menu_class"></i><span class="nav-label">{{item.menu_title}}</span><span class="fa arrow" v-if="menu[index].submenu"></span></a>
                     <ul class="nav nav-second-level collapse" :class="item.opens?'in':''">
-                    	<router-link tag="li" v-for="(sec,sindex) in menu[index].submenu" v-if="!menu[index].submenu[sindex].submenu" :to="sec.path_url" :key="sindex" active-class="nav-current" @click.native="navActive(item.menu_id,sec.menu_id)"><a>{{sec.menu_title}}<span class="fa arrow" v-if="menu[index].submenu[sindex].submenu"></span></a></router-link>
+                    	<router-link tag="li" v-for="(sec,sindex) in menu[index].submenu" v-if="!menu[index].submenu[sindex].submenu" :to="sec.path_url" :key="sindex" :class="seurl==navSecurl(sec.path_url)?'nav-current':''"><a>{{sec.menu_title}}<span class="fa arrow" v-if="menu[index].submenu[sindex].submenu"></span></a></router-link>
 						<!-- 三级分类 -->
                         <li v-for="(sec,sindex) in menu[index].submenu" v-if="menu[index].submenu[sindex].submenu" :class="sec.secOpen?'active':''">
                         	<a @click="toggle2(sec.menu_id,index)" class="sec-class">{{sec.menu_title}}<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level collapse" :class="sec.secOpen?'in':''">
-                                <router-link :to="third.path_url" tag="li" v-for="(third,tindex) in menu[index].submenu[sindex].submenu" :key="tindex" @click.native="navActive(item.menu_id,sec.menu_id)" :class="seurl==navSecurl(third.path_url)?'nav-current':''"><a>{{third.menu_title}}</a></router-link>
+                                <router-link :to="third.path_url" tag="li" v-for="(third,tindex) in menu[index].submenu[sindex].submenu" :key="tindex" :class="seurl==navSecurl(third.path_url)?'nav-current':''"><a>{{third.menu_title}}</a></router-link>
                             </ul>
                         </li>
                     </ul>
@@ -42,7 +42,9 @@
 				menu:[],
 				current:5,
 				navsecid:0,
-				sysLogo:''
+				sysLogo:'',
+				basePid:0,
+				secPid:0
 			}
 		},
 		computed:{	       
@@ -67,36 +69,44 @@
 		mounted(){
 			//获取数据
 			this.getLeftMenu();	
-			this.baseMain()		
-			this.current = sessionStorage.getItem("navId");
-			this.navsecid = sessionStorage.getItem("secId");						
+			this.baseMain();								
 		},		
 		methods:{
+			navBaseurl:CustomFun.navBaseurl,
 			navSecurl:CustomFun.navSecurl,
 			getLeftMenu() {	//菜单
 	      		var that = this;	      		    		
 	      		that.$http({
 						  method:'post',
 						  url: '/base/navmenu'						  			  
-						}).then(function (res) {
-							//console.log(res);
+						}).then(function (res) {							
 							if(res.data.error == 0){								
-								that.menu = res.data.data;								
-								for(var i=0; i<that.menu.length; i++){
-									if(that.current == that.menu[i].menu_id){//判断当前展开栏目
-									   that.menu[i].opens= true
-								   }								   
-								   if(that.menu[i].submenu != undefined){							   		
-									   	that.menu[i].submenu.forEach(function (item,index) {
-									        that.$set(item,"secOpen",false);
-									    });
-									    for(var j=0; j<that.menu[i].submenu.length; j++){
-											if(that.navsecid == that.menu[i].submenu[j].menu_id){//判断当前展开栏目
-											   that.menu[i].submenu[j].secOpen= true
-										    }
-										}
-								   }								 							  
-								}								
+								that.menu = res.data.data;
+								//一级          
+				                  that.menu.forEach(function (item,index) {
+				                  	if(that.current == item.menu_id){//判断当前展开栏目
+									   that.menu[index].opens= true
+								    }                   
+				                    if(item.submenu != undefined){
+				                      //二级
+				                      item.submenu.forEach(function (item2,index2) {
+			                            that.$set(item2,"secOpen",false);
+				                        if(item2.submenu != undefined){
+				                          //三级
+				                          item2.submenu.forEach(function (item3,index3) {
+				                            if(item3.path_url != undefined && that.navSecurl(item3.path_url)==that.navSecurl(that.$route.path) ){
+				                            	item2.secOpen = true;
+				                            	that.secPid = item3.parent_id;
+				                            	if(item2.menu_id == item3.parent_id ){
+				                            		item.opens = true;
+				                            		that.basePid = item2.parent_id;
+				                            	}
+				                            }
+				                          });
+				                        }
+				                      });
+				                    }                 
+				                  });
 							}else{								
 								that.$message({
                                   message: res.data.desc,
@@ -127,7 +137,7 @@
 					   secList[x].secOpen = false;
 				   }			       
 				}
-			},			
+			},		
 			baseMain(){				
                 var that = this;
                 that.$http({
@@ -147,19 +157,7 @@
                         }).catch(function (error) {
                             console.log(error);
                         });
-            },
-			navActive: function(id,sid){
-				//console.log(sid);
-				sessionStorage.setItem("navId",id);
-				if(sid>0){
-					sessionStorage.setItem("secId",sid);
-				}
-				//sessionStorage.setItem("navId",id);
-				var navid = sessionStorage.getItem("navId");
-				var navsecid = sessionStorage.getItem("secId");
-				this.current = navid;
-				this.navsecid = navsecid;			
-			}		
+            }
 		}
 	}	
 </script>
