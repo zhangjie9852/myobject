@@ -1,21 +1,19 @@
 <template>
   <li :dataVal="isopen">
-    <div class="body-con clearfix">
-      <div><input type="number" class="w100" @keyup.enter="sort(item)"
+    <div class="body-con">
+      <div><input type="number" @keyup.enter="sort(item)"
                   @blur="sort(item)" v-model="item.displayorder"></div>
-      <div class="listTitle" :style="{'padding-left': (item.level-1)*paddingSize + 'px'}">
-        <a v-if="isFolder" @click="toggle()">
-          <i class="icon_sb_stop" v-if="open"></i>
-          <i class="icon_sb_open" v-else></i>
-        </a>
-        <a v-else><span v-if="item.level>1" style="width:12px;display: inline-block"></span></a>
+      <div class="listTitle" :style="{'padding-left': 30+(item.level-1)*paddingSize + 'px'}">
+        <a @click="toggle()" :class="['icon','shop',open?'icon-dianjishouqi':'icon-dianjizhankai']" v-if="isFolder"></a>
+        <a class="split-icon shop icon-zijifenge" v-else></a>
         <template v-if="!item.isSubmitted">
           <input type="text" v-model="item.article_cate_name" placeholder="分类名称">
-          <button type="button" @click="subAdd">提交</button>
+          <button type="button" class="button save-btn" @click="subAdd">保存</button>
+          <button type="button" class="button" @click="$emit('remove')">取消</button>
         </template>
         <template v-else>
           <span>{{item.article_cate_name}}</span>
-          <a v-if="item.level<2" class="m-l-md icon_lb_add" @click="addChild" title="添加分类"></a>
+          <a class="m-l icon shop icon-xinzeng1" @click="addChild" title="添加分类"></a>
         </template>
       </div>
       <div>
@@ -28,8 +26,8 @@
         </el-switch>
       </div>
       <div class="listOpt">
-        <router-link :to="'/help/category/edit/'+item.id" class="icon_l_edit" title="编辑"></router-link>
-        <a class="m-l-xs icon_l_delete" @click="$emit('remove')" v-if="!isFolder" title="删除"></a>
+        <router-link :to="'/help/category/edit/'+item.id">管理</router-link>
+        <a @click="$emit('remove')" v-if="!isFolder">删除</a>
       </div>
     </div>
     <ul v-show="open" v-if="isFolder && item.level<2">
@@ -221,23 +219,5 @@
 </script>
 
 <style scoped>
-  .body-con{
-    border-bottom: 1px solid #DDDDDD;
-    height:45px;
-  }
-  .body-con>div{
-    width:10%;
-    padding:8px;
-    text-align: center;
-    float: left;
-  }
-  .body-con .listTitle{
-    width:65%;
-    text-align: left;
-  }
-  .body-con .listOpt{
-    width:15%;
-    font-size: 20px;
-    text-align: left;
-  }
+  
 </style>

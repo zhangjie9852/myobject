@@ -5,45 +5,43 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                      <div class="ibox-group">
+                      <div class="ibox-content">
                         <div class="form-inline m-b-md clearfix">
-                            <button type="button" class="btn btn-m btn-primary" @click="allOpen" v-if="!tree">全部展开</button>                                
-                            <button type="button" class="btn btn-m btn-primary" @click="allPack" v-if="tree">全部收齐</button>                                
-                            <button class="btn btn-m btn-primary hj_fr" @click="add"><i class="shop icon-xinzeng"></i>添加一级分类</button>
+                          <button type="button" class="btn" @click="allOpen">全部展开</button>
+                          <button type="button" class="btn pack-btn" @click="allPack">全部收起</button>
+                          <button class="btn hj_fr" @click="add"><i class="shop icon-xinzeng"></i> 添加一级分类</button>
+                        </div>
+                        <div class="table-responsive">
+                          <ul class="clearfix listhead">
+                            <li>排序</li>
+                            <li class="listTitle">分类名称</li>
+                            <li>是否显示</li>
+                            <li class="listOpt">操作</li>
+                          </ul>
+                          <ul class="list-body">
+                            <TreeList v-for="(val, index) in items" :item="val" @subm="getList()" @remove="delItem(index,val.category_id)" :key="index"></TreeList>
+                          </ul>
                         </div>
                       </div>
-                        <div class="table-main">                           
-                            <div class="table-responsive">  
-                                    <ul class="clearfix listhead">                                        
-                                        <li>排序</li>
-                                        <li class="listTitle">分类名称</li>
-                                        <li>是否显示</li>
-                                        <li class="listOpt">操作</li>
-                                    </ul>                                                                       
-                                    <TreeList v-for="(val, index) in items" :item="val" @subm="getList()" @remove="delItem(index,val.category_id)" :key="index"></TreeList>
-                            <div>
-                        </div>
-                        </div>
-                      	</div>
                     </div>
                 </div>
             </div>
-        </div>                 
-	</div>
+    </div>
+  </div>
 </template>
-<script>	
+<script>
 	import HjCrumb from '../comms/BreadCrumb.vue'
   import TreeList from './TreeList.vue'
 	import {CustomFun} from '../comms/main.js'
   import {mapGetters,mapActions} from 'vuex'
 	export default{
-		components:{	      
+		components:{
 	      HjCrumb,
         TreeList
 	    },
 		data(){
-			return {        
-				title:'',        
+			return {
+				title:'',
 				CrumbBox:{
 	    			CrumbList:
 		    		[
@@ -61,41 +59,41 @@
 			    		}
 		    		]
 		    	},
-          category_code:null,         
+          category_code:null,
           mydata: {},
           items:[]
 			}
 		},
-    computed: {     
+    computed: {
         ...mapGetters([
           'tree',
-          'cate_parent_id'   
-        ])        
-    },    						       
-		mounted(){	
+          'cate_parent_id'
+        ])
+    },
+		mounted(){
         this.getList();
-		},    
+		},
 		methods:{
       allPack(){
-        this.$store.dispatch('hideTree');        
+        this.$store.dispatch('hideTree');
       },
       allOpen(){
-        this.$store.dispatch('showTree');        
-      },     
+        this.$store.dispatch('showTree');
+      },
       getList() {
-        var that = this;                            
+        var that = this;
             that.$http({
               method:'post',
-              url: '/goods_category/listdata'                    
-            }).then(function (res) {              
+              url: '/goods_category/listdata'
+            }).then(function (res) {
               if(res.data.error==0){
-              //console.log(res.data.data.table_data)            
-                that.items   = res.data.data.table_data; 
+              //console.log(res.data.data.table_data)
+                that.items   = res.data.data.table_data;
               }else{
                 that.$message({
                   message: res.data.desc,
                   type: 'warning'
-                });                               
+                });
               }
             }).catch(function (error) {
               console.log(error);
@@ -111,8 +109,8 @@
         this.items.unshift(this.mydata);
         this.mydata = {};
         //this.$store.commit('CATE_PARENT_ID', 0)
-      },      
-      delItem:function(index,id){         
+      },
+      delItem:function(index,id){
           var that=this;
             if(id>0){
               this.$confirm('确认删除此分类吗？', '提示', {
@@ -125,11 +123,11 @@
                   url: '/goods_category/batchsubmit',
                   params:{
                     'cate_id':id,
-                    'method':-2            
+                    'method':-2
                   }
-                }).then(function (res) {                
+                }).then(function (res) {
                   if(res.data.error==0){
-                    that.items.splice(index, 1);               
+                    that.items.splice(index, 1);
                     that.$message({
                       type: 'success',
                       message: '删除成功!'
@@ -149,11 +147,31 @@
                   type: 'info',
                   message: '已取消删除'
                 });
-              });           
+              });
             }else{
               that.items.splice(index, 1);
-            } 
-      }             
+            }
+      }
 		}
 	}
 </script>
+
+<style scoped>
+  .form-inline .btn{
+    background-color: #20a0ff;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 6px;
+    outline: 0;
+  }
+  .form-inline .btn:first-child{
+    margin-left: 0;
+  }
+  .form-inline .pack-btn{
+    background-color: #eef1f6;
+    color: #1f2d3d;
+  }
+  .form-inline .btn:active{
+    outline: 0;
+  }
+</style>

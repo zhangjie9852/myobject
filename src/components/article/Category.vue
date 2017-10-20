@@ -9,7 +9,7 @@
               <div class="form-inline m-b-md clearfix">
                 <button type="button" class="btn" @click="allOpen">全部展开</button>
                 <button type="button" class="btn pack-btn" @click="allPack">全部收起</button>
-                <button class="btn hj_fr" @click="add"><i class="shop icon-xinzeng"></i>&nbsp;添加一级分类</button>
+                <button class="btn hj_fr" @click="add"><i class="shop icon-xinzeng"></i> 添加一级分类</button>
               </div>
               <div class="table-responsive">
                 <ul class="clearfix listhead">
