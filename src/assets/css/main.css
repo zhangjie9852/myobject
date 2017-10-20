@@ -74,8 +74,9 @@ input[type="number"]{-moz-appearance:textfield;}
 .w150{width:130px; border:1px solid #CCC; text-align:left}
 .picTips{text-align: center; display: inline-block; width: 110px;}
 .listImg{height: 25px}
-.listDesc{max-width:150px; display: inline-block;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-.goodlist em{padding: 0 3px; margin-right: 6px; color: #FFF; margin-top: 5px; display: inline-block;}
+.listDesc{max-width:148px; display: inline-block;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.goodlist em{padding: 0 4px; margin-right: 6px; color: #20a0ff; font-size:12px;margin-top: 5px;background:#fff; display: inline-block;border:1px solid #20a0ff;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;}
+.goodlist em.text-org{border-color:#13ce66;color:#13ce66;}
 
 .nav-third-level li a.active,.nav-second-level li a.active{color: #fff}
 .web-pic{width: 230px; margin: 0 10px;border: 1px solid #ccc;}
@@ -269,10 +270,10 @@ a.minimalize-styl-2{color: #9DA7C0}
 
 
 
-  /*operation*/
+/*operation*/
 .t-right{text-align: right; padding-right: 20px !important}
 .opt{text-align:right; position:relative;}
-.opt-down{ cursor:pointer; white-space: nowrap;}
+.opt-down{ cursor:pointer; white-space: nowrap;color:#9da7c0;}
 .opt span>i{font-size:16px;}
 .opt ul{padding:10px 20px; border:#E7E7E7 1px solid; position:absolute; right:20px;  background:#FFF; z-index:1;}
 .opt ul li{text-align:left; height:30px; line-height:30px; padding:0; margin:0}
@@ -299,6 +300,8 @@ a.minimalize-styl-2{color: #9DA7C0}
 .batch{display:inline-block;}
 .batch .batch-text{width:140px;height:36px;line-height:36px;padding:0 20px;display:inline-block;background:#f7ba2a;color:#fff;position:relative;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;font-size:14px;}
 .batch .batch-text .shop{position:absolute;right:20px;}
+.batch-btn{padding:9px 15px;background:#f7ba2a;color:#fff;border:none;}
+.batch-btn:hover{background:#f7ba2a;color:#fff;}
 .table-main{min-height:480px;background:#fff;}
 .table-main .table th,.table-main .table td{border-top:none;border-left:none;border-right:none;padding:13px;text-align:left;}
 .table-main .el-pagination{padding:2px 20px;}

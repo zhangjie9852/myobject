@@ -6,8 +6,8 @@
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-group">
-							<div class="form-inline m-b-sm clearfix">
-								<button type="button" class="btn btn-m btn-warning m-l-sm" @click="batchOpt('del','删除')">批量删除</button>
+							<div class="form-inline clearfix">
+								<button type="button" class="btn btn-m btn-warning m-r-sm" @click="batchOpt('del','删除')">批量删除</button>
                     			<div class="form-group">
                                   <input name="title" type="text" class="form-control m-r-sm" placeholder="请输入商品关键词" v-model="title" @keyup.enter="getList(pageData.PageID)">
                                 </div>
@@ -45,9 +45,9 @@
 											<td class="opt">
 												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.consult_id,'consult_id')"></span>
                                                 <ul v-show="item.isOptShow">
-                                                	<li v-if="item.is_answer==1"><router-link :to="'/goods/consult/details/'+item.consult_id"><i class="icon_l_see"></i> 查看</router-link></li>
-                                                	<li v-else><router-link :to="'/goods/consult/details/'+item.consult_id"><i class="fa fa-mail-reply"></i> 回复</router-link></li>      	
-                                                    <li><a @click="delOne(item.consult_id)"><i class="icon_l_delete" ></i> 删除</a></li>                                   
+                                                	<li v-if="item.is_answer==1"><router-link :to="'/goods/consult/details/'+item.consult_id">查看</router-link></li>
+                                                	<li v-else><router-link :to="'/goods/consult/details/'+item.consult_id"> 回复</router-link></li>      	
+                                                    <li><a @click="delOne(item.consult_id)"> 删除</a></li>                                   
                                                 </ul>
 											</td>
 										</tr>

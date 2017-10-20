@@ -14,7 +14,7 @@
 		                    </div>
 							<div class="form-inline m-b-sm clearfix">
 								<el-dropdown class="m-r-xs">
-								  <el-button type="warning">
+								  <el-button class="batch-btn">
 								    批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
 								  </el-button>
 								  <el-dropdown-menu slot="dropdown" v-if="Lstatus==1">
@@ -74,7 +74,7 @@
                                             <td>
                                             	<span class="listDesc" :title="item.goods_name">{{item.goods_name}}</span><br>
                                             	<em class="bg-blue" v-if="item.goods_wholesale==1">支持批发</em>
-                                            	<em class="bg-org" v-if="item.goods_retail==1">支持零售</em>
+                                            	<em class="text-org" v-if="item.goods_retail==1">支持零售</em>
                                             </td>
                                             <td class="text-center"><img :src="item.goods_img_url" class="listImg"></td>
                                             <td class="text-center">{{item.shop_name}}</td>

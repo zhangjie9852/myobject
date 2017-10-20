@@ -5,15 +5,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>一级分类</h5>
+                      <div class="ibox-group">
+                        <div class="form-inline m-b-md clearfix">
+                            <button type="button" class="btn btn-m btn-primary" @click="allOpen" v-if="!tree">全部展开</button>                                
+                            <button type="button" class="btn btn-m btn-primary" @click="allPack" v-if="tree">全部收齐</button>                                
+                            <button class="btn btn-m btn-primary hj_fr" @click="add"><i class="shop icon-xinzeng"></i>添加一级分类</button>
                         </div>
-                        <div class="ibox-content">
-                            <div class="form-inline m-b-md clearfix">
-                                <button type="button" class="btn btn-m btn-primary" @click="allOpen" v-if="!tree">全部展开</button>                                
-                                <button type="button" class="btn btn-m btn-primary" @click="allPack" v-if="tree">全部收齐</button>                                
-                                <button class="btn btn-m btn-danger hj_fr" @click="add">添加一级分类</button>
-                            </div>                                
+                      </div>
+                        <div class="table-main">                           
                             <div class="table-responsive">  
                                     <ul class="clearfix listhead">                                        
                                         <li>排序</li>

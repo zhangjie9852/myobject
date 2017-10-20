@@ -5,80 +5,90 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-                            <h5>规格列表</h5>
-                        </div>
-                        <div>
-                        	<div class="ibox-content">
-                        		<div class="form-inline m-b-sm clearfix">
-                        			<div class="form-group">
-	                                  <input name="title" type="text" class="form-control m-r-xs" placeholder="规格名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
-	                                </div>
-				                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
-				                    <button type="button" class="btn btn-m btn-primary m-l-xs" @click="batchOpt(-2)">批量删除</button>
-				                   <button type="button" class="btn btn-m btn-primary m-l-xs" @click="batchOpt(-1)">批量禁用</button>
-				                    <button type="button" class="btn btn-m btn-primary m-l-xs" @click="batchOpt(1)">批量启用</button>
-				                    <router-link to="/goods/sku/add" class="btn btn-m btn-danger hj_fr">添加规格</router-link>
-                        		</div>
-                        		<div class="table-responsive clearfix">
-                        			<table class="table table-striped table-bordered table-hover">
-                        				<thead>
-                        					<tr>
-	                                            <th width="5%">
-	                                            	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
-	                                                <input type="checkbox" class="checks"></div>
-	                                            </th>
-	                                            <th class="text-center">规格名称</th>
-	                                            <th class="text-center">规格值</th>
-	                                            <th class="text-center">状态</th>
-	                                            <th class="text-center">类型</th>
-	                                            <th class="t-right">操作</th>
-	                                        </tr>
-                        				</thead>
-                        				<tbody>
-											<tr v-for="(item,index) in clist">
-												<td>
-													<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
-                                                	<input type="checkbox" class="checks"></div>
-												</td>
-												<td class="text-center">{{item.goods_sku_name}}</td>
-												<td class="text-center">{{item.goods_sku_value}}</td>
-												<td class="text-center">
-													<!-- <el-switch
-													  v-model="item.status_goods_sku"
-													  on-text=""
-													  off-text=""
-													  @change="cateShow(item.goods_sku_id,item.status_goods_sku)">
-													</el-switch> -->
-													{{item.status_goods_sku}}
-												</td>
-												<td class="text-center">{{item.goods_sku_type}}</td>
-												<td class="opt">
-													<span class="opt-down" @click.stop="opToggle(clist,item.goods_sku_id,'goods_sku_id')">处理 <i class="fa fa-caret-down"></i></span>
-	                                                <ul v-show="item.isOptShow">
-	                                                	<li><router-link :to="'/goods/sku/edit/'+item.goods_sku_id"><i class="icon_l_edit"></i> 编辑</router-link></li>
-	                                                    <li><a @click="delOne(item.goods_sku_id)"><i class="icon_l_delete" ></i> 删除</a></li>
-	                                                </ul>
-												</td>
-											</tr>
-                        				</tbody>
-                        			</table>
-                        			<div v-show="clist.length==0" class="text-center">暂无信息</div>
-                        			<div class="hj_fr">
-	                                	<el-pagination
-									      @size-change="handleSizeChange"
-									      @current-change="handleCurrentChange"
-									      :current-page="pageData.PageID"
-									      :page-sizes="PSLists"
-									      :page-size="pageData.Perpage"
-									      v-show="pageData.Results>1"
-									      layout="total, sizes, prev, pager, next, jumper"
-									      :total="pageData.Results">
-									    </el-pagination>
-	                                </div>
-                        		</div>
-                        	</div>
-                        </div>
+						<div class="ibox-group">
+							<div class="form-inline clearfix">
+								<el-dropdown class="m-r-sm">
+								  	<el-button type="warning">
+								    	批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
+								  	</el-button>
+								  	<el-dropdown-menu slot="dropdown">
+									    <el-dropdown-item>
+			                                <span @click="batchOpt(-2)">批量删除</span>
+									    </el-dropdown-item>
+									    <el-dropdown-item>
+			                                <span @click="batchOpt(-1)">批量禁用</span>
+									    </el-dropdown-item>
+									    <el-dropdown-item>
+			                                <span  @click="batchOpt(1)">批量启用</span>
+									    </el-dropdown-item>
+								  	</el-dropdown-menu>
+								</el-dropdown>
+                    			<div class="form-group">
+                                  <input name="title" type="text" class="form-control m-r-sm" placeholder="规格名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
+                                </div>
+			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>
+			                    <router-link to="/goods/sku/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加规格</router-link>
+                    		</div>
+						</div>
+                    	<div class="table-main">
+                    		<div class="table-responsive clearfix">
+                    			<table class="table table-striped table-bordered table-hover">
+                    				<thead>
+                    					<tr>
+                                            <th width="5%">
+                                            	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
+                                                <input type="checkbox" class="checks"></div>
+                                            </th>
+                                            <th class="text-center">规格名称</th>
+                                            <th class="text-center">规格值</th>
+                                            <th class="text-center">状态</th>
+                                            <th class="text-center">类型</th>
+                                            <th class="t-right">操作</th>
+                                        </tr>
+                    				</thead>
+                    				<tbody>
+										<tr v-for="(item,index) in clist">
+											<td>
+												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
+                                            	<input type="checkbox" class="checks"></div>
+											</td>
+											<td class="text-center">{{item.goods_sku_name}}</td>
+											<td class="text-center">{{item.goods_sku_value}}</td>
+											<td class="text-center">
+												<!-- <el-switch
+												  v-model="item.status_goods_sku"
+												  on-text=""
+												  off-text=""
+												  @change="cateShow(item.goods_sku_id,item.status_goods_sku)">
+												</el-switch> -->
+												{{item.status_goods_sku}}
+											</td>
+											<td class="text-center">{{item.goods_sku_type}}</td>
+											<td class="opt">
+												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.goods_sku_id,'goods_sku_id')"></span>
+                                                <ul v-show="item.isOptShow">
+                                                	<li><router-link :to="'/goods/sku/edit/'+item.goods_sku_id">编辑</router-link></li>
+                                                    <li><a @click="delOne(item.goods_sku_id)">删除</a></li>
+                                                </ul>
+											</td>
+										</tr>
+                    				</tbody>
+                    			</table>
+                    			<div v-show="clist.length==0" class="text-center">暂无信息</div>
+                    			<div class="hj_fr">
+                                	<el-pagination
+								      @size-change="handleSizeChange"
+								      @current-change="handleCurrentChange"
+								      :current-page="pageData.PageID"
+								      :page-sizes="PSLists"
+								      :page-size="pageData.Perpage"
+								      v-show="pageData.Results>1"
+								      layout="total, sizes, prev, pager, next, jumper"
+								      :total="pageData.Results">
+								    </el-pagination>
+                                </div>
+                    		</div>
+                    	</div>
 					</div>
 				</div>
 			</div>
