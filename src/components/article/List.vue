@@ -106,21 +106,14 @@
                     </td>
                     <td>{{item.time_create}}</td>
                     <td>{{item.time_publish}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(articleList,'id',item.id)">处理<i
-                        class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <span class="opt-down shop icon-guanli" @click.stop="viewOpt(articleList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li v-if="index!=0" @click="toTop(item)"><a href="javascript:;"><i class="fa fa-arrow-up"></i>
-                          置顶</a>
-                        <li @click="removeSingle(item.id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a>
-                        </li>
-                        <li>
-                          <router-link :to="'/article/list/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link>
-                        </li>
-                        <li v-if="item.is_publish==0" @click="changeIsPublish(item)"><a href="javascript:;"><i class="fa fa-send-o"></i> 发布</a>
-                        </li>
-                        <li v-if="item.is_publish==1" @click="changeIsPublish(item)"><a href="javascript:;"><i class="icon_lb_reject"></i> 取消发布</a>
-                        </li>
+                        <li v-if="index!=0" @click="toTop(item)"><a href="javascript:;">置顶</a></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
+                        <li><router-link :to="'/article/list/edit/'+item.id">编辑</router-link></li>
+                        <li v-if="item.is_publish==0" @click="changeIsPublish(item)"><a href="javascript:;">发布</a></li>
+                        <li v-if="item.is_publish==1" @click="changeIsPublish(item)"><a href="javascript:;">取消发布</a></li>
                       </ul>
                     </td>
                   </tr>
@@ -580,58 +573,5 @@
 </script>
 
 <style scoped>
-  .table thead tr th, .table tbody tr td {
-    text-align: center;
-    vertical-align: middle;
-  }
 
-  .table thead tr .opt-select {
-    min-width:96px;
-    text-align: right;
-    padding-right: 20px;
-  }
-
-  .table tbody tr .opt-select {
-    min-width:96px;
-    position: relative;
-    text-align: right;
-  }
-
-  .opt-select .opt {
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .opt-select .opt i {
-    margin-left: 5px;
-  }
-
-  .opt-select ul {
-    margin-top: 12px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    padding: 0 8px;
-    text-align: left;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 1000;
-  }
-
-  .opt-select ul li {
-    line-height: 32px;
-    border-top: 1px dashed #d2d2d2;
-  }
-
-  .opt-select ul li:first-child {
-    border-top: 0;
-  }
-
-  .opt-select ul li a {
-    color: #676a6c;
-  }
-
-  .opt-select ul li:hover a {
-    color: #3EA0C4;
-  }
 </style>
