@@ -5,8 +5,8 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-group">
-							<div class="form-inline clearfix">
+						<div class="ibox-content list-content">
+							<div class="form-inline m-b-md clearfix">
 								<el-dropdown class="m-r-sm">
 								  	<el-button type="warning">
 								    	批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -28,8 +28,6 @@
                                 </div>
 			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>                  
                     		</div>
-						</div>
-                    	<div class="table-main">
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>

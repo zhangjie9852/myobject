@@ -74,7 +74,7 @@ input[type="number"]{-moz-appearance:textfield;}
 .w150{width:130px; border:1px solid #CCC; text-align:left}
 .picTips{text-align: center; display: inline-block; width: 110px;}
 .listImg{height: 25px}
-.listDesc{max-width:148px; display: inline-block;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.listDesc{max-width:150px; display: inline-block;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .goodlist em{padding: 0 4px; margin-right: 6px; color: #20a0ff; font-size:12px;margin-top: 5px;background:#fff; display: inline-block;border:1px solid #20a0ff;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;}
 .goodlist em.text-org{border-color:#13ce66;color:#13ce66;}
 
@@ -303,5 +303,7 @@ a.minimalize-styl-2{color: #9DA7C0}
 .batch-btn{padding:9px 15px;background:#f7ba2a;color:#fff;border:none;}
 .batch-btn:hover{background:#f7ba2a;color:#fff;}
 .table-main{min-height:480px;background:#fff;}
-.table-main .table th,.table-main .table td{border-top:none;border-left:none;border-right:none;padding:13px;text-align:left;}
-.table-main .el-pagination{padding:2px 20px;}
+.table-responsive .table th,.table-responsive .table td{font-size:12px;border-top:none;border-left:none;border-right:none;padding:13px;text-align:left;}
+.el-pagination{padding:2px 20px;}
+.list-content .form-inline,.list-content .btn-group{padding:0 20px 20px 20px;}
+.list-content .table tr th.t-right{width:62px;}

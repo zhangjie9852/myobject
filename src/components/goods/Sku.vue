@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-group">
+						<div class="ibox-content list-content">
 							<div class="form-inline clearfix">
 								<el-dropdown class="m-r-sm">
 								  	<el-button type="warning">
@@ -29,8 +29,6 @@
 			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>
 			                    <router-link to="/goods/sku/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加规格</router-link>
                     		</div>
-						</div>
-                    	<div class="table-main">
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>

@@ -5,16 +5,15 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-group">
-							<div class="form-inline clearfix">
+						<div class="ibox-content list-content">
+							<div class="form-inline  clearfix">
 								<button type="button" class="btn btn-m btn-warning m-r-sm" @click="batchOpt('del','删除')">批量删除</button>
                     			<div class="form-group">
                                   <input name="title" type="text" class="form-control m-r-sm" placeholder="请输入商品关键词" v-model="title" @keyup.enter="getList(pageData.PageID)">
                                 </div>
 			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>
                     		</div>
-						</div>
-                    	<div class="table-main">
+						
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>

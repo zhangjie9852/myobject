@@ -5,8 +5,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-group">
-                        	<div class="btn-group m-b-sm">		                      
+                    	<div class="ibox-content list-content">
+                        	<div class="btn-group">		                      
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==''&&Lstatus==1?'btn-primary':'btn-default'" @click="ListState('',1)">全部商品</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==1?'btn-primary':'btn-default'" @click="ListState(1,1)">已上架商品(10)</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==-1?'btn-primary':'btn-default'" @click="ListState(-1,1)">下架商品(12)</button>
@@ -39,9 +39,7 @@
                                 </div>
                                 <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>  
                                 <router-link to="/goods/list/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加商品</router-link>
-                            </div>
-                        </div>
-                        <div class="table-main">                              
+                            </div>                              
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -470,7 +468,7 @@
     overflow-x: auto;
   }
   .table-responsive{
-    min-width: 850px;
     padding-bottom: 20px;
+    overflow:auto;
   }
 </style>

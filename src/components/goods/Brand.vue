@@ -5,17 +5,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>品牌管理</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div class="form-inline m-b-md clearfix">
+                        <div class="ibox-content list-content">
+                            <div class="form-inline clearfix">
+                            	<button type="button" class="btn btn-m btn-warning m-r-sm" @click="delAll">批量删除</button>
                                 <div class="form-group">
-                                  <input name="title" v-model="title" type="text" class="form-control m-r-xs" placeholder="品牌名称" @keyup.enter="getList(pageData.PageID)">
+                                  <input name="title" v-model="title" type="text" class="form-control m-r-sm" placeholder="品牌名称" @keyup.enter="getList(pageData.PageID)">
                                 </div>
-                                <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>                                
-                                <button type="button" class="btn btn-m btn-primary m-l-xs" @click="delAll">批量删除</button>
-                                <router-link to="/goods/brand/add" class="btn btn-m btn-danger hj_fr">添加品牌</router-link>
+                                <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>      
+                                <router-link to="/goods/brand/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加品牌</router-link>
                             </div>                                
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
@@ -56,12 +53,12 @@
                                             </td>
                                             <td class="text-center">{{item.check_status_name}}</td>
                                             <td class="opt">
-                                            	<span class="opt-down" @click.stop="opToggle(clist,item.brand_id,'brand_id')">处理 <i class="fa fa-caret-down"></i></span>
+                                            	<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.brand_id,'brand_id')"></span>
                                                 <ul v-show="item.isOptShow">
-                                                	<!-- <li><router-link :to="'/goods/brand/details/'+item.brand_id"><i class="icon_l_see"></i> 查看</router-link></li> -->                 	
-                                                    <li><router-link :to="'/goods/brand/edit/'+item.brand_id"><i class="icon_l_edit"></i> 编辑</router-link></li>
-                                                    <li v-if="item.check_status == 0 || item.check_status == -1"><a @click="openDialog(item.brand_ch_name,item.brand_id,item.check_status,item.check_msg)"><i class="icon_s_password"></i> 审核</a></li>
-                                                    <li><a @click="delOne(item.brand_id)"><i class="icon_l_delete"></i> 删除</a></li>
+                                                	<!-- <li><router-link :to="'/goods/brand/details/'+item.brand_id">查看</router-link></li> -->                 	
+                                                    <li><router-link :to="'/goods/brand/edit/'+item.brand_id">编辑</router-link></li>
+                                                    <li v-if="item.check_status == 0 || item.check_status == -1"><a @click="openDialog(item.brand_ch_name,item.brand_id,item.check_status,item.check_msg)">审核</a></li>
+                                                    <li><a @click="delOne(item.brand_id)">删除</a></li>
                                                 </ul>                                            	
                                            </td>
                                         </tr>
