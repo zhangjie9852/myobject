@@ -436,6 +436,8 @@
 		              user_pass:that.seller_password,
 		              user_status:1,
 		              goods_shop_base_id:that.seller_id,
+		              user_type:2,
+		              rolestr:30,
 		              is_admin:isAdmin,
 		              id:id	              
 		            }

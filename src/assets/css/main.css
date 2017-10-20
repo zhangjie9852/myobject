@@ -191,11 +191,14 @@ a.minimalize-styl-2{color: #9DA7C0}
 
 .head-top-right{ width: 500px; float: right; text-align: right; padding-right: 30px; margin-top: 9px;}
 .head-top-right .search{width: 240px; display: inline-block; margin-right: 40px; position: relative; }
-.head-top-right .search>ul{width: 240px; position: absolute; top: 35px; left: 0; border: 1px #E5E6E7 solid; background-color: #fff}
-.head-top-right .search>ul li{ text-align: left; border-bottom: 1px #E5E6E7 solid}
-.head-top-right .search>ul li a{display: block;  padding-left: 10px; height: 30px; line-height: 30px;}
-.head-top-right .search>ul li a:hover{background-color: #F5F5F6}
-.head-top-right .search>ul li:last-child{border-bottom: none}
+.head-top-right .search>em{position: absolute; right: 12px; top: 10px; z-index: 2; font-size: 12px; color: #999; background: #fff;}
+
+.head-top-right .search>.Searchs{position: absolute; width:100%; top: 35px; left: 0; background-color: #fff; border: 1px #E5E6E7 solid;}
+.head-top-right .search>.Searchs ul{ max-height: 200px; overflow:auto;}
+.head-top-right .search>.Searchs ul li{ text-align: left; border-bottom: 1px #E5E6E7 solid}
+.head-top-right .search>.Searchs ul li a{display: block;  padding-left: 10px; height: 30px; line-height: 30px;}
+.head-top-right .search>.Searchs ul li a:hover{background-color: #F5F5F6}
+.lastBtn{width: 100%; height: 30px; line-height: 30px; display: inline-block;  text-align: center;}
 .head-top-right>span>img{margin-bottom: 5px; max-width: 32px; max-height: 32px; margin-right: 10px}
 
 .dropList i{color: #B4BCD3}

@@ -11,17 +11,21 @@
                 
                 <div class="head-top-right">
                   <div class="search">
+                    <!-- <input placeholder="请输入功能关键词，例如商品" v-model="searchVal" @input="searchFun" /> -->
+                    <em class="shop icon-guanbi" @click="clearTit" v-show="searchVal!=''"></em>
                     <el-input
                       placeholder="请输入功能关键词，例如商品"
                       icon="search"
                       v-model="searchVal" @input="searchFun">
                     </el-input>
-                    <ul v-if="showSearch">
-                      <template v-for="item in searchList">
-                      <li><a @click="jumpUrl(item.path_url)">{{item.label}}</a></li>
-                      </template>
-                      <li @click="showSearch=false"><a class="text-center">关闭</a></li>                    
-                    </ul>
+                    <div class="Searchs" v-if="showSearch">
+                      <ul>
+                        <template v-for="item in searchList">
+                        <li><a @click="jumpUrl(item.path_url,item.label)">{{item.label}}</a></li>
+                        </template>        
+                      </ul>
+                      <span class="lastBtn" @click="showSearch=false"><a class="text-center">关闭</a></span>
+                    </div>
                   </div>
                   <span>
                   <img src="../assets/img/man.png" >
@@ -100,10 +104,15 @@
             this.showSearch=false;
           }
         },
-        jumpUrl(url){          
+        jumpUrl(url,title){          
           this.showSearch=false;
           this.$refs.navMenu.getLeftMenu();
           this.$router.push(url);
+          this.searchVal = title;
+        },
+        clearTit(){
+          this.searchVal = '';
+          this.showSearch=false;
         },
         allMenu(){
           var that = this;                    
