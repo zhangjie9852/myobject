@@ -5,14 +5,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                    	<div class="ibox-content list-content">
-                        	<div class="btn-group">		                      
+                    	<div class="ibox-content">
+                        	<div class="btn-group m-b-md">	                      
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==''&&Lstatus==1?'btn-primary':'btn-default'" @click="ListState('',1)">全部商品</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==1?'btn-primary':'btn-default'" @click="ListState(1,1)">已上架商品(10)</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==-1?'btn-primary':'btn-default'" @click="ListState(-1,1)">下架商品(12)</button>
 		                      <button type="button" class="btn m-r-sm" :class="Lstatus==-1?'btn-primary':'btn-default'" @click="ListState('',-1)">商品回收站(2)</button>
 		                    </div>
-							<div class="form-inline m-b-sm clearfix">
+		                    <form action="#" class="form-inline m-b-sm" role="form">
 								<el-dropdown class="m-r-xs">
 								  <el-button class="batch-btn">
 								    批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -34,12 +34,10 @@
 								    <el-dropdown-item><span @click="batchOpt('callback','删除')">批量删除</span></el-dropdown-item>
 								  </el-dropdown-menu>
 								</el-dropdown>
-                                <div class="form-group">
-                                  <input name="title" v-model="title" type="text" class="form-control m-r-xs" placeholder="商品名称" @keyup.enter="getList(pageData.PageID)">
-                                </div>
-                                <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>  
-                                <router-link to="/goods/list/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加商品</router-link>
-                            </div>                              
+								<el-input class="m-r-xs m-b-sm" name="title" v-model="title" placeholder="商品名称"></el-input>
+                                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>  
+                                <router-link to="/goods/list/add" class="add-btn"><i class="shop icon-xinzeng"></i>添加商品</router-link>
+                            </form>                              
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -86,7 +84,7 @@
                                             <td class="text-center">{{item.goods_examine_name}}</td>
                                             <td class="text-center">{{item.is_topicStr}}</td>
                                             <td class="opt">
-                                            	<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.goods_id,'goods_id')"></span>
+                                            	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.goods_id,'goods_id')"></span>
                                                 <ul v-if="Lstatus==1" v-show="item.isOptShow"> 	
                                                     <li><router-link :to="'/goods/list/edit/'+item.goods_id">编辑</router-link></li>
                                                     <li v-if="item.goods_examine == -1 || item.goods_examine == 3"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)"><i class="icon_s_password"></i> 审核</a></li>

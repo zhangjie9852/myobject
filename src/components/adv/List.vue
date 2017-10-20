@@ -5,72 +5,70 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-                            <h5>广告列表</h5>
-                        </div>
-                        <div>
-                        	<div class="ibox-content">
-                        		<div class="form-inline m-b-sm clearfix">
-                        			<div class="form-group">
-	                                  <input name="title" type="text" class="form-control m-r-xs" placeholder="广告名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
-	                                </div>
-				                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
-				                    <button type="button" class="btn btn-m btn-danger m-l-xs" @click="batchOpt('del','删除')">批量删除</button>				                   
-				                    <router-link to="/adv/add" class="btn btn-m btn-danger hj_fr">添加广告</router-link>
-                        		</div>
-                        		<div class="table-responsive clearfix">
-                        			<table class="table table-striped table-bordered table-hover">
-                        				<thead>
-                        					<tr>
-	                                            <th width="5%">
-	                                            	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
-	                                                <input type="checkbox" class="checks"></div>
-	                                            </th>
-	                                            <th class="text-center">广告名称</th>
-	                                            <th class="text-center">商家名称</th>
-	                                            <th class="text-center">广告位置</th>
-	                                            <th class="text-center">广告图片</th>       
-	                                            <th class="text-center">创建时间</th>
-	                                            <th class="t-right">操作</th>
-	                                        </tr>
-                        				</thead>
-                        				<tbody>
-											<tr v-for="(item,index) in clist">
-												<td>
-													<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
-                                                	<input type="checkbox" class="checks"></div>
-												</td>
-												<td class="text-center">{{item.advertising_name}}</td>
-												<td class="text-center">{{item.goods_shop_base_name}}</td>
-												<td class="text-center">{{item.advertising_location_name}}</td>
-												<td class="text-center"><img :src="item.advertising_pc_logo" class="listImg"></td>												
-												<td class="text-center">{{item.time_create}}</td>
-												<td class="opt">
-													<span class="opt-down" @click.stop="opToggle(clist,item.id,'id')">处理 <i class="fa fa-caret-down"></i></span>
-	                                                <ul v-show="item.isOptShow">
-	                                                	<li><router-link :to="'/adv/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>      	
-	                                                    <li><a @click="delOne(item.id)"><i class="icon_l_delete" ></i> 删除</a></li>                                      
-	                                                </ul>
-												</td>
-											</tr>
-                        				</tbody>
-                        			</table>
-                        			<div v-show="clist.length==0" class="text-center">暂无信息</div>
-                        			<div class="hj_fr">
-	                                	<el-pagination
-									      @size-change="handleSizeChange"
-									      @current-change="handleCurrentChange"
-									      :current-page="pageData.PageID"
-									      :page-sizes="PSLists"
-									      :page-size="pageData.Perpage"
-									      v-show="pageData.Results>1"
-									      layout="total, sizes, prev, pager, next, jumper"
-									      :total="pageData.Results">
-									    </el-pagination>
-	                                </div>
-                        		</div>
-                        	</div>
-                        </div>
+                    	<div class="ibox-content">
+                    		<form action="" class="form-inline m-b-sm clearfix" role="form">
+                    			<el-button  type="warning" class="m-r-sm" @click="batchOpt('del','删除')">批量删除</el-button>
+                            	<el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="广告名称"  @keyup.enter="getList(pageData.PageID)"></el-input>
+                            	<el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
+                    			<!--<div class="form-group">
+                                  <input name="title" type="text" class="form-control m-r-xs" placeholder="广告名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
+                                </div>
+			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
+			                    <button type="button" class="btn btn-m btn-danger m-l-xs" @click="batchOpt('del','删除')">批量删除</button>	-->			                   
+			                    <router-link to="/adv/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加广告</router-link>
+                    		</form>
+                    		<div class="table-responsive clearfix">
+                    			<table class="table table-striped table-bordered table-hover">
+                    				<thead>
+                    					<tr>
+                                            <th width="5%">
+                                            	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
+                                                <input type="checkbox" class="checks"></div>
+                                            </th>
+                                            <th class="text-center">广告名称</th>
+                                            <th class="text-center">商家名称</th>
+                                            <th class="text-center">广告位置</th>
+                                            <th class="text-center">广告图片</th>       
+                                            <th class="text-center">创建时间</th>
+                                            <th class="t-right">操作</th>
+                                        </tr>
+                    				</thead>
+                    				<tbody>
+										<tr v-for="(item,index) in clist">
+											<td>
+												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
+                                            	<input type="checkbox" class="checks"></div>
+											</td>
+											<td class="text-center">{{item.advertising_name}}</td>
+											<td class="text-center">{{item.goods_shop_base_name}}</td>
+											<td class="text-center">{{item.advertising_location_name}}</td>
+											<td class="text-center"><img :src="item.advertising_pc_logo" class="listImg"></td>												
+											<td class="text-center">{{item.time_create}}</td>
+											<td class="opt">
+												<span class="opt-down" @click.stop="opToggle(clist,item.id,'id')">处理 <i class="fa fa-caret-down"></i></span>
+                                                <ul v-show="item.isOptShow">
+                                                	<li><router-link :to="'/adv/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>      	
+                                                    <li><a @click="delOne(item.id)"><i class="icon_l_delete" ></i> 删除</a></li>                                      
+                                                </ul>
+											</td>
+										</tr>
+                    				</tbody>
+                    			</table>
+                    			<div v-show="clist.length==0" class="text-center">暂无信息</div>
+                    			<div class="hj_fr">
+                                	<el-pagination
+								      @size-change="handleSizeChange"
+								      @current-change="handleCurrentChange"
+								      :current-page="pageData.PageID"
+								      :page-sizes="PSLists"
+								      :page-size="pageData.Perpage"
+								      v-show="pageData.Results>1"
+								      layout="total, sizes, prev, pager, next, jumper"
+								      :total="pageData.Results">
+								    </el-pagination>
+                                </div>
+                    		</div>
+                    	</div>
 					</div>
 				</div>
 			</div>

@@ -315,10 +315,10 @@ a.minimalize-styl-2{color: #9DA7C0}
 .table-responsive .table th{font-size:14px !important;font-weight:normal;}
 .table-responsive .table th,.table-responsive .table td{font-size:12px;border-top:none;border-left:none;border-right:none;padding:13px;text-align:left;}
 .el-pagination{padding:2px 20px;}
-.list-content .form-inline,.list-content .btn-group{padding:0 20px 20px 20px;}
-.list-content .table tr th.t-right{width:62px;}
+.ibox-content .table tr th.t-right{width:62px;}
+.ibox-content .form-inline .m-r-sm{margin-right:10px;}
 
-.ibox-content .form-inline{
+.ibox-content .form-inline,.ibox-content .btn-group{
   padding: 0 20px;
   position: relative;
 }

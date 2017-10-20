@@ -5,8 +5,8 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-content list-content">
-							<div class="form-inline clearfix">
+						<div class="ibox-content">
+							<form action="" class="form-inline m-b-sm clearfix" role="form">
 								<el-dropdown class="m-r-sm">
 								  	<el-button type="warning">
 								    	批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -23,12 +23,15 @@
 									    </el-dropdown-item>
 								  	</el-dropdown-menu>
 								</el-dropdown>
-                    			<div class="form-group">
+                            	<el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="规格名称"  @keyup.enter="getList(pageData.PageID)"></el-input>
+                            	<el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
+
+                    			<!--<div class="form-group">
                                   <input name="title" type="text" class="form-control m-r-sm" placeholder="规格名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
                                 </div>
-			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>
+			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>-->
 			                    <router-link to="/goods/sku/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加规格</router-link>
-                    		</div>
+                    		</form>
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>

@@ -5,15 +5,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-content list-content">
-                            <div class="form-inline clearfix">
-                            	<button type="button" class="btn btn-m btn-warning m-r-sm" @click="delAll">批量删除</button>
+                        <div class="ibox-content">
+                            <form action="" class="form-inline m-b-sm clearfix" role="form">
+                            	<el-button  type="warning" class="m-r-sm" @click="delAll">批量删除</el-button>
+                            	<el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="品牌名称"  @keyup.enter="getList(pageData.PageID)"></el-input>
+                            	<el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
+                            	<!--<button type="button" class="btn btn-m btn-warning m-r-sm" @click="delAll">批量删除</button>
                                 <div class="form-group">
                                   <input name="title" v-model="title" type="text" class="form-control m-r-sm" placeholder="品牌名称" @keyup.enter="getList(pageData.PageID)">
                                 </div>
-                                <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>      
-                                <router-link to="/goods/brand/add" class="btn btn-m btn-primary hj_fr"><i class="shop icon-xinzeng"></i>添加品牌</router-link>
-                            </div>                                
+                                <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>-->  
+                                <router-link to="/goods/brand/add" class="add-btn"><i class="shop icon-xinzeng"></i>添加品牌</router-link>
+                            </form>                                
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -53,7 +56,7 @@
                                             </td>
                                             <td class="text-center">{{item.check_status_name}}</td>
                                             <td class="opt">
-                                            	<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.brand_id,'brand_id')"></span>
+                                            	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.brand_id,'brand_id')"></span>
                                                 <ul v-show="item.isOptShow">
                                                 	<!-- <li><router-link :to="'/goods/brand/details/'+item.brand_id">查看</router-link></li> -->                 	
                                                     <li><router-link :to="'/goods/brand/edit/'+item.brand_id">编辑</router-link></li>

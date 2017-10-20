@@ -5,14 +5,17 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-content list-content">
-							<div class="form-inline  clearfix">
-								<button type="button" class="btn btn-m btn-warning m-r-sm" @click="batchOpt('del','删除')">批量删除</button>
-                    			<div class="form-group">
+						<div class="ibox-content">
+							<form action="" class="form-inline m-b-sm clearfix" role="form">
+								<el-button type="warning" class="m-r-sm" @click="batchOpt('del','删除')">批量删除</el-button>
+								<!--<button type="button" class="btn btn-m btn-warning m-r-sm" @click="batchOpt('del','删除')">批量删除</button>-->
+                    			<!--<div class="form-group">
                                   <input name="title" type="text" class="form-control m-r-sm" placeholder="请输入商品关键词" v-model="title" @keyup.enter="getList(pageData.PageID)">
-                                </div>
-			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>
-                    		</div>
+                                </div>-->
+                                <el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="请输入商品关键词" @keyup.enter="getList(pageData.PageID)"></el-input>
+			                    <!--<button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)"><i class="shop icon-chaxun"></i>筛选</button>-->
+			                    <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
+                    		</form>
 						
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
@@ -42,7 +45,7 @@
 											<td class="text-center">{{item.time_create}}</td>
 											<td class="text-center">{{item.is_answer_name}}</td>
 											<td class="opt">
-												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.consult_id,'consult_id')"></span>
+												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.consult_id,'consult_id')"></span>
                                                 <ul v-show="item.isOptShow">
                                                 	<li v-if="item.is_answer==1"><router-link :to="'/goods/consult/details/'+item.consult_id">查看</router-link></li>
                                                 	<li v-else><router-link :to="'/goods/consult/details/'+item.consult_id"> 回复</router-link></li>      	
