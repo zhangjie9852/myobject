@@ -172,9 +172,6 @@
 </script>
 
 <style scoped>
-  .form-inline{
-    padding: 0 20px;
-  }
   .form-inline .btn{
     background-color: #20a0ff;
     color: #fff;

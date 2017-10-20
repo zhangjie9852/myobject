@@ -5,43 +5,65 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>文章列表</h5>
-            </div>
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" role="form">
-                <div class="form-group m-r-xs m-t-xs">
-                  <input type="text" class="form-control" name="keyword" placeholder="文章内容" v-model="keyword">
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <input type="text" class="form-control" name="articleCateId" placeholder="文章分类ID"
-                         v-model="articleCateId">
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="is_publish" v-model="isPublish">
-                    <option :value="null">是否发布</option>
-                    <option value="0">未发布</option>
-                    <option value="1">已发布</option>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="is_jump" v-model="isJump">
-                    <option :value="null">是否外链</option>
-                    <option value="0">本站</option>
-                    <option value="1">外链</option>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <button type="button" class="btn btn-primary" @click="getArticleList(1,pageData.Perpage,true)">查询
-                  </button>
-                </div>
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <el-dropdown class="m-r-xs m-b-sm">
+                  <el-button type="warning">
+                    批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
+                  </el-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @click="remove">批量删除</el-dropdown-item>
+                    <el-dropdown-item @click="batchPublish">批量发布</el-dropdown-item>
+                    <el-dropdown-item @click="batchWithdrawal">批量撤回</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="文章内容"></el-input>
+                <el-input class="m-r-xs m-b-sm" name="articleCateId" v-model="articleCateId" placeholder="文章分类ID"></el-input>
+                <el-select class="m-r-xs m-b-sm" name="is_publish" v-model="isPublish">
+                  <el-option :key="null" label="是否发布" :value="null"></el-option>
+                  <el-option :key="0" label="未发布" value="0"></el-option>
+                  <el-option :key="1" label="已发布" value="1"></el-option>
+                </el-select>
+                <el-select class="m-r-xs m-b-sm" name="is_jump" v-model="isJump">
+                  <el-option :key="null" label="是否外链" :value="null"></el-option>
+                  <el-option :key="0" label="本站" value="0"></el-option>
+                  <el-option :key="1" label="外链" value="1"></el-option>
+                </el-select>
+                <el-button class="search-btn" type="primary" icon="search" @click="getArticleList(1,pageData.Perpage,true)">筛选</el-button>
+                <router-link to="/article/list/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加文章</router-link>
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<input type="text" class="form-control" name="keyword" placeholder="文章内容" v-model="keyword">-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<input type="text" class="form-control" name="articleCateId" placeholder="文章分类ID"-->
+                         <!--v-model="articleCateId">-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="is_publish" v-model="isPublish">-->
+                    <!--<option :value="null">是否发布</option>-->
+                    <!--<option value="0">未发布</option>-->
+                    <!--<option value="1">已发布</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="is_jump" v-model="isJump">-->
+                    <!--<option :value="null">是否外链</option>-->
+                    <!--<option value="0">本站</option>-->
+                    <!--<option value="1">外链</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<button type="button" class="btn btn-primary" @click="getArticleList(1,pageData.Perpage,true)">查询-->
+                  <!--</button>-->
+                <!--</div>-->
               </form>
-              <div class="btn-group m-b-md">
-                <button type="button" class="btn btn-primary m-r-xs" @click="remove">批量删除</button>
-                <button type="button" class="btn btn-primary m-r-xs" @click="batchPublish">批量发布</button>
-                <button type="button" class="btn btn-primary m-r-xs" @click="batchWithdrawal">批量撤回</button>
-                <router-link to="/article/list/add" class="btn btn-warning m-r-xs">添加文章</router-link>
-              </div>
+
+              <!--<div class="btn-group m-b-md">-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="remove">批量删除</button>-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="batchPublish">批量发布</button>-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="batchWithdrawal">批量撤回</button>-->
+                <!--<router-link to="/article/list/add" class="btn btn-warning m-r-xs">添加文章</router-link>-->
+              <!--</div>-->
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
