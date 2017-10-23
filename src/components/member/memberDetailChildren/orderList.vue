@@ -4,7 +4,6 @@
       <button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>
     </div>
     <form action="#" class="form-inline m-b-sm" role="form">
-      <el-button type="warning" class="m-r-xs m-b-sm">打印订单</el-button>
       <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收货人姓名"></el-input>
       <el-select class="m-r-xs m-b-sm" name="payment_id" v-model="paymentId" v-show="tabIndex!=2">
         <el-option :key="null" label="支付类型" :value="null"></el-option>
