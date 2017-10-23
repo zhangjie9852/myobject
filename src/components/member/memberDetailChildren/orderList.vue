@@ -1,142 +1,134 @@
 <template>
   <div>
-    <div class="panel blank-panel">
-      <div class="panel-heading">
-        <div class="panel-options">
-          <ul class="nav nav-tabs">
-            <li v-for="(item,index) in orderCount" :class="[tabIndex==index?'active':'']" @click="getOrderLists(index,1,pageData.Perpage,false)">
-              <a href="javascript:;">{{item.title}}({{item.count}})</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="tab-content">
-          <form action="#" class="form-inline m-b-md" role="form">
-            <div class="form-group m-r-xs m-t-xs">
-              <input type="text" class="form-control" name="keyword" placeholder="关键词" v-model="keyword">
+    <div class="btn-group m-b-sm">
+      <button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>
+    </div>
+    <form action="#" class="form-inline m-b-sm" role="form">
+      <el-dropdown class="m-r-xs m-b-sm">
+        <el-button type="warning">
+          批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-if="tabIndex==0 || tabIndex==1"><span @click="auditingOrder">审核</span></el-dropdown-item>
+          <el-dropdown-item><span @click="cancelOrder"></span>取消</el-dropdown-item>
+          <el-dropdown-item><span @click="removeOrder">移除</span></el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-button type="warning" class="m-r-xs m-b-sm">打印订单</el-button>
+      <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收货人姓名"></el-input>
+      <el-select class="m-r-xs m-b-sm" name="payment_id" v-model="paymentId" v-show="tabIndex!=2">
+        <el-option :key="null" label="支付类型" :value="null"></el-option>
+        <el-option :key="3" label="余额支付" value="3"></el-option>
+        <el-option :key="2" label="微信支付" value="2"></el-option>
+        <el-option :key="1" label="支付宝支付" value="1"></el-option>
+        <el-option :key="4" label="银联支付" value="4"></el-option>
+      </el-select>
+      <el-select class="m-r-xs m-b-sm" name="status_order" v-model="statusOrder">
+        <el-option :key="null" label="订单总状态" :value="null"></el-option>
+        <el-option :key="0" label="未开始" value="0"></el-option>
+        <el-option :key="1" label="进行中" value="1"></el-option>
+        <el-option :key="2" label="已完成" value="2"></el-option>
+        <el-option :key="9" label="已取消" value="9"></el-option>
+      </el-select>
+      <el-select class="m-r-xs m-b-sm" name="status_pay" v-model="statusPay" v-show="tabIndex!=2 && tabIndex!=4">
+        <el-option :key="null" label="支付状态" :value="null"></el-option>
+        <el-option :key="0" label="未支付" value="0"></el-option>
+        <el-option :key="1" label="已支付" value="1"></el-option>
+        <el-option :key="2" label="退款中" value="2"></el-option>
+      </el-select>
+      <el-select class="m-r-xs m-b-sm" name="status_deliver" v-model="statusDeliver" v-show="tabIndex!=1 && tabIndex!=4">
+        <el-option :key="null" label="配送状态" :value="null"></el-option>
+        <el-option :key="0" label="未发货" value="0"></el-option>
+        <el-option :key="1" label="配货中" value="1"></el-option>
+        <el-option :key="3" label="已发货" value="3"></el-option>
+        <el-option :key="4" label="已收货" value="4"></el-option>
+      </el-select>
+      <el-select class="m-r-xs m-b-sm" name="status_check" v-model="statusCheck" v-show="tabIndex!=1 && tabIndex!=4">
+        <el-option :key="null" label="审核状态" :value="null"></el-option>
+        <el-option :key="0" label="未审核" value="0"></el-option>
+        <el-option :key="1" label="已审核" value="1"></el-option>
+      </el-select>
+      <el-button :type="amountRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogAmountVisible=true">
+        {{amountRange?'金额：￥'+amountRange.replace(',','-'):'订单金额范围'}}
+        <em class="shop icon-cha" @click.stop="closedAmount"></em>
+      </el-button>
+      <el-button :type="dateRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogDateVisible=true">
+        {{dateRange?'日期：'+dateRange.replace(',','-'):'日期范围'}}
+        <em class="shop icon-cha" @click.stop="closedDate"></em>
+      </el-button>
+      <el-button class="search-btn" type="primary" icon="search" @click="getOrderLists(tabIndex,1,pageData.Perpage,true)">筛选</el-button>
+    </form>
+    <div class="table-responsive clearfix">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+          <th class="table-checkbox">
+            <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll">
+              <input type="checkbox" class="checks">
             </div>
-            <div class="form-group m-r-xs m-t-xs" v-show="tabIndex!=2">
-              <select class="form-control" name="payment_id" v-model="paymentId">
-                <option :value="null">支付类型</option>
-                <option value="3">余额支付</option>
-                <option value="2">微信支付</option>
-                <option value="1">支付宝支付</option>
-                <option value="4">银联支付</option>
-              </select>
+          </th>
+          <th>订单编号</th>
+          <th>商家名称</th>
+          <th>收货人</th>
+          <th>支付方式</th>
+          <th>支付渠道</th>
+          <th>来源</th>
+          <th>金额标签</th>
+          <th>订单状态</th>
+          <th>下单时间</th>
+          <th class="opt-select">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,index) in orderLists">
+          <td>
+            <div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(item)">
+              <input type="checkbox" class="checks">
             </div>
-            <div class="form-group m-r-xs m-t-xs">
-              <select class="form-control" name="status_order" v-model="statusOrder">
-                <option :value="null">订单总状态</option>
-                <option value="0">未开始</option>
-                <option value="1">进行中</option>
-                <option value="2">已完成</option>
-                <option value="9">已取消</option>
-              </select>
-            </div>
-            <div class="form-group m-r-xs m-t-xs" v-show="tabIndex!=2 && tabIndex!=4">
-              <select class="form-control" name="status_pay" v-model="statusPay">
-                <option :value="null">支付状态</option>
-                <option value="0">未支付</option>
-                <option value="4">付款中</option>
-                <option value="1">已支付</option>
-                <option value="2">退款中</option>
-              </select>
-            </div>
-            <div class="form-group m-r-xs m-t-xs" v-show="tabIndex!=1 && tabIndex!=4">
-              <select class="form-control" name="status_deliver" v-model="statusDeliver">
-                <option :value="null">配送状态</option>
-                <option value="0">未发货</option>
-                <option value="1">配货中</option>
-                <option value="2">发货中</option>
-                <option value="3">已发货</option>
-                <option value="4">已收货</option>
-              </select>
-            </div>
-            <div class="form-group m-r-xs m-t-xs" v-show="tabIndex!=1 && tabIndex!=4">
-              <select class="form-control" name="status_check" v-model="statusCheck">
-                <option :value="null">审核状态</option>
-                <option value="0">未审核</option>
-                <option value="1">已审核</option>
-                <option value="9">审核不通过</option>
-              </select>
-            </div>
-            <div class="form-group m-r-xs m-t-xs">
-              <a href="javascript:;" class="btn" :class="[amountRange?' btn-white':' btn-primary']" @click="dialogAmountVisible=true">
-                {{amountRange?'金额：￥'+amountRange.replace(',','-'):'订单金额范围'}}
-                <em @click.stop="closedAmount">&times;</em>
-              </a>
-            </div>
-            <div class="form-group m-r-xs m-t-xs">
-              <a href="javascript:;" class="btn" :class="[dateRange?' btn-white':' btn-primary']" @click="dialogDateVisible=true">
-                {{dateRange?'日期：'+dateRange.replace(',','-'):'日期范围'}}
-                <em @click.stop="closedDate">&times;</em>
-              </a>
-            </div>
-            <div class="form-group m-r-xs m-t-xs">
-              <button type="button" class="btn btn-primary" @click="getOrderLists(tabIndex,1,pageData.Perpage,true)">查询</button>
-            </div>
-          </form>
-          <div class="table-responsive clearfix">
-            <table class="table table-striped table-bordered table-hover">
-              <thead>
-              <tr>
-                <th>订单编号</th>
-                <th>商家名称</th>
-                <th>收货人</th>
-                <th>支付方式</th>
-                <th>支付渠道</th>
-                <th>来源</th>
-                <th>金额标签</th>
-                <th>订单状态</th>
-                <th>下单时间</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="(item,index) in orderLists">
-                <td>{{item.order_no}}</td>
-                <td class="text-org">{{item.shop_name}}</td>
-                <td>
-                  <div>{{item.user_name}}</div>
-                  <div>[TEL: {{item.user_mobile}}]</div>
-                </td>
-                <td>{{item.pay_type}}</td>
-                <td>{{item.payment_id}}</td>
-                <td>来源：{{item.order_source}}</td>
-                <td>
-                  <div><span class="inner-label">订单总金额：</span><span class="inner-amount">￥ {{item.order_amount}}</span></div>
-                  <div><span class="inner-label">实付金额：</span><span class="inner-amount">￥ {{item.real_amount}}</span></div>
-                </td>
-                <td>
-                  <div :class="{'text-red':item.status_order=='已取消'}">{{item.status_order}}</div>
-                  <div>{{item.status_pay}}</div>
-                  <div>{{item.status_deliver}}</div>
-                </td>
-                <td>{{item.time_create}}</td>
-                <td>
-                  <div class="single-opt">
-                    <router-link :to="'/order/detail/'+item.order_id+'/'+encodeURIComponent(item.pay_type)"><i class="icon_l_see"></i> 查看</router-link>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-            <div v-if="orderLists.length==0" class="text-center">暂无信息</div>
-            <div class="hj_fr">
-              <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="pageData.PageID"
-                :page-sizes="PSLists"
-                :page-size="pageData.Perpage"
-                v-show="orderLists.length>0"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="pageData.Results">
-              </el-pagination>
-            </div>
-          </div>
-        </div>
+          </td>
+          <td>{{item.order_no}}</td>
+          <td class="text-org">{{item.shop_name}}</td>
+          <td>
+            <div>{{item.user_name}}</div>
+            <div>[TEL: {{item.user_mobile}}]</div>
+          </td>
+          <td>{{item.pay_type}}</td>
+          <td>{{item.payment_id}}</td>
+          <td>来源：{{item.order_source}}</td>
+          <td>
+            <div><span class="inner-label">订单总金额：</span><span class="inner-amount">￥ {{item.order_amount}}</span></div>
+            <div><span class="inner-label">实付金额：</span><span class="inner-amount">￥ {{item.real_amount}}</span></div>
+          </td>
+          <td>
+            <div :class="{'text-red':item.status_order=='已取消'}">{{item.status_order}}</div>
+            <div>{{item.status_pay}}</div>
+            <div>{{item.status_deliver}}</div>
+          </td>
+          <td>{{item.time_create}}</td>
+          <td class="opt">
+            <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(orderLists,'order_id',item.order_id)"></span>
+            <ul v-show="item.isOptShow">
+              <li><router-link :to="'/order/detail/'+item.order_id+'/'+encodeURIComponent(item.pay_type)">查看</router-link></li>
+              <li v-if="(item.pay_type=='货到付款' && item.status_check=='未审核') || (item.pay_type!='货到付款' && item.status_check=='未审核' && item.status_pay=='已支付')" @click="auditingSingle(item.order_id)"><a href="javascript:;">审核</a></li>
+              <li v-if="item.status_order!='已取消' && item.status_deliver=='未发货'" @click="cancelSingleOrder(item.order_id)"><a href="javascript:;">取消</a></li>
+              <li v-if="item.status_order=='已取消'" @click="removeSingleOrder(item.order_id)"><a href="javascript:;">移除</a></li>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div v-if="orderLists.length==0" class="text-center">暂无信息</div>
+      <div class="hj_fr">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="pageData.PageID"
+          :page-sizes="PSLists"
+          :page-size="pageData.Perpage"
+          v-show="orderLists.length>0"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="pageData.Results">
+        </el-pagination>
       </div>
     </div>
     <el-dialog title="选择订单金额" :visible.sync="dialogAmountVisible">
@@ -413,16 +405,9 @@
 </script>
 
 <style scoped>
-  .tab-content{
-    overflow-x: auto;
-  }
   .table-responsive{
-    min-width: 1072px;
-    padding-bottom: 50px;
-  }
-  .table thead tr th,.table tbody tr td{
-    text-align: center;
-    vertical-align: middle;
+    padding-bottom: 35px;
+    overflow:auto;
   }
   .inner-label{
     width:75px;
@@ -434,29 +419,12 @@
     display: inline-block;
     text-align: left;
   }
-  .single-opt a{
-    color: #676a6c;
-  }
-  .single-opt:hover a{
-    color:#3EA0C4;
-  }
-  .nav-tabs > li.active > a,
-  .nav-tabs > li.active > a:hover,
-  .nav-tabs > li.active > a:focus{
-    border-bottom: 1px solid #fff;
-  }
-  .btn-primary em{
+  .el-button--primary em{
     display: none;
   }
-  .btn-white em{
-    font-size: 16px;
-    line-height:20px;
-    color: #999;
+  .el-button--default em{
+    font-size: 12px;
     margin-left:6px;
-    vertical-align: top;
-  }
-  .btn-white:hover em{
-    color: #333;
   }
   .el-input{
     width:200px;

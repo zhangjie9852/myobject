@@ -555,5 +555,8 @@
 </script>
 
 <style scoped>
-
+  .table-responsive{
+    padding-bottom: 75px;
+    overflow: auto;
+  }
 </style>

@@ -334,6 +334,7 @@ body.mini-navbar .nav .nav-header{background: none;}
   border: 0;
   padding: 8px 15px;
   border-radius: 4px !important;
+  margin-bottom: 10px;
 }
 .ibox-content .btn-group button:active{
   outline:0;
@@ -367,4 +368,7 @@ body.mini-navbar .nav .nav-header{background: none;}
 }
 .ibox-content .form-inline .el-button.m-r-xs{
   margin-right: 5px;
+}
+.ibox-content .form-inline .el-button+.el-button{
+  margin-left: 0;
 }
