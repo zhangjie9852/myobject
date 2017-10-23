@@ -186,7 +186,7 @@ body.mini-navbar .navbar-default .nav li .sec-class .arrow {
 }
 body.mini-navbar .nav .nav-header{background: none;}
 
-
+body.mini-navbar .nav-second-level li:last-child{margin-bottom: 0}
 
 .side-menu > li > a {
   font-size: 14px;

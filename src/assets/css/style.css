@@ -237,7 +237,7 @@ body.body-small .navbar-top-links li:last-child {
   padding-left: 72px;
 }
 .nav-second-level li:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav li:hover > .nav-second-level,
 .mini-navbar .nav li:focus > .nav-second-level {

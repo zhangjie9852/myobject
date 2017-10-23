@@ -109,6 +109,7 @@
           this.$refs.navMenu.getLeftMenu();
           this.$router.push(url);
           this.searchVal = title;
+          console.log(url)
         },
         clearTit(){
           this.searchVal = '';
