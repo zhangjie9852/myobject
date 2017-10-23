@@ -188,6 +188,8 @@ body.mini-navbar .nav .nav-header{background: none;}
 
 body.mini-navbar .nav-second-level li:last-child{margin-bottom: 0}
 
+body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left: 27px;}
+
 .side-menu > li > a {
   font-size: 14px;
   padding:0 20px 0 25px;
