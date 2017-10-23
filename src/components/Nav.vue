@@ -61,7 +61,7 @@
 	            if(url.length>1){
 	                return "/"+url[1]+"/"+url[2];
 	            }else{
-	                return "/workbench/index"
+	                return "/index"
 	            }
 
 	        }
@@ -97,10 +97,11 @@
 				                            if(item3.path_url != undefined && that.navSecurl(item3.path_url)==that.navSecurl(that.$route.path) ){
 				                            	item2.secOpen = true;
 				                            	that.secPid = item3.parent_id;
-				                            	if(item2.menu_id == item3.parent_id ){
+				                            	if(item.menu_id == item2.parent_id ){
 				                            		item.opens = true;
 				                            		that.basePid = item2.parent_id;
 				                            	}
+				                            	//console.log(that.basePid,that.secPid);
 				                            }
 				                          });
 				                        }
