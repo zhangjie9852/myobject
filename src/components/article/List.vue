@@ -12,9 +12,9 @@
                     批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click="remove">批量删除</el-dropdown-item>
-                    <el-dropdown-item @click="batchPublish">批量发布</el-dropdown-item>
-                    <el-dropdown-item @click="batchWithdrawal">批量撤回</el-dropdown-item>
+                    <el-dropdown-item><span @click="remove">批量删除</span></el-dropdown-item>
+                    <el-dropdown-item><span @click="batchPublish"></span>批量发布</el-dropdown-item>
+                    <el-dropdown-item><span @click="batchWithdrawal">批量撤回</span></el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
                 <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="文章内容"></el-input>
@@ -68,7 +68,7 @@
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>
+                    <th class="table-checkbox">
                       <div class="checkbox-square-green" :class="{'checked':checkAllFlag}"
                            @click="checkedAll(articleList)">
                         <input type="checkbox" class="checks">
@@ -94,7 +94,7 @@
                     <td>{{item.article_title}}</td>
                     <td>{{item.article_cate_name}}</td>
                     <td>
-                      <input type="number" class="w100" v-model="item.article_sort" @blur="sort(item)" @keyup.enter="sort(item)">
+                      <input type="number" v-model="item.article_sort" @blur="sort(item)" @keyup.enter="sort(item)">
                     </td>
                     <td>
                       <!--<el-switch-->
@@ -107,7 +107,7 @@
                     <td>{{item.time_create}}</td>
                     <td>{{item.time_publish}}</td>
                     <td class="opt">
-                      <span class="opt-down shop icon-guanli" @click.stop="viewOpt(articleList,'id',item.id)"></span>
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(articleList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
                         <li v-if="index!=0" @click="toTop(item)"><a href="javascript:;">置顶</a></li>
                         <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>

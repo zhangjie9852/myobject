@@ -5,10 +5,8 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>添加文章</h5>
-            </div>
             <div class="ibox-content">
+              <div class="hd-title">添加文章</div>
               <el-tabs v-model="activeName" type="card">
                 <el-tab-pane label="基本信息" name="first">
                   <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">

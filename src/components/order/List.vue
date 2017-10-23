@@ -5,10 +5,12 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>订单列表</h5>
-            </div>
             <div class="ibox-content">
+              <div class="btn-group m-b-md">
+                <button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>
+              </div>
+              
+
               <div class="panel blank-panel">
                 <div class="panel-heading">
                   <div class="panel-options">

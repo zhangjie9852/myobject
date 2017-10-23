@@ -5,29 +5,30 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>管理员列表</h5>
-            </div>
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" role="form">
-                <div class="form-group m-r-xs m-t-xs">
-                  <input type="text" class="form-control" name="userLogin" placeholder="用户名" v-model="userLogin">
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <button type="button" class="btn btn-primary" @click="getAdminList(1,pageData.Perpage,true)">查询</button>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <button type="button" class="btn btn-primary" @click="remove">批量删除</button>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <router-link to="/admin/list/add" class="btn btn-warning">添加管理员</router-link>
-                </div>
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <el-button type="warning" class="m-r-xs m-b-sm" @click="remove">批量删除</el-button>
+                <el-input class="m-r-xs m-b-sm" name="userLogin" v-model="userLogin" placeholder="用户名"></el-input>
+                <el-button class="search-btn" type="primary" icon="search" @click="getAdminList(1,pageData.Perpage,true)">筛选</el-button>
+                <router-link to="/admin/list/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加管理员</router-link>
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<input type="text" class="form-control" name="userLogin" placeholder="用户名" v-model="userLogin">-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<button type="button" class="btn btn-primary" @click="getAdminList(1,pageData.Perpage,true)">查询</button>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<button type="button" class="btn btn-primary" @click="remove">批量删除</button>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<router-link to="/admin/list/add" class="btn btn-warning">添加管理员</router-link>-->
+                <!--</div>-->
               </form>
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>
+                    <th class="table-checkbox">
                       <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(adminList)">
                         <input type="checkbox" class="checks">
                       </div>
@@ -52,11 +53,11 @@
                     <td>{{item.user_remark}}</td>
                     <td>{{item.time_create}}</td>
                     <td>{{item.last_login_time}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(adminList,'id',item.id)">处理<i class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(adminList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li @click="removeSingle(item.id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a></li>
-                        <li><router-link :to="'/admin/list/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
+                        <li><router-link :to="'/admin/list/edit/'+item.id">编辑</router-link></li>
                       </ul>
                     </td>
                   </tr>
@@ -287,47 +288,5 @@
 </script>
 
 <style scoped>
-  .table thead tr th,.table tbody tr td{
-    text-align: center;
-    vertical-align: middle;
-  }
-  .table thead tr .opt-select{
-    text-align: right;
-    padding-right: 20px;
-  }
-  .table tbody tr .opt-select{
-    position: relative;
-    text-align: right;
-  }
-  .opt-select .opt{
-    display: inline-block;
-    cursor: pointer;
-  }
-  .opt-select .opt i{
-    margin-left:5px;
-  }
-  .opt-select ul{
-    margin-top: 12px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    padding: 0 8px;
-    text-align: left;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 1000;
-  }
-  .opt-select ul li{
-    line-height:32px;
-    border-top:1px dashed #d2d2d2;
-  }
-  .opt-select ul li:first-child{
-    border-top:0;
-  }
-  .opt-select ul li a{
-    color: #676a6c;
-  }
-  .opt-select ul li:hover a{
-    color:#3EA0C4;
-  }
+
 </style>

@@ -5,19 +5,20 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>角色列表</h5>
-            </div>
             <div class="ibox-content">
-              <div class="form-group m-r-xs m-t-xs">
-                <router-link to="/admin/role/add" class="btn btn-primary m-r-xs">添加角色</router-link>
-                <button type="button" class="btn btn-danger m-r-xs" @click="remove">删除角色</button>
-              </div>
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <el-button type="warning" class="m-b-sm" @click="remove">删除角色</el-button>
+                <router-link to="/admin/role/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加角色</router-link>
+              </form>
+              <!--<div class="form-group m-r-xs m-t-xs">-->
+                <!--<router-link to="/admin/role/add" class="btn btn-primary m-r-xs">添加角色</router-link>-->
+                <!--<button type="button" class="btn btn-danger m-r-xs" @click="remove">删除角色</button>-->
+              <!--</div>-->
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>
+                    <th class="table-checkbox">
                       <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll">
                         <input type="checkbox" class="checks">
                       </div>
@@ -36,12 +37,12 @@
                     </td>
                     <td>{{item.rolename}}</td>
                     <td>{{item.remark}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(roleLists,'id',item.id)">处理<i class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(roleLists,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
-                        <!--<li><router-link :to="'/admin/role/detail/'+item.id"><i class="icon_l_see"></i> 查看</router-link></li>-->
-                        <li @click="removeSingle(item.id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a></li>
-                        <li><router-link :to="'/admin/role/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>
+                        <!--<li><router-link :to="'/admin/role/detail/'+item.id">查看</router-link></li>-->
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
+                        <li><router-link :to="'/admin/role/edit/'+item.id">编辑</router-link></li>
                       </ul>
                     </td>
                   </tr>
@@ -261,48 +262,5 @@
   }
   .table-responsive{
     overflow-x:inherit;
-  }
-  .table thead tr th,.table tbody tr td{
-    /*text-align: center;*/
-    vertical-align: middle;
-  }
-  .table thead tr .opt-select{
-    text-align: right;
-    padding-right: 20px;
-  }
-  .table tbody tr .opt-select{
-    position: relative;
-    text-align: right;
-  }
-  .opt-select .opt{
-    display: inline-block;
-    cursor: pointer;
-  }
-  .opt-select .opt i{
-    margin-left:5px;
-  }
-  .opt-select ul{
-    margin-top: 12px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    padding: 0 8px;
-    text-align: left;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 1000;
-  }
-  .opt-select ul li{
-    line-height:32px;
-    border-top:1px dashed #d2d2d2;
-  }
-  .opt-select ul li:first-child{
-    border-top:0;
-  }
-  .opt-select ul li a{
-    color: #676a6c;
-  }
-  .opt-select ul li:hover a{
-    color:#3EA0C4;
   }
 </style>

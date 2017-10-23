@@ -5,14 +5,24 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>会员列表</h5>
-            </div>
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" role="form">
-                <div class="form-group m-r-xs m-t-xs">
-                  <input type="text" class="form-control" name="keyword" placeholder="关键词" v-model="keyword">
-                </div>
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <el-dropdown class="m-r-xs m-b-sm">
+                  <el-button type="warning">
+                    批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
+                  </el-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item><span @click="remove">批量删除</span></el-dropdown-item>
+                    <el-dropdown-item><span @click="prohibit">禁止登陆</span></el-dropdown-item>
+                    <el-dropdown-item><span @click="recovery">恢复登陆</span></el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="关键词"></el-input>
+                <el-button class="search-btn" type="primary" icon="search" @click="getMemberLists(1,pageData.Perpage,true)">筛选</el-button>
+                <router-link to="/member/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加会员</router-link>
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<input type="text" class="form-control" name="keyword" placeholder="关键词" v-model="keyword">-->
+                <!--</div>-->
                 <!-- <div class="form-group m-r-xs m-t-xs">
                   <select class="form-control" name="is_realname" v-model="isRealname">
                     <option :value="null">是否实名</option>
@@ -20,21 +30,21 @@
                     <option value="1">已实名</option>
                   </select>
                 </div> -->
-                <div class="form-group m-r-xs m-t-xs">
-                  <button type="button" class="btn btn-primary" @click="getMemberLists(1,pageData.Perpage,true)">查询</button>
-                </div>
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<button type="button" class="btn btn-primary" @click="getMemberLists(1,pageData.Perpage,true)">查询</button>-->
+                <!--</div>-->
               </form>
-              <div class="btn-group m-b-md">
-                <button type="button" class="btn btn-primary m-r-xs" @click="remove">批量删除</button>
-                <button type="button" class="btn btn-primary m-r-xs" @click="prohibit">禁止登陆</button>
-                <button type="button" class="btn btn-primary m-r-xs" @click="recovery">恢复登陆</button>
-                <router-link to="/member/add" class="btn btn-warning m-r-xs">添加会员</router-link>
-              </div>
+              <!--<div class="btn-group m-b-md">-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="remove">批量删除</button>-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="prohibit">禁止登陆</button>-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="recovery">恢复登陆</button>-->
+                <!--<router-link to="/member/add" class="btn btn-warning m-r-xs">添加会员</router-link>-->
+              <!--</div>-->
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>
+                    <th class="table-checkbox">
                       <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(memberLists)">
                         <input type="checkbox" class="checks">
                       </div>
@@ -65,12 +75,12 @@
                     <td :class="{'text-org':item.user_level=='金牌' || item.user_level=='金牌会员','text-red':item.user_level=='银牌' || item.user_level=='银牌会员'}">{{item.user_level}}</td>
                     <td>{{item.user_point}}</td>
                     <td>{{item.user_statue}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(memberLists,'user_id',item.user_id)">处理<i class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(memberLists,'user_id',item.user_id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li><router-link :to="'/member/detail/'+item.user_id"><i class="icon_l_see"></i> 查看</router-link></li>
-                        <li><router-link :to="'/member/edit/'+item.user_id"><i class="icon_l_edit"></i> 编辑</router-link></li>
-                        <li @click="removeSingle(item.user_id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a></li>
+                        <li><router-link :to="'/member/detail/'+item.user_id">查看</router-link></li>
+                        <li><router-link :to="'/member/edit/'+item.user_id">编辑</router-link></li>
+                        <li @click="removeSingle(item.user_id)"><a href="javascript:;">删除</a></li>
                       </ul>
                     </td>
                   </tr>
@@ -450,49 +460,5 @@
 </script>
 
 <style scoped>
-  .table thead tr th,.table tbody tr td{
-    text-align: center;
-    vertical-align: middle;
-  }
-  .table thead tr .opt-select{
-    min-width: 72px;
-    text-align: right;
-    padding-right: 20px;
-  }
-  .table tbody tr .opt-select{
-    min-width: 72px;
-    position: relative;
-    text-align: right;
-  }
-  .opt-select .opt{
-    display: inline-block;
-    cursor: pointer;
-  }
-  .opt-select .opt i{
-    margin-left:5px;
-  }
-  .opt-select ul{
-    margin-top: 12px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    padding: 0 8px;
-    text-align: left;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 1000;
-  }
-  .opt-select ul li{
-    line-height:32px;
-    border-top:1px dashed #d2d2d2;
-  }
-  .opt-select ul li:first-child{
-    border-top:0;
-  }
-  .opt-select ul li a{
-    color: #676a6c;
-  }
-  .opt-select ul li:hover a{
-    color:#3EA0C4;
-  }
+
 </style>
