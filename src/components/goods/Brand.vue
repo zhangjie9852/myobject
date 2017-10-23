@@ -21,17 +21,17 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th width="5%">
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>
                                             </th>
-                                            <th class="text-center">品牌名称</th>
-                                            <th class="text-center">英文名称</th>
-                                            <th class="text-center">品牌图片</th>       
-                                            <th class="text-center">排序</th>                                            
-                                            <th class="text-center">是否显示</th>
-                                            <th class="text-center">审核状态</th>
-                                            <th class="t-right">操作</th>
+                                            <th>品牌名称</th>
+                                            <th>英文名称</th>
+                                            <th>品牌图片</th>       
+                                            <th>排序</th>                                            
+                                            <th>是否显示</th>
+                                            <th>审核状态</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody>                                    	
@@ -40,13 +40,13 @@
                                             	<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                                 <input type="checkbox" class="checks"></div>   
                                             </td>
-                                            <td class="text-center">{{item.brand_ch_name}}</td>
-                                            <td class="text-center">{{item.brand_en_name}}</td>                              
-                                            <td class="text-center">
+                                            <td>{{item.brand_ch_name}}</td>
+                                            <td>{{item.brand_en_name}}</td>                              
+                                            <td>
                                             	<img :src="item.brand_pc_logo" class="listImg">
                                             </td>
-                                            <td class="text-center"><input type="text" :value="item.brand_sort" class="w100" @keyup.enter="editSort(item.brand_id,item.category_id,item.brand_sort)" @blur="editSort(item.brand_id,item.category_id,item.brand_sort)" v-model="item.brand_sort" /></td>
-                                            <td class="text-center">
+                                            <td><input type="text" :value="item.brand_sort" class="w100" @keyup.enter="editSort(item.brand_id,item.category_id,item.brand_sort)" @blur="editSort(item.brand_id,item.category_id,item.brand_sort)" v-model="item.brand_sort" /></td>
+                                            <td>
                                             	<el-switch
 												  v-model="item.is_show"
 												  on-text=""
@@ -54,7 +54,7 @@
 												  @change="cateShow(item.brand_id,item.category_id,item.is_show)">
 												</el-switch>                                            	
                                             </td>
-                                            <td class="text-center">{{item.check_status_name}}</td>
+                                            <td>{{item.check_status_name}}</td>
                                             <td class="opt">
                                             	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.brand_id,'brand_id')"></span>
                                                 <ul v-show="item.isOptShow">

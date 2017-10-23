@@ -5,12 +5,9 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>广告位列表</h5>
-            </div>
             <div class="ibox-content">
               <form action="#" class="form-inline m-b-md" role="form">
-                <div class="form-group m-r-xs m-t-xs">
+                <!--<div class="form-group m-r-xs m-t-xs">
                   <input type="text" class="form-control" name="ad_position_name" placeholder="广告位名称" v-model="adPositionName">
                 </div>
                 <div class="form-group m-r-xs m-t-xs">
@@ -19,13 +16,17 @@
                 <div class="form-group m-t-xs">
                   <button type="button" class="btn btn-primary m-r-xs" @click="remove">批量删除</button>
                   <router-link to="/adv/setting/add" class="btn btn-warning">添加广告位</router-link>
-                </div>
+                </div>-->
+                <el-button  type="warning" class="m-r-sm" @click="remove">批量删除</el-button>
+                <el-input class="m-r-sm m-b-sm" name="ad_position_name" v-model="adPositionName" placeholder="广告位名称"></el-input>
+                <el-button class="search-btn" type="primary" icon="search" @click="getAdPositionList(1,pageData.Perpage,true)">筛选</el-button>
+                <router-link to="/adv/setting/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加广告位</router-link>
               </form>
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>
+                    <th class="table-checkbox">
                       <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(adPositionList)">
                         <input type="checkbox" class="checks">
                       </div>
@@ -58,11 +59,12 @@
                       </el-switch>
                     </td>
                     <td>{{item.time_create}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(adPositionList,'id',item.id)">处理<i class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <!--<div class="opt shop icon-shezhicaozuo" @click.stop="viewOpt(adPositionList,'id',item.id)"></div>-->
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(adPositionList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li><router-link :to="'/adv/setting/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>
-                        <li @click="removeSingle(item.id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a></li>
+                        <li><router-link :to="'/adv/setting/edit/'+item.id">编辑</router-link></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                       </ul>
                     </td>
                   </tr>
@@ -315,20 +317,20 @@
   }
 </script>
 
-<style scoped>
+<!--<style scoped>
   .table thead tr th,.table tbody tr td{
-    text-align: center;
+    /*text-align: center;*/
     vertical-align: middle;
   }
   .table thead tr .opt-select{
-    min-width:72px;
-    text-align: right;
-    padding-right: 20px;
+    width:62px;
+    text-align: left;
   }
   .table tbody tr .opt-select{
-    min-width:72px;
+    width:62px;
     position: relative;
-    text-align: right;
+    text-align: left;
+    color:#9da7c0;
   }
   .opt-select .opt{
     display: inline-block;
@@ -350,7 +352,6 @@
   }
   .opt-select ul li{
     line-height:32px;
-    border-top:1px dashed #d2d2d2;
   }
   .opt-select ul li:first-child{
     border-top:0;
@@ -361,4 +362,4 @@
   .opt-select ul li:hover a{
     color:#3EA0C4;
   }
-</style>
+</style>-->

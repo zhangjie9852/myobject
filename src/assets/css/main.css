@@ -312,10 +312,10 @@ a.minimalize-styl-2{color: #9DA7C0}
 .batch-btn:hover{background:#f7ba2a;color:#fff;}
 .table-main{min-height:480px;background:#fff;}
 .table-responsive .table thead tr{border-top: 1px solid #dfe6ec;}
-.table-responsive .table th{font-size:14px !important;font-weight:normal;}
 .table-responsive .table th,.table-responsive .table td{font-size:12px;border-top:none;border-left:none;border-right:none;padding:13px;text-align:left;}
 .el-pagination{padding:2px 20px;}
-.ibox-content .table tr th.t-right{width:62px;}
+.ibox-content .table tr th.opt-select{width:62px;}
+.ibox-content .table tr th.table-checkbox{width:27px;}
 .ibox-content .form-inline .m-r-sm{margin-right:10px;}
 
 .ibox-content .form-inline,.ibox-content .btn-group{

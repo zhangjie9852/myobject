@@ -36,15 +36,15 @@
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>
                     					<tr>
-                                            <th width="5%">
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>
                                             </th>
-                                            <th class="text-center">规格名称</th>
-                                            <th class="text-center">规格值</th>
-                                            <th class="text-center">状态</th>
-                                            <th class="text-center">类型</th>
-                                            <th class="t-right">操作</th>
+                                            <th>规格名称</th>
+                                            <th>规格值</th>
+                                            <th>状态</th>
+                                            <th>类型</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                     				</thead>
                     				<tbody>
@@ -53,9 +53,9 @@
 												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                             	<input type="checkbox" class="checks"></div>
 											</td>
-											<td class="text-center">{{item.goods_sku_name}}</td>
-											<td class="text-center">{{item.goods_sku_value}}</td>
-											<td class="text-center">
+											<td>{{item.goods_sku_name}}</td>
+											<td>{{item.goods_sku_value}}</td>
+											<td>
 												<!-- <el-switch
 												  v-model="item.status_goods_sku"
 												  on-text=""
@@ -64,7 +64,7 @@
 												</el-switch> -->
 												{{item.status_goods_sku}}
 											</td>
-											<td class="text-center">{{item.goods_sku_type}}</td>
+											<td>{{item.goods_sku_type}}</td>
 											<td class="opt">
 												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.goods_sku_id,'goods_sku_id')"></span>
                                                 <ul v-show="item.isOptShow">

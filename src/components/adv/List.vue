@@ -21,16 +21,16 @@
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>
                     					<tr>
-                                            <th width="5%">
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>
                                             </th>
-                                            <th class="text-center">广告名称</th>
-                                            <th class="text-center">商家名称</th>
-                                            <th class="text-center">广告位置</th>
-                                            <th class="text-center">广告图片</th>       
-                                            <th class="text-center">创建时间</th>
-                                            <th class="t-right">操作</th>
+                                            <th>广告名称</th>
+                                            <th>商家名称</th>
+                                            <th>广告位置</th>
+                                            <th>广告图片</th>       
+                                            <th>创建时间</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                     				</thead>
                     				<tbody>
@@ -39,16 +39,16 @@
 												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                             	<input type="checkbox" class="checks"></div>
 											</td>
-											<td class="text-center">{{item.advertising_name}}</td>
-											<td class="text-center">{{item.goods_shop_base_name}}</td>
-											<td class="text-center">{{item.advertising_location_name}}</td>
-											<td class="text-center"><img :src="item.advertising_pc_logo" class="listImg"></td>												
-											<td class="text-center">{{item.time_create}}</td>
+											<td>{{item.advertising_name}}</td>
+											<td>{{item.goods_shop_base_name}}</td>
+											<td>{{item.advertising_location_name}}</td>
+											<td><img :src="item.advertising_pc_logo" class="listImg"></td>												
+											<td>{{item.time_create}}</td>
 											<td class="opt">
-												<span class="opt-down" @click.stop="opToggle(clist,item.id,'id')">处理 <i class="fa fa-caret-down"></i></span>
+												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.id,'id')"></span>
                                                 <ul v-show="item.isOptShow">
-                                                	<li><router-link :to="'/adv/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>      	
-                                                    <li><a @click="delOne(item.id)"><i class="icon_l_delete" ></i> 删除</a></li>                                      
+                                                	<li><router-link :to="'/adv/edit/'+item.id">编辑</router-link></li>      	
+                                                    <li><a @click="delOne(item.id)">删除</a></li>                                      
                                                 </ul>
 											</td>
 										</tr>

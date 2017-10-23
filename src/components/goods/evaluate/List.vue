@@ -34,20 +34,20 @@
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>
                     					<tr>
-                                            <th width="5%">
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>
                                             </th>
-                                            <th class="text-center">用户名</th>
-                                            <th class="text-center">评论商品</th>
-                                            <th class="text-center">品牌</th>
-                                            <th class="text-center">商品分类</th>
-                                            <th class="text-center">商家名称</th>
-                                            <th class="text-center">IP地址</th>
-                                            <th class="text-center">是否显示</th>
-                                            <th class="text-center">是否回复</th>
-                                            <th class="text-center">评论时间</th>
-                                            <th class="t-right">操作</th>
+                                            <th>用户名</th>
+                                            <th>评论商品</th>
+                                            <th>品牌</th>
+                                            <th>商品分类</th>
+                                            <th>商家名称</th>
+                                            <th>IP地址</th>
+                                            <th>是否显示</th>
+                                            <th>是否回复</th>
+                                            <th>评论时间</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                     				</thead>
                     				<tbody>
@@ -56,18 +56,18 @@
 												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                             	<input type="checkbox" class="checks"></div>
 											</td>
-											<td class="text-center">{{item.user_name}}</td>
-											<td class="text-center"><span class="listDesc" :title="item.goods_name">{{item.goods_name}}</span></td>
-											<td class="text-center">{{item.brand_ch_name}}</td>
-											<td class="text-center"><span class="listDesc" :title="item.category_name">{{item.category_name}}</span></td>
-											<td class="text-center">{{item.shop_name}}</td>
-											<td class="text-center">{{item.ip}}</td>
-											<td class="text-center">{{item.is_show_name}}</td>
-											<td class="text-center">
+											<td>{{item.user_name}}</td>
+											<td><span class="listDesc" :title="item.goods_name">{{item.goods_name}}</span></td>
+											<td>{{item.brand_ch_name}}</td>
+											<td><span class="listDesc" :title="item.category_name">{{item.category_name}}</span></td>
+											<td>{{item.shop_name}}</td>
+											<td>{{item.ip}}</td>
+											<td>{{item.is_show_name}}</td>
+											<td>
 												<template v-if="item.is_assess==1">已回复</template>
 												<template v-else>未回复</template>
 											</td>
-											<td class="text-center">{{item.time_create}}</td>
+											<td>{{item.time_create}}</td>
 											<td class="opt">
 												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.assessment_id,'assessment_id')"> </span>
                                                 <ul v-show="item.isOptShow">

@@ -21,16 +21,16 @@
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>
                     					<tr>
-                                            <th width="5%">
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>
                                             </th>
-                                            <th class="text-center">咨询商品</th>
-                                            <th class="text-center">商家名称</th>
-                                            <th class="text-center">咨询内容</th>
-                                            <th class="text-center">咨询时间</th>
-                                            <th class="text-center">是否回复</th>      
-                                            <th class="t-right">操作</th>
+                                            <th>咨询商品</th>
+                                            <th>商家名称</th>
+                                            <th>咨询内容</th>
+                                            <th>咨询时间</th>
+                                            <th>是否回复</th>      
+                                            <th class="opt-select">操作</th>
                                         </tr>
                     				</thead>
                     				<tbody>
@@ -39,11 +39,11 @@
 												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                             	<input type="checkbox" class="checks"></div>
 											</td>
-											<td class="text-center"><span class="listDesc" :title="item.goods_name">{{item.goods_name}}</span></td>
-											<td class="text-center">{{item.shop_name}}</td>
-											<td class="text-center"><span class="listDesc" :title="item.consult_assessment">{{item.consult_assessment}}</span></td>
-											<td class="text-center">{{item.time_create}}</td>
-											<td class="text-center">{{item.is_answer_name}}</td>
+											<td><span class="listDesc" :title="item.goods_name">{{item.goods_name}}</span></td>
+											<td>{{item.shop_name}}</td>
+											<td><span class="listDesc" :title="item.consult_assessment">{{item.consult_assessment}}</span></td>
+											<td>{{item.time_create}}</td>
+											<td>{{item.is_answer_name}}</td>
 											<td class="opt">
 												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.consult_id,'consult_id')"></span>
                                                 <ul v-show="item.isOptShow">

@@ -22,15 +22,15 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th width="5%">
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>	
                                             </th>
-                                            <th class="text-center" width="20%">图册名称</th>
-                                            <th class="text-center" width="10%">图片数量</th>
-                                            <th class="text-center" width="20%">相册封面</th>       
-                                            <th class="text-center">描述</th>                                            
-                                            <th class="t-right">操作</th>
+                                            <th width="20%">图册名称</th>
+                                            <th width="10%">图片数量</th>
+                                            <th width="20%">相册封面</th>       
+                                            <th>描述</th>                                            
+                                            <th class="opt-select">操作</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody>                                    	
@@ -39,13 +39,13 @@
                                             	<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                                 <input type="checkbox" class="checks"></div>  
                                             </td>
-                                            <td class="text-center">{{item.gallery_name}}</td>
-                                            <td class="text-center">{{item.img_count}}</td>                              
-                                            <td class="text-center">
+                                            <td>{{item.gallery_name}}</td>
+                                            <td>{{item.img_count}}</td>                              
+                                            <td>
                                             	<img :src="item.cover_img_url" class="listImg">
                                             </td>
-                                            <td class="text-center"><span class="listDesc">{{item.gallery_desc}}</span></td>
-                                            <td class="text-center opt">
+                                            <td><span class="listDesc">{{item.gallery_desc}}</span></td>
+                                            <td class="opt">
                                             	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.gallery_id,'gallery_id')"></span>
                                                 <ul v-show="item.isOptShow">
                                                 	<!-- <li><router-link :to="'/goods/images/details/'+item.gallery_id">查看</router-link></li> -->                 	
