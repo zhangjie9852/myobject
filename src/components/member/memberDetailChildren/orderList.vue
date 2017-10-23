@@ -4,16 +4,6 @@
       <button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>
     </div>
     <form action="#" class="form-inline m-b-sm" role="form">
-      <el-dropdown class="m-r-xs m-b-sm">
-        <el-button type="warning">
-          批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
-        </el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-if="tabIndex==0 || tabIndex==1"><span @click="auditingOrder">审核</span></el-dropdown-item>
-          <el-dropdown-item><span @click="cancelOrder"></span>取消</el-dropdown-item>
-          <el-dropdown-item><span @click="removeOrder">移除</span></el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
       <el-button type="warning" class="m-r-xs m-b-sm">打印订单</el-button>
       <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收货人姓名"></el-input>
       <el-select class="m-r-xs m-b-sm" name="payment_id" v-model="paymentId" v-show="tabIndex!=2">
@@ -62,11 +52,6 @@
       <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr>
-          <th class="table-checkbox">
-            <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll">
-              <input type="checkbox" class="checks">
-            </div>
-          </th>
           <th>订单编号</th>
           <th>商家名称</th>
           <th>收货人</th>
@@ -81,11 +66,6 @@
         </thead>
         <tbody>
         <tr v-for="(item,index) in orderLists">
-          <td>
-            <div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(item)">
-              <input type="checkbox" class="checks">
-            </div>
-          </td>
           <td>{{item.order_no}}</td>
           <td class="text-org">{{item.shop_name}}</td>
           <td>
@@ -109,9 +89,6 @@
             <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(orderLists,'order_id',item.order_id)"></span>
             <ul v-show="item.isOptShow">
               <li><router-link :to="'/order/detail/'+item.order_id+'/'+encodeURIComponent(item.pay_type)">查看</router-link></li>
-              <li v-if="(item.pay_type=='货到付款' && item.status_check=='未审核') || (item.pay_type!='货到付款' && item.status_check=='未审核' && item.status_pay=='已支付')" @click="auditingSingle(item.order_id)"><a href="javascript:;">审核</a></li>
-              <li v-if="item.status_order!='已取消' && item.status_deliver=='未发货'" @click="cancelSingleOrder(item.order_id)"><a href="javascript:;">取消</a></li>
-              <li v-if="item.status_order=='已取消'" @click="removeSingleOrder(item.order_id)"><a href="javascript:;">移除</a></li>
             </ul>
           </td>
         </tr>
