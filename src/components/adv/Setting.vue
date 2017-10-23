@@ -6,7 +6,7 @@
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" role="form">
+              <form action="#" class="form-inline m-b-sm" role="form">
                 <!--<div class="form-group m-r-xs m-t-xs">
                   <input type="text" class="form-control" name="ad_position_name" placeholder="广告位名称" v-model="adPositionName">
                 </div>

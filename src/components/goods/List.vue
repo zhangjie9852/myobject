@@ -42,22 +42,22 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>
+                                            <th class="table-checkbox">
                                             	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
                                                 <input type="checkbox" class="checks"></div>
                                             </th>
-                                            <th class="text-center">商品编号</th>
-                                            <th class="text-center">商品名称</th>
-                                            <th class="text-center">商品图片</th>
-                                            <th class="text-center">商家名称</th>
-                                            <th class="text-center">所属分类</th>
-                                            <th class="text-center">售价</th>
-                                            <th class="text-center">库存</th>                                        
-                                            <th class="text-center" v-if="Lstatus==1">排序</th>
-                                            <th class="text-center">商品状态</th>
-                                            <th class="text-center">审核状态</th>
-                                            <th class="text-center">置顶状态</th>
-                                            <th class="t-right">操作</th>
+                                            <th>商品编号</th>
+                                            <th>商品名称</th>
+                                            <th>商品图片</th>
+                                            <th>商家名称</th>
+                                            <th>所属分类</th>
+                                            <th>售价</th>
+                                            <th>库存</th>                                        
+                                            <th v-if="Lstatus==1">排序</th>
+                                            <th>商品状态</th>
+                                            <th>审核状态</th>
+                                            <th>置顶状态</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody class="goodlist">                                    	
@@ -66,23 +66,23 @@
                                                 <div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
                                                 <input type="checkbox" class="checks"></div>
                                             </td>
-                                            <td class="text-center">{{item.goods_code}}</td>
+                                            <td>{{item.goods_code}}</td>
                                             <td>
                                             	<span class="listDesc" :title="item.goods_name">{{item.goods_name}}</span><br>
                                             	<em class="bg-blue" v-if="item.goods_wholesale==1">支持批发</em>
                                             	<em class="text-org" v-if="item.goods_retail==1">支持零售</em>
                                             </td>
-                                            <td class="text-center"><img :src="item.goods_img_url" class="listImg"></td>
-                                            <td class="text-center">{{item.shop_name}}</td>
-                                            <td class="text-center">{{item.category_name}}</td>
-                                            <td class="text-center">{{item.goods_price}}</td>
-                                            <td class="text-center">{{item.goods_store_nums}}</td>
-                                            <td class="text-center" v-if="Lstatus==1">
+                                            <td><img :src="item.goods_img_url" class="listImg"></td>
+                                            <td>{{item.shop_name}}</td>
+                                            <td>{{item.category_name}}</td>
+                                            <td>{{item.goods_price}}</td>
+                                            <td>{{item.goods_store_nums}}</td>
+                                            <td v-if="Lstatus==1">
 												<input type="text" :value="item.goods_sort" class="w100" @keyup.enter="editSort(item.goods_id,item.goods_sort)" @blur="editSort(item.goods_id,item.goods_sort)" v-model="item.goods_sort" />
                                             </td>
-                                            <td class="text-center">{{item.goods_isonline}}</td>
-                                            <td class="text-center">{{item.goods_examine_name}}</td>
-                                            <td class="text-center">{{item.is_topicStr}}</td>
+                                            <td>{{item.goods_isonline}}</td>
+                                            <td>{{item.goods_examine_name}}</td>
+                                            <td>{{item.is_topicStr}}</td>
                                             <td class="opt">
                                             	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.goods_id,'goods_id')"></span>
                                                 <ul v-if="Lstatus==1" v-show="item.isOptShow"> 	

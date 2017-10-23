@@ -5,33 +5,33 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>运费模板</h5>
-                        </div>
                         <div class="ibox-content">
-                            <div class="form-inline m-b-md clearfix">
-                                <div class="form-group">
+                            <form action="#" class="form-inline m-b-sm" role="form">
+                                <!--<div class="form-group">
                                   <input name="title" v-model="title" type="text" class="form-control m-r-xs" placeholder="模板名称" @keyup.enter="getList(pageData.PageID)">
                                 </div>
                                 <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
-                                <router-link to="/setting/freight/add" class="btn btn-m btn-danger hj_fr">添加模板</router-link>
-                            </div>                                
+                                <router-link to="/setting/freight/add" class="btn btn-m btn-danger hj_fr">添加模板</router-link>-->
+                                <el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="模板名称" @keyup.enter="getList(pageData.PageID)"></el-input>
+                                <el-button class="search-btn" type="primary" icon="search"  @click="getList(pageData.PageID)">筛选</el-button>
+                                <router-link to="/setting/freight/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加模板</router-link>
+                            </form>                                
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">模板名称</th>
-                                            <th class="text-center">保价费用</th>
-                                            <th class="text-center">费用计算方式</th>    
-                                            <th class="text-center">货到付款</th>
-                                            <th class="t-right">操作</th>
+                                            <th>模板名称</th>
+                                            <th>保价费用</th>
+                                            <th>费用计算方式</th>    
+                                            <th>货到付款</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody>                                     
                                         <tr v-for="(item,index) in clist">         
-                                            <td class="text-center">{{item.templet_name}}</td>
-                                            <td class="text-center">{{item.insured_cost}}元</td>
-                                            <td class="text-center">
+                                            <td>{{item.templet_name}}</td>
+                                            <td>{{item.insured_cost}}元</td>
+                                            <td>
                                               <template v-if="item.calculation==1">按件数计算({{item.unit_freight}}元/件)</template>
                                               <template v-else>按重量计算({{item.default_freight}}元/{{item.default_weight}}kg)</template>
                                             </td>
@@ -40,10 +40,10 @@
                                               <template v-else>否</template>
                                             </td>
                                             <td class="opt">
-                                              <span class="opt-down" @click.stop="viewOpt(clist,'id',item.id)">处理 <i class="fa fa-caret-down"></i></span>
+                                              <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(clist,'id',item.id)"></span>
                                                 <ul v-show="item.isOptShow">
-                                                    <li><router-link :to="'/setting/freight/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>
-                                                    <li><a @click="delOne(item.id)"><i class="icon_l_delete"></i> 删除</a></li>
+                                                    <li><router-link :to="'/setting/freight/edit/'+item.id"> 编辑</router-link></li>
+                                                    <li><a @click="delOne(item.id)"> 删除</a></li>
                                                 </ul>                                             
                                            </td>
                                         </tr>

@@ -5,90 +5,104 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-                            <h5>商家列表</h5>
-                        </div>
-                        <div>
-                        	<div class="ibox-content">
-                        		<div class="form-inline m-b-sm clearfix">
-                        			<div class="form-group">
-	                                  <input name="title" type="text" class="form-control m-r-xs" placeholder="商家名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
-	                                </div>
-				                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
-				                    <button type="button" class="btn btn-m btn-danger m-l-xs" @click="batchOpt('del','删除')">批量删除</button>
-				                   <button type="button" class="btn btn-m btn-warning m-l-xs" @click="batchOpt('state','禁止登录',-1)">禁止登录</button>
-				                    <button type="button" class="btn btn-m btn-primary m-l-xs" @click="batchOpt('state','恢复登录',1)">恢复登录</button>
-				                    <router-link to="/shop/add" class="btn btn-m btn-danger hj_fr">添加商家</router-link>
-                        		</div>
-                        		<div class="table-responsive clearfix">
-                        			<table class="table table-striped table-bordered table-hover">
-                        				<thead>
-                        					<tr>
-	                                            <th width="5%">
-	                                            	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
-	                                                <input type="checkbox" class="checks"></div>
-	                                            </th>
-	                                            <th class="text-center">商家名称</th>
-	                                            <th class="text-center">经营类型</th>
-	                                            <th class="text-center">联系方式</th>
-	                                            <th class="text-center">所属区域</th>
-	                                            <th class="text-center">商家开关</th>
-	                                            <th class="text-center">创建时间</th>
-	                                            <th class="t-right">操作</th>
-	                                        </tr>
-                        				</thead>
-                        				<tbody>
-											<tr v-for="(item,index) in clist">
-												<td>
-													<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
-                                                	<input type="checkbox" class="checks"></div>
-												</td>
-												<td class="text-center">{{item.shop_name}}</td>
-												<td class="text-center">
-													<template v-if="item.shop_modes==0">平台分店</template>
-													<template v-if="item.shop_modes==1">自营</template>
-													<template v-if="item.shop_modes==2">分销-集中供货</template>
-												</td>
-												<td class="text-center">{{item.shop_linkman}}({{item.shop_linkman_mobile}})</td>
-												<td class="text-center">{{item.shop_address}}</td>
-												<td class="text-center">
-													<el-switch
-											          v-model="item.shop_state"
-											          on-text=""
-											          off-text=""
-											          :on-value="1" :off-value="-1"
-											          @change="changeSellerStatus(item)">
-											        </el-switch>
-												</td>
-												<td class="text-center">{{item.time_create}}</td>
-												<td class="opt">
-													<span class="opt-down" @click.stop="opToggle(clist,item.shop_id,'shop_id')">处理 <i class="fa fa-caret-down"></i></span>
-	                                                <ul v-show="item.isOptShow">
-	                                                	<li><router-link :to="'/shop/edit/'+item.shop_id"><i class="icon_l_edit"></i> 编辑</router-link></li>      	
-	                                                    <li><a @click="delOne(item.shop_id)"><i class="icon_l_delete" ></i> 删除</a></li>
-	                                                    <li v-if="item.user_id==''||item.user_id==null"><a @click="openDialog(item.shop_name,item.shop_id,item.user_id,item.user_login,item.user_pass)"><i class="icon_l_jurisdiction" ></i> 分配账户</a></li>
-	                                                    <li v-else><a @click="openDialog(item.shop_name,item.shop_id,item.user_id,item.user_login,item.user_pass)"><i class="icon_l_jurisdiction" ></i> 修改账户</a></li>
-	                                                </ul>
-												</td>
-											</tr>
-                        				</tbody>
-                        			</table>
-                        			<div v-show="clist.length==0" class="text-center">暂无信息</div>
-                        			<div class="hj_fr">
-	                                	<el-pagination
-									      @size-change="handleSizeChange"
-									      @current-change="handleCurrentChange"
-									      :current-page="pageData.PageID"
-									      :page-sizes="PSLists"
-									      :page-size="pageData.Perpage"
-									      v-show="pageData.Results>1"
-									      layout="total, sizes, prev, pager, next, jumper"
-									      :total="pageData.Results">
-									    </el-pagination>
-	                                </div>
-                        		</div>
-                        	</div>
-                        </div>
+                    	<div class="ibox-content">
+                    		<div class="form-inline m-b-sm clearfix">
+                    			<!--<div class="form-group">
+                                  <input name="title" type="text" class="form-control m-r-xs" placeholder="商家名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
+                                </div>
+			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
+			                    <button type="button" class="btn btn-m btn-danger m-l-xs" @click="batchOpt('del','删除')">批量删除</button>
+			                   <button type="button" class="btn btn-m btn-warning m-l-xs" @click="batchOpt('state','禁止登录',-1)">禁止登录</button>
+			                    <button type="button" class="btn btn-m btn-primary m-l-xs" @click="batchOpt('state','恢复登录',1)">恢复登录</button>
+			                    <router-link to="/shop/add" class="btn btn-m btn-danger hj_fr">添加商家</router-link>-->
+			                    <el-dropdown class="m-r-sm">
+				                    <el-button type="warning">
+				                      批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
+				                    </el-button>
+				                    <el-dropdown-menu slot="dropdown">
+				                      <el-dropdown-item>
+				                        <span @click="batchOpt('del','删除')">批量删除</span>
+				                      </el-dropdown-item>
+				                      <el-dropdown-item>
+				                           <span @click="batchOpt('state','禁止登录',-1)">禁止登陆</span>
+				                      </el-dropdown-item>
+				                      <el-dropdown-item>
+				                          <span @click="batchOpt('state','恢复登录',1)">恢复登陆</span>
+				                      </el-dropdown-item>
+				                    </el-dropdown-menu>
+				                </el-dropdown>
+				                <el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="商家名称" @keyup.enter="getList(pageData.PageID)"></el-input>
+				                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
+				                <router-link to="/shop/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加商家</router-link>
+                    		</div>
+                    		<div class="table-responsive clearfix">
+                    			<table class="table table-striped table-bordered table-hover">
+                    				<thead>
+                    					<tr>
+                                            <th class="table-checkbox">
+                                            	<div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(clist)">
+                                                <input type="checkbox" class="checks"></div>
+                                            </th>
+                                            <th>商家名称</th>
+                                            <th>经营类型</th>
+                                            <th>联系方式</th>
+                                            <th>所属区域</th>
+                                            <th>商家开关</th>
+                                            <th>创建时间</th>
+                                            <th class="opt-select">操作</th>
+                                        </tr>
+                    				</thead>
+                    				<tbody>
+										<tr v-for="(item,index) in clist">
+											<td>
+												<div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
+                                            	<input type="checkbox" class="checks"></div>
+											</td>
+											<td>{{item.shop_name}}</td>
+											<td>
+												<template v-if="item.shop_modes==0">平台分店</template>
+												<template v-if="item.shop_modes==1">自营</template>
+												<template v-if="item.shop_modes==2">分销-集中供货</template>
+											</td>
+											<td>{{item.shop_linkman}}({{item.shop_linkman_mobile}})</td>
+											<td>{{item.shop_address}}</td>
+											<td>
+												<el-switch
+										          v-model="item.shop_state"
+										          on-text=""
+										          off-text=""
+										          :on-value="1" :off-value="-1"
+										          @change="changeSellerStatus(item)">
+										        </el-switch>
+											</td>
+											<td>{{item.time_create}}</td>
+											<td class="opt">
+												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.shop_id,'shop_id')"></span>
+                                                <ul v-show="item.isOptShow">
+                                                	<li><router-link :to="'/shop/edit/'+item.shop_id"> 编辑</router-link></li>      	
+                                                    <li><a @click="delOne(item.shop_id)">删除</a></li>
+                                                    <li v-if="item.user_id==''||item.user_id==null"><a @click="openDialog(item.shop_name,item.shop_id,item.user_id,item.user_login,item.user_pass)">分配账户</a></li>
+                                                    <li v-else><a @click="openDialog(item.shop_name,item.shop_id,item.user_id,item.user_login,item.user_pass)"> 修改账户</a></li>
+                                                </ul>
+											</td>
+										</tr>
+                    				</tbody>
+                    			</table>
+                    			<div v-show="clist.length==0" class="text-center">暂无信息</div>
+                    			<div class="hj_fr">
+                                	<el-pagination
+								      @size-change="handleSizeChange"
+								      @current-change="handleCurrentChange"
+								      :current-page="pageData.PageID"
+								      :page-sizes="PSLists"
+								      :page-size="pageData.Perpage"
+								      v-show="pageData.Results>1"
+								      layout="total, sizes, prev, pager, next, jumper"
+								      :total="pageData.Results">
+								    </el-pagination>
+                                </div>
+                    		</div>
+                    	</div>
 					</div>
 				</div>
 			</div>

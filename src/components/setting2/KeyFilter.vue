@@ -5,12 +5,9 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>敏感词列表</h5>
-            </div>
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" role="form">
-                <div class="form-group m-r-xs m-t-xs">
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <!--<div class="form-group m-r-xs m-t-xs">
                   <input type="text" class="form-control" name="keyword" placeholder="敏感关键词" v-model="keyword">
                 </div>
                 <div class="form-group m-r-xs m-t-xs">
@@ -21,13 +18,17 @@
                 </div>
                 <div class="form-group m-r-xs m-t-xs">
                   <router-link to="/setting2/keyfilter/add" class="btn btn-warning">添加敏感词</router-link>
-                </div>
+                </div>-->
+                <el-button  type="warning" class="m-r-sm" @click="remove">批量删除</el-button>
+                <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="敏感关键词"></el-input>
+                <el-button class="search-btn" type="primary" icon="search" @click="getSensitiveList(1,pageData.Perpage,true)">筛选</el-button>
+                <router-link to="/setting2/keyfilter/add" class="add-btn"><i class="shop icon-xinzeng"></i>添加敏感词</router-link>
               </form>
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>
+                    <th class="table-checkbox">
                       <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(sensitiveList)">
                         <input type="checkbox" class="checks">
                       </div>
@@ -46,11 +47,12 @@
                     </td>
                     <td>{{item.sen_content}}</td>
                     <td>{{item.time_create}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(sensitiveList,'id',item.id)">处理<i class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <!--<div class="opt" @click.stop="viewOpt(sensitiveList,'id',item.id)">处理<i class="fa fa-caret-down"></i></div>-->
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(sensitiveList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li @click="removeSingle(item.id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a></li>
-                        <li><router-link :to="'/setting2/keyfilter/edit/'+item.id"><i class="icon_l_edit"></i> 编辑</router-link></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;"> 删除</a></li>
+                        <li><router-link :to="'/setting2/keyfilter/edit/'+item.id">编辑</router-link></li>
                       </ul>
                     </td>
                   </tr>
@@ -281,7 +283,7 @@
   }
 </script>
 
-<style scoped>
+<!--<style scoped>
   .table thead tr th,.table tbody tr td{
     text-align: center;
     vertical-align: middle;
@@ -325,4 +327,4 @@
   .opt-select ul li:hover a{
     color:#3EA0C4;
   }
-</style>
+</style>-->
