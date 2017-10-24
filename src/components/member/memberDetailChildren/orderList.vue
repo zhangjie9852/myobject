@@ -85,10 +85,7 @@
           </td>
           <td>{{item.time_create}}</td>
           <td class="opt">
-            <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(orderLists,'order_id',item.order_id)"></span>
-            <ul v-show="item.isOptShow">
-              <li><router-link :to="'/order/detail/'+item.order_id+'/'+encodeURIComponent(item.pay_type)">查看</router-link></li>
-            </ul>
+            <router-link class="single-opt" :to="'/order/detail/'+item.order_id+'/'+encodeURIComponent(item.pay_type)">查看</router-link>
           </td>
         </tr>
         </tbody>

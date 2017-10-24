@@ -374,3 +374,45 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
 .ibox-content .form-inline .el-button+.el-button{
   margin-left: 0;
 }
+.single-opt{
+  display:inline-block;
+  color:#20a0ff;
+}
+.ibox-content .hd-title{
+  padding:8px 18px;
+  position: relative;
+  line-height: 20px;
+  border-bottom: 1px solid #eaeefb;
+  margin-bottom: 40px;
+  margin-top:-8px;
+}
+.ibox-content .hd-title:before{
+  width:4px;
+  height: 18px;
+  content: "";
+  background-color: #20a0ff;
+  border-radius: 2px;
+  position: absolute;
+  left:4px;
+  top:50%;
+  margin-top: -9px;
+}
+.form-group{
+  margin-bottom: 20px;
+}
+.form-group .control-label{
+  font-weight: normal;
+  margin-right: -15px;
+  padding-top:8px;
+}
+.form-group .form-control{
+  height: 36px;
+}
+.form-control.error + .form-control-callback{
+  margin-top:5px;
+  margin-bottom: -10px;
+}
+.hr-line-dashed{
+  border-color: #eaeefb;
+  margin-top:40px;
+}

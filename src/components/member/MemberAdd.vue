@@ -5,13 +5,11 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>添加会员</h5>
-            </div>
-            <div class="ibox-content">
-              <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">
+            <div class="ibox-content p-m">
+              <div class="hd-title">添加会员</div>
+              <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>用户名：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 用户名：</label>
                   <div class="col-sm-4">
                     <input type="text" name="userName" class="form-control" v-model="memberInfo.userName" required
                            :class="fieldClassName(formstate.userName)">
@@ -21,7 +19,7 @@
                   </div>
                 </validate>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>用户昵称：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 用户昵称：</label>
                   <div class="col-sm-4">
                     <input type="text" name="userNickname" class="form-control" v-model="memberInfo.userNickname"
                            required
@@ -32,7 +30,7 @@
                   </div>
                 </validate>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>邮箱地址：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 邮箱地址：</label>
                   <div class="col-sm-4">
                     <input type="text" name="userEmail" class="form-control" v-model="memberInfo.userEmail" required
                            pattern="^[A-Za-z0-9]+([-_.][A-Za-z0-9]+)*@([A-Za-z0-9]+[-.])+[A-Za-z0-9]{2,5}$"
@@ -44,7 +42,7 @@
                   </div>
                 </validate>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>登录密码：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 登录密码：</label>
                   <div class="col-sm-4">
                     <input type="password" name="userPassword" class="form-control" v-model="memberInfo.userPassword"
                            required
@@ -58,7 +56,7 @@
                   </div>
                 </validate>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>确认密码：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 确认密码：</label>
                   <div class="col-sm-4">
                     <input type="password" name="userPassword2" class="form-control" v-model="memberInfo.userPassword2"
                            required
@@ -85,7 +83,7 @@
                   </div>
                 </field>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>手机号码：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 手机号码：</label>
                   <div class="col-sm-4">
                     <input type="text" name="user_mobile" class="form-control" v-model="memberInfo.userMobile"
                            :class="fieldClassName(formstate.user_mobile)" pattern="^1[34578]\d{9}$" required>
@@ -123,12 +121,13 @@
                     <el-radio class="radio" name="user_status_point" v-model="memberInfo.userStatusPoint" :label="-1">禁止获得</el-radio>
                   </div>
                 </field>
-
                 <div class="hr-line-dashed"></div>
                 <div class="form-group draggable ui-draggable">
                   <div class="col-sm-12 col-sm-offset-3">
-                    <button class="btn btn-primary" type="submit">确定</button>
-                    <button class="btn btn-white m-l-sm" type="reset" @click="onReset">重置</button>
+                    <!--<button class="btn btn-primary" type="submit">确定</button>-->
+                    <!--<button class="btn btn-white m-l-sm" type="reset" @click="onReset">重置</button>-->
+                    <el-button type="primary" native-type="submit">确定</el-button>
+                    <el-button native-type="reset" @click="onReset">重置</el-button>
                   </div>
                 </div>
               </vue-form>
