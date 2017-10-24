@@ -1,8 +1,7 @@
-.icon-color{ color: #20a0ff;}
-.bg-color{ background-color: #20a0ff; color: #FFF;}
+/*左侧导航*/
 .nav > li.nav-current,.nav > li.nav-current a{color: #FFF; background-color: #20a0ff;}
 .nav > li.nav-current a:hover,.nav > li.nav-current a:focus{background-color: #20a0ff;}
-.nav-icon-color{ color: #20a0ff;}
+
 
 /*input textarea输入框*/
 .form-control:focus,
