@@ -87,7 +87,7 @@
                                             	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.goods_id,'goods_id')"></span>
                                                 <ul v-if="Lstatus==1" v-show="item.isOptShow"> 	
                                                     <li><router-link :to="'/goods/list/edit/'+item.goods_id">编辑</router-link></li>
-                                                    <li v-if="item.goods_examine == -1 || item.goods_examine == 3"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)"><i class="icon_s_password"></i> 审核</a></li>
+                                                    <li v-if="item.goods_examine == -1 || item.goods_examine == 3 || item.goods_examine == null"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)"><i class="icon_s_password"></i> 审核</a></li>
                                                     <li><a @click="delOne(item.goods_id,'del')">删除</a></li>
                                                 </ul>
                                                 <ul v-else v-show="item.isOptShow">

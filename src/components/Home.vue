@@ -48,7 +48,42 @@
           <router-view></router-view>
           <!--</keep-alive>-->
           <FooterView></FooterView>
-      </div>           
+      </div>
+      <el-dialog title="密码修改" :visible.sync="dialogVisible" size="tiny">        
+        <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal">
+            <div class="p-lr-m"><!-- 修改权限 -->
+              <validate class="form-group"> 
+                  <input type="text" name="pass1" v-model="pass1" class="form-control" placeholder="请输入原始密码" required :class="fieldClassName(formstate.pass1)"> 
+                  <field-messages name="pass1" show="$touched || $submitted" class="form-control-callback">
+                      <div slot="required" class="error">请输入原始密码</div>
+                  </field-messages> 
+              </validate>
+              <validate class="form-group"> 
+                  <input type="password" name="pass2" v-model="pass2" class="form-control" minlength="6" maxlength="20" placeholder="请输入新密码" required :class="fieldClassName(formstate.pass2)">
+                  <field-messages name="pass2" show="$touched || $submitted" class="form-control-callback">    <div slot="required" class="error">请输入新密码</div>            
+                      <div slot="minlength" class="error">登录密码不能少于6位</div>
+                      <div slot="maxlength" class="error">登录密码不能多于20位</div>                   
+                  </field-messages>
+              </validate>
+              <validate class="form-group">
+                  <input type="password" name="pass3" v-model="pass3" class="form-control" placeholder="请再输入一次新密码" required :match="pass3==pass2" :class="fieldClassName(formstate.pass3)">
+                  <field-messages name="pass3" show="$touched || $submitted" class="form-control-callback">    <div slot="required" class="error">请再输入一次新密码</div>               
+                      <div slot="match" class="error">两次密码不一致</div>                   
+                  </field-messages>
+              </validate>
+            </div>
+            <div class="draggable ui-draggable">
+              <div class="col-sm-offset-4">
+                <button class="btn btn-primary" type="submit">确定</button>
+                <button class="btn btn-white m-l-sm" type="button" @click="dialogVisible=false">取消</button>                  
+              </div>
+            </div>
+        </vue-form>       
+        <!-- <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible=false">取消</el-button>
+          <el-button type="primary" @click="confirmAllot">确定</el-button>
+        </div> -->
+      </el-dialog>          
     </div>
 </template>
 <script>
@@ -56,14 +91,30 @@
   import FooterView from './Footer.vue'
   import { mapGetters } from 'vuex'
   import {CustomFun} from './comms/main.js'
+  import Vue from 'vue'
+  import vueForm from 'vue-form'
+  //  自定义验证器
+  var vueFormOptions = {
+    validators: {
+      'match': function (value, attrValue) {
+        return attrValue;
+      }
+    }
+  };
+  Vue.use(vueForm, vueFormOptions);
   export default {
     data(){
       return {
         realname:'',
         token:'',
         showSearch:false,
+        dialogVisible:false,
         searchObj:[],
-        searchVal:''          
+        searchVal:'',
+        pass1:'',
+        pass2:'',
+        pass3:'',
+        formstate: {},      
       }
     },    
     computed: {     
@@ -97,6 +148,13 @@
       FooterView
     },
     methods:{
+        fieldClassName: function (field) {
+            if (!field) {
+              return '';
+            } else if ((field.$touched || field.$submitted) && field.$invalid) {
+              return 'error';
+            }
+        },
         searchFun(){
           if(this.searchVal!=''){
             this.showSearch=true;
@@ -114,6 +172,37 @@
         clearTit(){
           this.searchVal = '';
           this.showSearch=false;
+        },
+        onSubmit: function () {
+          var that = this;                
+          if (this.formstate.$valid) {            
+            that.$http({
+              method: 'post',
+              url: '/user/addUser',
+              params: {                
+                user_pass:that.pass2,                
+                id:id               
+              }
+            }).then(function (res) {                
+              if(res.data.error=='0'){
+                that.$message({
+                  type: 'success',
+                  message: '成功!'
+                });
+                that.dialogVisible = false;                
+              }else{
+                that.$message({
+                  type: 'error',
+                  message: res.data.desc
+                });
+              }
+            }).catch(function (error) {
+              that.$message({
+                type: 'error',
+                message: '失败，请重新提交!'
+              });
+            });
+          }
         },
         allMenu(){
           var that = this;                    
@@ -227,12 +316,13 @@
               });
           }
           if(command=='password'){
-            that.$router.push('/setting/freight/list/');
+            that.dialogVisible = true;
+            //that.$router.push('/setting/freight/list/');
           } 
         }        
     }
   }
 </script>
 <style scoped>
-  
+ .p-lr-m{padding: 0 15px} 
 </style>
