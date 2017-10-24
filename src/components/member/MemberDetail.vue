@@ -5,10 +5,8 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>会员详情</h5>
-            </div>
-            <div class="ibox-content">
+            <div class="ibox-content p-m">
+              <div class="hd-title">会员详情</div>
               <el-tabs v-model="activeName" type="card">
                 <el-tab-pane label="基本信息" name="first">
                   <basic-info :user-id="userId"></basic-info>

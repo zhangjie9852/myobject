@@ -383,7 +383,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
   position: relative;
   line-height: 20px;
   border-bottom: 1px solid #eaeefb;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   margin-top:-8px;
 }
 .ibox-content .hd-title:before{
@@ -405,16 +405,21 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
   margin-right: -15px;
   padding-top:8px;
 }
-.form-group .form-control{
+.form-group input.form-control{
   height: 36px;
 }
-.form-control.error + .form-control-callback{
+.form-control.error + .form-control-callback,
+.el-select.error + .form-control-callback,
+.el-cascader.error + .form-control-callback{
   margin-top:5px;
   margin-bottom: -10px;
 }
+.form-group .el-select{
+  width:100%;
+}
 .hr-line-dashed{
   border-color: #eaeefb;
-  margin-top:40px;
+  margin-top:30px;
 }
 .white-btn{
   display: inline-block;
@@ -432,4 +437,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
 .white-btn:hover{
   border-color: #20a0ff;
   color: #20a0ff;
+}
+.el-tabs .el-tabs__header{
+  margin-bottom: 30px;
 }

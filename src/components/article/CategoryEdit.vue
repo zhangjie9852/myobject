@@ -5,10 +5,8 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>编辑文章分类</h5>
-            </div>
-            <div class="ibox-content">
+            <div class="ibox-content p-m">
+              <div class="hd-title">编辑文章分类</div>
               <el-tabs v-model="activeName" type="card" @tab-click="changeTab">
                 <el-tab-pane label="基本信息" name="first">
                   <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">
@@ -45,8 +43,10 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group draggable ui-draggable">
                       <div class="col-sm-12 col-sm-offset-3">
-                        <button class="btn btn-primary" type="submit">确定</button>
-                        <router-link to="/article/category" class="btn btn-white m-l-sm">返回列表</router-link>
+                        <!--<button class="btn btn-primary" type="submit">确定</button>-->
+                        <!--<router-link to="/article/category" class="btn btn-white m-l-sm">返回列表</router-link>-->
+                        <el-button type="primary" native-type="submit">确定</el-button>
+                        <router-link to="/article/category" class="white-btn m-l-sm">返回列表</router-link>
                       </div>
                     </div>
                   </vue-form>
@@ -77,8 +77,10 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group draggable ui-draggable">
                       <div class="col-sm-12 col-sm-offset-3">
-                        <button class="btn btn-primary" @click="seoConfirm">确定</button>
-                        <router-link to="/article/category" class="btn btn-white m-l-sm">返回列表</router-link>
+                        <!--<button class="btn btn-primary" @click="seoConfirm">确定</button>-->
+                        <!--<router-link to="/article/category" class="btn btn-white m-l-sm">返回列表</router-link>-->
+                        <el-button type="primary" @click="seoConfirm">确定</el-button>
+                        <router-link to="/article/category" class="white-btn m-l-sm">返回列表</router-link>
                       </div>
                     </div>
                   </div>

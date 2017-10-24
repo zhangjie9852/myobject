@@ -42,7 +42,8 @@
     <div class="hr-line-dashed"></div>
     <div class="form-group draggable ui-draggable">
       <div class="col-sm-12 col-sm-offset-3">
-        <router-link to="/member/list" class="btn btn-primary">返回列表</router-link>
+        <!--<router-link to="/member/list" class="btn btn-primary">返回列表</router-link>-->
+        <router-link to="/member/list" class="white-btn">返回列表</router-link>
       </div>
     </div>
   </div>
