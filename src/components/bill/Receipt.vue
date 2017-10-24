@@ -5,46 +5,67 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>收款单</h5>
-            </div>
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" role="form">
-                <div class="form-group m-r-xs m-t-xs">
-                  <input type="text" class="form-control" name="keyword" placeholder="订单编号/收款编号" v-model="keyword">
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="payment_id" v-model="paymentId">
-                    <option :value="null">支付类型</option>
-                    <option value="3">余额支付</option>
-                    <option value="2">微信支付</option>
-                    <option value="1">支付宝支付</option>
-                    <option value="4">银联支付</option>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="pay_type" v-model="payType">
-                    <option :value="null">支付方式</option>
-                    <option value="1">线上付款</option>
-                    <option value="2">货到付款</option>
-                    <option value="3">预付款</option>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <a href="javascript:;" class="btn" :class="[amountRange?' btn-white':' btn-primary']" @click="dialogAmountVisible=true">
-                    {{amountRange?'金额：￥'+amountRange.replace(',','-'):'付款金额范围'}}
-                    <em @click.stop="closedAmount">&times;</em>
-                  </a>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <a href="javascript:;" class="btn" :class="[dateRange?' btn-white':' btn-primary']" @click="dialogDateVisible=true">
-                    {{dateRange?'日期：'+dateRange.replace(',','-'):'付款时间范围'}}
-                    <em @click.stop="closedDate">&times;</em>
-                  </a>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <button type="button" class="btn btn-primary" @click="getBillReceiptList(1,pageData.Perpage,true)">查询</button>
-                </div>
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收款编号"></el-input>
+                <el-select class="m-r-xs m-b-sm" name="payment_id" v-model="paymentId">
+                  <el-option :key="null" label="支付类型" :value="null"></el-option>
+                  <el-option :key="3" label="余额支付" value="3"></el-option>
+                  <el-option :key="2" label="微信支付" value="2"></el-option>
+                  <el-option :key="1" label="支付宝支付" value="1"></el-option>
+                  <el-option :key="4" label="银联支付" value="4"></el-option>
+                </el-select>
+                <el-select class="m-r-xs m-b-sm" name="pay_type" v-model="payType">
+                  <el-option :key="null" label="支付方式" :value="null"></el-option>
+                  <el-option :key="1" label="线上付款" value="1"></el-option>
+                  <el-option :key="2" label="货到付款" value="2"></el-option>
+                  <el-option :key="3" label="预付款" value="3"></el-option>
+                </el-select>
+                <el-button :type="amountRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogAmountVisible=true">
+                  {{amountRange?'金额：￥'+amountRange.replace(',','-'):'付款金额范围'}}
+                  <em class="shop icon-cha" @click.stop="closedAmount"></em>
+                </el-button>
+                <el-button :type="dateRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogDateVisible=true">
+                  {{dateRange?'日期：'+dateRange.replace(',','-'):'付款时间范围'}}
+                  <em class="shop icon-cha" @click.stop="closedDate"></em>
+                </el-button>
+                <el-button class="search-btn" type="primary" icon="search" @click="getBillReceiptList(1,pageData.Perpage,true)">筛选</el-button>
+
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<input type="text" class="form-control" name="keyword" placeholder="订单编号/收款编号" v-model="keyword">-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="payment_id" v-model="paymentId">-->
+                    <!--<option :value="null">支付类型</option>-->
+                    <!--<option value="3">余额支付</option>-->
+                    <!--<option value="2">微信支付</option>-->
+                    <!--<option value="1">支付宝支付</option>-->
+                    <!--<option value="4">银联支付</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="pay_type" v-model="payType">-->
+                    <!--<option :value="null">支付方式</option>-->
+                    <!--<option value="1">线上付款</option>-->
+                    <!--<option value="2">货到付款</option>-->
+                    <!--<option value="3">预付款</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<a href="javascript:;" class="btn" :class="[amountRange?' btn-white':' btn-primary']" @click="dialogAmountVisible=true">-->
+                    <!--{{amountRange?'金额：￥'+amountRange.replace(',','-'):'付款金额范围'}}-->
+                    <!--<em @click.stop="closedAmount">&times;</em>-->
+                  <!--</a>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<a href="javascript:;" class="btn" :class="[dateRange?' btn-white':' btn-primary']" @click="dialogDateVisible=true">-->
+                    <!--{{dateRange?'日期：'+dateRange.replace(',','-'):'付款时间范围'}}-->
+                    <!--<em @click.stop="closedDate">&times;</em>-->
+                  <!--</a>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<button type="button" class="btn btn-primary" @click="getBillReceiptList(1,pageData.Perpage,true)">查询</button>-->
+                <!--</div>-->
               </form>
               <div class="table-responsive clearfix">
                 <table class="table table-striped table-bordered table-hover">
@@ -69,11 +90,11 @@
                     <td>￥ {{item.amount_payee.toFixed(2)}}</td>
                     <td>{{item.time_create}}</td>
                     <td>{{item.user_name}}</td>
-                    <td class="opt-select">
-                      <div class="opt" @click.stop="viewOpt(billReceiptList,'payee_id',item.payee_id)">处理<i class="fa fa-caret-down"></i></div>
+                    <td class="opt">
+                      <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(billReceiptList,'payee_id',item.payee_id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li><a href="javascript:;" @click="viewDetail(item.payee_id)"><i class="icon_l_see"></i> 查看</a></li>
-                        <li><a href="javascript:;" @click="auditingSingle(item.payee_id)"><i class="fa fa-check-square-o"></i> 审核</a></li>
+                        <li><a href="javascript:;" @click="viewDetail(item.payee_id)">查看</a></li>
+                        <li><a href="javascript:;" @click="auditingSingle(item.payee_id)">审核</a></li>
                       </ul>
                     </td>
                   </tr>
@@ -448,63 +469,16 @@
 </script>
 
 <style scoped>
-  .table thead tr th,.table tbody tr td{
-    text-align: center;
-    vertical-align: middle;
+  .table-responsive{
+    padding-bottom: 35px;
+    overflow:auto;
   }
-  .table thead tr .opt-select{
-    min-width: 72px;
-    text-align: right;
-    padding-right: 20px;
-  }
-  .table tbody tr .opt-select{
-    min-width: 72px;
-    position: relative;
-    text-align: right;
-  }
-  .opt-select .opt{
-    display: inline-block;
-    cursor: pointer;
-  }
-  .opt-select .opt i{
-    margin-left:5px;
-  }
-  .opt-select ul{
-    margin-top: 12px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    padding: 0 8px;
-    text-align: left;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 1000;
-  }
-  .opt-select ul li{
-    line-height:32px;
-    border-top:1px dashed #d2d2d2;
-  }
-  .opt-select ul li:first-child{
-    border-top:0;
-  }
-  .opt-select ul li a{
-    color: #676a6c;
-  }
-  .opt-select ul li:hover a{
-    color:#3EA0C4;
-  }
-  .btn-primary em{
+  .el-button--primary em{
     display: none;
   }
-  .btn-white em{
-    font-size: 16px;
-    line-height:20px;
-    color: #999;
+  .el-button--default em{
+    font-size: 12px;
     margin-left:6px;
-    vertical-align: top;
-  }
-  .btn-white:hover em{
-    color: #333;
   }
   .el-input{
     width:200px;
@@ -513,7 +487,6 @@
     color: red;
     margin-top: 8px;
   }
-
   .detail-title{
     height:34px;
     line-height:34px;
