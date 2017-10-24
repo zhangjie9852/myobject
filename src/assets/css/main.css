@@ -194,6 +194,9 @@ body.mini-navbar .nav-second-level li:last-child{margin-bottom: 0}
 body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left: 27px; }
 body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ border-top: none; }
 
+.navbar-fixed-top, .navbar-static-top {
+    background: #EBEEF5;
+}
 .side-menu > li > a {
   font-size: 14px;
   padding:0 20px 0 25px;
