@@ -1,5 +1,94 @@
-.icon-color{ color: #2FB2E6;}
-.bg-color{ background-color: #2FB2E6; color: #FFF;}
+.icon-color{ color: #20a0ff;}
+.bg-color{ background-color: #20a0ff; color: #FFF;}
 .nav > li.nav-current,.nav > li.nav-current a{color: #FFF; background-color: #20a0ff;}
 .nav > li.nav-current a:hover,.nav > li.nav-current a:focus{background-color: #20a0ff;}
-.nav-icon-color{ color: #2FB2E6;}
+.nav-icon-color{ color: #20a0ff;}
+
+/*el-button*/
+.el-button:focus, .el-button:hover{
+  color: #20a0ff;
+  border-color: #20a0ff;
+}
+/*el-button type="warning"*/
+.el-button--warning{
+  color:#fff;
+  background-color: #f7ba2a;
+  border-color: #f7ba2a;
+}
+.el-button--warning:focus,
+.el-button--warning:hover{
+  color: #fff;
+  background-color: #f9c855;
+  border-color: #f9c855;
+}
+/*el-button type="primary"*/
+.el-button--primary{
+  color:#fff;
+  background-color: #20a0ff;
+  border-color: #20a0ff;
+}
+.el-button--primary:focus,
+.el-button--primary:hover{
+  color: #fff;
+  background-color: #4db3ff;
+  border-color: #4db3ff;
+}
+/*el-select*/
+.el-select-dropdown__item.selected{
+  color: #fff;
+  background-color: #20a0ff;
+}
+.el-select-dropdown__item.selected.hover{
+  background-color: #1c8de0;
+}
+/*el-pagination 分页器*/
+.el-pagination__sizes .el-input .el-input__inner:hover{
+  border-color: #20a0ff;
+}
+.el-pager li.active{
+  border-color: #20a0ff;
+  background-color: #20a0ff;
+  color: #fff;
+}
+.el-pager li:hover,
+.el-pagination button:not('.disabled'):hover{
+  color: #20a0ff;
+}
+.el-pager li.active:hover{
+  color: #fff;
+}
+.el-pagination__editor:focus{
+  border-color: #20a0ff;
+}
+/*列表中的添加按钮*/
+.ibox-content .add-btn{
+  background-color: #20a0ff;
+  color: #fff;
+}
+/*内页头部*/
+.ibox-content .hd-title:before{
+  background-color: #20a0ff;
+}
+/*input textarea输入框*/
+.form-control:focus,
+.el-input__inner:focus{
+  border-color: #20a0ff !important;
+}
+/*列表中单个操作--查看会员中的订单列表信息*/
+.single-opt{
+  color:#20a0ff;
+}
+/*列表中操作下拉鼠标经过*/
+.opt:hover span.icon-guanli, .opt span.active, .opt ul li a:hover{
+  color: #2c99ff;
+}
+/*分类列表*/
+.body-con>div.listTitle .icon{
+  color:#20a0ff;
+}
+.body-con>div.listTitle .save-btn{
+  color:#20a0ff;
+}
+.body-con>div.listOpt a{
+  color:#20a0ff;
+}

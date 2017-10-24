@@ -304,13 +304,6 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
 .el-input__icon{
   color:#bfcbd9 !important;
 }
-/*.el-input__inner{*/
-  /*border-radius:0 !important;*/
-  /*border-color: #e5e6e7 !important;*/
-/*}*/
-/*.el-input__inner:focus{*/
-  /*border-color:#2FB2E6 !important;*/
-/*}*/
 .el-switch{margin-bottom: 2px;}
 
 .form-inline .btn{border-radius:4px !important;border:none !important;}
@@ -443,4 +436,18 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
 }
 .el-tabs .el-tabs__header{
   margin-bottom: 30px;
+}
+.gray-btn,.el-button.gray-btn{
+  color: #1f2d3d;
+  background-color: #eef1f6;
+  border-color: #eef1f6;
+}
+.gray-btn:focus,
+.gray-btn:hover,
+.el-button.gray-btn:focus,
+.el-button.gray-btn:hover{
+  color: #1f2d3d;
+  background-color: #eef1f6;
+  border-color: #eef1f6;
+  opacity: 0.8;
 }

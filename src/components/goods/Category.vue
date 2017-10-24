@@ -7,9 +7,9 @@
                     <div class="ibox float-e-margins">
                       <div class="ibox-content">
                         <div class="form-inline m-b-md clearfix">
-                          <button type="button" class="btn" @click="allOpen">全部展开</button>
-                          <button type="button" class="btn pack-btn" @click="allPack">全部收起</button>
-                          <button class="btn hj_fr" @click="add"><i class="shop icon-xinzeng"></i> 添加一级分类</button>
+                          <el-button type="primary" class="m-r-xs" @click="allOpen">全部展开</el-button>
+                          <el-button class="gray-btn" @click="allPack">全部收起</el-button>
+                          <el-button type="primary" class="hj_fr" @click="add"><i class="shop icon-xinzeng"></i> 添加一级分类</el-button>
                         </div>
                         <div class="table-responsive">
                           <ul class="clearfix listhead">
@@ -157,21 +157,5 @@
 </script>
 
 <style scoped>
-  .form-inline .btn{
-    background-color: #20a0ff;
-    color: #fff;
-    border-radius: 5px;
-    margin-left: 6px;
-    outline: 0;
-  }
-  .form-inline .btn:first-child{
-    margin-left: 0;
-  }
-  .form-inline .pack-btn{
-    background-color: #eef1f6;
-    color: #1f2d3d;
-  }
-  .form-inline .btn:active{
-    outline: 0;
-  }
+
 </style>

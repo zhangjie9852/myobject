@@ -290,7 +290,7 @@
 <style scoped>
   .menu-item{
     padding-top: 10px;
-    border-top: 1px solid #dedede;
+    border-top: 1px solid #eaeefb;
     margin-bottom: 20px;
   }
   .menu-item .menu-title{
