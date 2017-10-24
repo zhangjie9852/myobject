@@ -5,62 +5,95 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>发货单列表</h5>
-            </div>
             <div class="ibox-content">
-              <form action="#" class="form-inline m-b-md" id="form1" role="form">
-                <div class="form-group m-r-xs m-t-xs">
-                  <input type="text" class="form-control" name="keyword" placeholder="订单编号/发货单单号/收货人姓名" v-model="keyword">
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="province_id" v-model="provinceId" @change="changeProvince">
-                    <option :value="null">发往所在省</option>
-                    <template v-for="item in provinceList">
-                      <option :value="item.region_id">{{item.region_name}}</option>
-                    </template>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="city_id" v-model="cityId" :disabled="provinceId==null" @change="changeCity">
-                    <option :value="null">发往所在市</option>
-                    <template v-for="item in cityList">
-                      <option :value="item.region_id">{{item.region_name}}</option>
-                    </template>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="region_id" v-model="regionId" :disabled="cityId==null">
-                    <option :value="null">发往所在区</option>
-                    <template v-for="item in regionList">
-                      <option :value="item.region_id">{{item.region_name}}</option>
-                    </template>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <select class="form-control" name="status_invoice" v-model="statusInvoice">
-                    <option :value="null">发货单状态</option>
-                    <option value="0">未发货</option>
-                    <option value="1">已发货</option>
-                    <option value="-1">已取消</option>
-                    <option value="2">已送达</option>
-                  </select>
-                </div>
-                <div class="form-group m-r-xs m-t-xs">
-                  <button type="button" class="btn btn-primary" @click="getInvoiceList(1,pageData.Perpage,true)">查询</button>
-                </div>
+              <form action="#" class="form-inline m-b-sm" role="form">
+                <el-dropdown class="m-r-xs m-b-sm">
+                  <el-button type="warning">
+                    批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
+                  </el-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item><span @click="remove"></span>删除</el-dropdown-item>
+                    <el-dropdown-item><span @click="cancelDeliver">取消发货</span></el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/发货单单号/收货人姓名"></el-input>
+                <el-select class="m-r-xs m-b-sm" name="province_id" v-model="provinceId" @change="changeProvince">
+                  <el-option :key="null" label="发往所在省" :value="null"></el-option>
+                  <template v-for="item in provinceList">
+                    <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
+                  </template>
+                </el-select>
+                <el-select class="m-r-xs m-b-sm" name="city_id" v-model="cityId" :disabled="provinceId==null" @change="changeCity">
+                  <el-option :key="null" label="发往所在市" :value="null"></el-option>
+                  <template v-for="item in cityList">
+                    <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
+                  </template>
+                </el-select>
+                <el-select class="m-r-xs m-b-sm" name="region_id" v-model="regionId" :disabled="cityId==null">
+                  <el-option :key="null" label="发往所在区" :value="null"></el-option>
+                  <template v-for="item in regionList">
+                    <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
+                  </template>
+                </el-select>
+                <el-select class="m-r-xs m-b-sm" name="status_invoice" v-model="statusInvoice">
+                  <el-option :key="null" label="发货单状态" :value="null"></el-option>
+                  <el-option :key="0" label="未发货" value="0"></el-option>
+                  <el-option :key="1" label="已发货" value="1"></el-option>
+                  <el-option :key="-1" label="已取消" value="-1"></el-option>
+                  <el-option :key="2" label="已送达" value="2"></el-option>
+                </el-select>
+                <el-button class="search-btn" type="primary" icon="search" @click="getInvoiceList(1,pageData.Perpage,true)">筛选</el-button>
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<input type="text" class="form-control" name="keyword" placeholder="订单编号/发货单单号/收货人姓名" v-model="keyword">-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="province_id" v-model="provinceId" @change="changeProvince">-->
+                    <!--<option :value="null">发往所在省</option>-->
+                    <!--<template v-for="item in provinceList">-->
+                      <!--<option :value="item.region_id">{{item.region_name}}</option>-->
+                    <!--</template>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="city_id" v-model="cityId" :disabled="provinceId==null" @change="changeCity">-->
+                    <!--<option :value="null">发往所在市</option>-->
+                    <!--<template v-for="item in cityList">-->
+                      <!--<option :value="item.region_id">{{item.region_name}}</option>-->
+                    <!--</template>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="region_id" v-model="regionId" :disabled="cityId==null">-->
+                    <!--<option :value="null">发往所在区</option>-->
+                    <!--<template v-for="item in regionList">-->
+                      <!--<option :value="item.region_id">{{item.region_name}}</option>-->
+                    <!--</template>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<select class="form-control" name="status_invoice" v-model="statusInvoice">-->
+                    <!--<option :value="null">发货单状态</option>-->
+                    <!--<option value="0">未发货</option>-->
+                    <!--<option value="1">已发货</option>-->
+                    <!--<option value="-1">已取消</option>-->
+                    <!--<option value="2">已送达</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group m-r-xs m-t-xs">-->
+                  <!--<button type="button" class="btn btn-primary" @click="getInvoiceList(1,pageData.Perpage,true)">查询</button>-->
+                <!--</div>-->
               </form>
-              <div class="btn-group m-b-md">
-                <button type="button" class="btn btn-primary m-r-xs" @click="remove">删除</button>
-                <!--<button type="button" class="btn btn-primary m-r-xs" @click="deliver">发货</button>-->
-                <button type="button" class="btn btn-primary m-r-xs" @click="cancelDeliver">取消发货</button>
-              </div>
+              <!--<div class="btn-group m-b-md">-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="remove">删除</button>-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-primary m-r-xs" @click="deliver">发货</button>&ndash;&gt;-->
+                <!--<button type="button" class="btn btn-primary m-r-xs" @click="cancelDeliver">取消发货</button>-->
+              <!--</div>-->
               <div class="table-box">
                 <div class="table-responsive clearfix">
                   <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                      <th>
+                      <th class="table-checkbox">
                         <div class="checkbox-square-green" :class="{'checked':checkAllFlag}" @click="checkedAll(invoiceList)">
                           <input type="checkbox" class="checks">
                         </div>
@@ -89,14 +122,14 @@
                       <td>{{item.time_invoice}}</td>
                       <td>{{item.time_create}}</td>
                       <td :class="{'text-red':item.status_invoice=='已取消'}">{{item.status_invoice}}</td>
-                      <td class="opt-select">
-                        <div class="opt" @click.stop="viewOpt(invoiceList,'invoice_id',item.invoice_id)">处理<i class="fa fa-caret-down"></i></div>
+                      <td class="opt">
+                        <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(invoiceList,'invoice_id',item.invoice_id)"></span>
                         <ul v-show="item.isOptShow">
-                          <li><router-link :to="'/carry/invoice/detail/'+item.invoice_id"><i class="icon_l_see"></i> 查看</router-link></li>
-                          <li @click="removeSingle(item.invoice_id)"><a href="javascript:;"><i class="icon_l_delete"></i> 删除</a></li>
-                          <li v-if="item.status_invoice=='未发货'" @click="singleDeliver(item.invoice_id)"><a href="javascript:;"><i class="fa fa-bus"></i> 发货</a></li>
-                          <li v-if="item.status_invoice=='未发货'" @click="cancelDeliverSingle(item.invoice_id,'取消')"><a href="javascript:;"><i class="icon_lb_reject"></i> 取消</a></li>
-                          <li v-if="item.status_invoice=='已发货'" @click="cancelDeliverSingle(item.invoice_id,'取消发货')"><a href="javascript:;"><i class="icon_lb_reject"></i> 取消发货</a></li>
+                          <li><router-link :to="'/carry/invoice/detail/'+item.invoice_id">查看</router-link></li>
+                          <li @click="removeSingle(item.invoice_id)"><a href="javascript:;">删除</a></li>
+                          <li v-if="item.status_invoice=='未发货'" @click="singleDeliver(item.invoice_id)"><a href="javascript:;">发货</a></li>
+                          <li v-if="item.status_invoice=='未发货'" @click="cancelDeliverSingle(item.invoice_id,'取消')"><a href="javascript:;">取消</a></li>
+                          <li v-if="item.status_invoice=='已发货'" @click="cancelDeliverSingle(item.invoice_id,'取消发货')"><a href="javascript:;">取消发货</a></li>
                         </ul>
                       </td>
                     </tr>
@@ -903,92 +936,9 @@
 </script>
 
 <style scoped>
-  .table-box{
-    overflow-x: auto;
-  }
   .table-responsive{
-    min-width: 1020px;
-    padding-bottom: 80px;
-  }
-  .table thead tr th,.table tbody tr td{
-    text-align: center;
-    vertical-align: middle;
-  }
-  .inner-label{
-    width:75px;
-    display: inline-block;
-    text-align: right;
-  }
-  .inner-amount{
-    min-width:60px;
-    display: inline-block;
-    text-align: left;
-  }
-  .table thead tr .opt-select{
-    width:96px;
-    text-align: right;
-    padding-right: 20px;
-  }
-  .table tbody tr .opt-select{
-    width: 96px;
-    position: relative;
-    text-align: right;
-  }
-  .opt-select .opt{
-    display: inline-block;
-    cursor: pointer;
-  }
-  .opt-select .opt i{
-    margin-left:5px;
-  }
-  .opt-select ul{
-    margin-top: 12px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    padding: 0 8px;
-    text-align: left;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 1000;
-  }
-  .opt-select ul li{
-    line-height:32px;
-    border-top:1px dashed #d2d2d2;
-  }
-  .opt-select ul li:first-child{
-    border-top:0;
-  }
-  .opt-select ul li a{
-    color: #676a6c;
-  }
-  .opt-select ul li:hover a{
-    color:#3EA0C4;
-  }
-  .nav-tabs > li.active > a,
-  .nav-tabs > li.active > a:hover,
-  .nav-tabs > li.active > a:focus{
-    border-bottom: 1px solid #fff;
-  }
-  .btn-primary em{
-    display: none;
-  }
-  .btn-white em{
-    font-size: 16px;
-    line-height:20px;
-    color: #999;
-    margin-left:6px;
-    vertical-align: top;
-  }
-  .btn-white:hover em{
-    color: #333;
-  }
-  .el-input{
-    width:200px;
-  }
-  .validate-error{
-    color: red;
-    margin-top: 8px;
+    padding-bottom: 75px;
+    overflow:auto;
   }
   .deliver-row{
     margin-bottom: 10px;
