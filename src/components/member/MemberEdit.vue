@@ -5,19 +5,17 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>编辑会员</h5>
-            </div>
-            <div class="ibox-content">
-              <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">
+            <div class="ibox-content p-m">
+              <div class="hd-title">编辑会员</div>
+              <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">
                 <field class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>用户名：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 用户名：</label>
                   <div class="col-sm-4">
                     <div style="font-size: 14px;line-height: 34px;">{{memberInfo.userName}}</div>
                   </div>
                 </field>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>用户昵称：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 用户昵称：</label>
                   <div class="col-sm-4">
                     <input type="text" name="userNickname" class="form-control" v-model="memberInfo.userNickname"
                            required
@@ -28,7 +26,7 @@
                   </div>
                 </validate>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>邮箱地址：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 邮箱地址：</label>
                   <div class="col-sm-4">
                     <input type="text" name="userEmail" class="form-control" v-model="memberInfo.userEmail" required
                            pattern="^[A-Za-z0-9]+([-_.][A-Za-z0-9]+)*@([A-Za-z0-9]+[-.])+[A-Za-z0-9]{2,5}$"
@@ -77,7 +75,7 @@
                   </div>
                 </field>
                 <validate class="form-group">
-                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>手机号码：</label>
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span> 手机号码：</label>
                   <div class="col-sm-4">
                     <input type="text" name="user_mobile" class="form-control" v-model="memberInfo.userMobile"
                            :class="fieldClassName(formstate.user_mobile)" pattern="^1[34578]\d{9}$" required>
@@ -115,12 +113,13 @@
                     <el-radio class="radio" name="user_status_point" v-model="memberInfo.userStatusPoint" :label="-1">禁止获得</el-radio>
                   </div>
                 </field>
-
                 <div class="hr-line-dashed"></div>
                 <div class="form-group draggable ui-draggable">
                   <div class="col-sm-12 col-sm-offset-3">
-                    <button class="btn btn-primary" type="submit">确定</button>
-                    <router-link to="/member/list" class="btn btn-white m-l-sm">返回列表</router-link>
+                    <!--<button class="btn btn-primary" type="submit">确定</button>-->
+                    <!--<router-link to="/member/list" class="btn btn-white m-l-sm">返回列表</router-link>-->
+                    <el-button type="primary" native-type="submit">确定</el-button>
+                    <router-link to="/member/list" class="white-btn m-l-sm">返回列表</router-link>
                   </div>
                 </div>
               </vue-form>

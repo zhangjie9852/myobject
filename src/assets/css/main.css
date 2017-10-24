@@ -416,3 +416,20 @@ body.mini-navbar .navbar-default .nav > li > .nav-third-level li a{padding-left:
   border-color: #eaeefb;
   margin-top:40px;
 }
+.white-btn{
+  display: inline-block;
+  line-height: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: #fff;
+  border:1px solid #bfcbd9;
+  padding:7px 15px;
+  border-radius: 4px;
+  font-size: 15px;
+  color:#1f2d3d;
+  vertical-align: bottom;
+}
+.white-btn:hover{
+  border-color: #20a0ff;
+  color: #20a0ff;
+}
