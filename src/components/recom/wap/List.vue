@@ -11,15 +11,15 @@
                                     <thead>
                                         <tr>
                                             <th>推荐位名称</th>
-                                            <th>推荐位类型</th>
-                                            <th class="opt-select">操作</th>
+                                            <th class="text-center">推荐位类型</th>
+                                            <th class="text-center">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item,index) in clist">
                                             <td>{{item.recmd_block_name}}</td>
-                                            <td>{{item.recmd_block_type}}</td>
-                                            <td class="opt">
+                                            <td class="text-center">{{item.recmd_block_type}}</td>
+                                            <td class="text-center">
                                             	<router-link class="single-opt" :to="'/recom/wap/item/'+item.recmd_block_id">管理</router-link>
                                            </td>
                                         </tr>
