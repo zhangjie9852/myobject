@@ -6,7 +6,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                     	<div class="ibox-content">
-                        	<div class="btn-group m-b-md">	                      
+                        	<div class="btn-group m-b-md">
 		                      <!--<button type="button" class="btn m-r-sm" :class="isOnline==''&&Lstatus==1?'btn-primary':'btn-default'" @click="ListState('',1)">全部商品</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==1?'btn-primary':'btn-default'" @click="ListState(1,1)">已上架商品(10)</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==-1?'btn-primary':'btn-default'" @click="ListState(-1,1)">下架商品(12)</button>
@@ -25,9 +25,9 @@
 								 </el-button>
 		                    </div>
 		                    <form action="#" class="form-inline m-b-sm" role="form">
-								<el-dropdown class="m-r-xs">
-								  <el-button class="batch-btn">
-								    批量操作<i class="el-icon-caret-bottom el-icon--right"></i>
+								<el-dropdown class="m-r-xs m-b-sm">
+								  <el-button type="warning">
+								    批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
 								  </el-button>
 								  <el-dropdown-menu slot="dropdown" v-if="Lstatus==1">
 								    <el-dropdown-item v-if="isOnline==-1 ||isOnline==''"><span @click="batchOpt('up','上架')">上架</span></el-dropdown-item>
@@ -47,9 +47,9 @@
 								  </el-dropdown-menu>
 								</el-dropdown>
 								<el-input class="m-r-xs m-b-sm" name="title" v-model="title" placeholder="商品名称"></el-input>
-                                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>  
+                                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
                                 <router-link to="/goods/list/add" class="add-btn"><i class="shop icon-xinzeng"></i>添加商品</router-link>
-                            </form>                              
+                            </form>
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -64,15 +64,15 @@
                                             <th>商家名称</th>
                                             <th>所属分类</th>
                                             <th>售价</th>
-                                            <th>库存</th>                                        
+                                            <th>库存</th>
                                             <th v-if="Lstatus==1">排序</th>
                                             <th>商品状态</th>
                                             <th>审核状态</th>
                                             <th>置顶状态</th>
                                             <th class="opt-select">操作</th>
                                         </tr>
-                                    </thead>                                    
-                                    <tbody class="goodlist">                                    	
+                                    </thead>
+                                    <tbody class="goodlist">
                                         <tr v-for="(item,index) in clist">
                                             <td>
                                                 <div class="checkbox-square-green" :class="{'checked':item.isChecked}" @click="chkSelectAndAll(clist,item)">
@@ -97,7 +97,7 @@
                                             <td>{{item.is_topicStr}}</td>
                                             <td class="opt">
                                             	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.goods_id,'goods_id')"></span>
-                                                <ul v-if="Lstatus==1" v-show="item.isOptShow"> 	
+                                                <ul v-if="Lstatus==1" v-show="item.isOptShow">
                                                     <li><router-link :to="'/goods/list/edit/'+item.goods_id">编辑</router-link></li>
                                                     <li v-if="item.goods_examine == -1 || item.goods_examine == 3 || item.goods_examine == null"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)"><i class="icon_s_password"></i> 审核</a></li>
                                                     <li><a @click="delOne(item.goods_id,'del')">删除</a></li>
@@ -105,7 +105,7 @@
                                                 <ul v-else v-show="item.isOptShow">
                                                     <li><a @click="restore(item.goods_id)"><i class="icon_l_reply"></i> 还原</a></li>
                                                     <li><a @click="delOne(item.goods_id,'callback')"><i class="icon_l_delete"></i> 删除</a></li>
-                                                </ul>                                            	
+                                                </ul>
                                            </td>
                                         </tr>
                                     </tbody>
@@ -129,12 +129,12 @@
                 </div>
             </div>
         </div>
-        <el-dialog title="商品审核" :visible.sync="dialogVisible" size="tiny">	      
+        <el-dialog title="商品审核" :visible.sync="dialogVisible" size="tiny">
 	      <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal">
 	      	  <div class="form-group">
 	            <label class="col-sm-4 control-label">商品名称：</label>
 	            <div class="col-sm-7 m-t-8">
-	              {{goods_name}}                    
+	              {{goods_name}}
 	            </div>
 	          </div>
 	          <div class="form-group">
@@ -149,42 +149,42 @@
 	            <div class="col-sm-7">
 	              <textarea name="reason" class="form-control" v-model="reason" required :class="fieldClassName(formstate.reason)">{{reason}}</textarea>
 	              <field-messages name="reason" show="$touched || $submitted" class="form-control-callback">
-                    <div slot="required" class="error">原因不能为空</div>                    
-                  </field-messages>                  
+                    <div slot="required" class="error">原因不能为空</div>
+                  </field-messages>
 	            </div>
-	          </validate>	          
+	          </validate>
 	          <div class="hr-line-dashed"></div>
               <div class="form-group draggable ui-draggable">
                 <div class="col-sm-12 col-sm-offset-4">
                   <button class="btn btn-primary" type="submit">确定</button>
-                  <button class="btn btn-white m-l-sm" type="button" @click="dialogVisible=false">取消</button>                  
+                  <button class="btn btn-white m-l-sm" type="button" @click="dialogVisible=false">取消</button>
                 </div>
               </div>
 	      </vue-form>
-	    </el-dialog> 	    	            
+	    </el-dialog>
 	</div>
 </template>
-<script>	
+<script>
 	import HjCrumb from '../comms/BreadCrumb.vue'
 	import {CustomFun,pageSizes,Imgpath} from '../comms/main.js'
 	export default{
-		components:{	      
+		components:{
 	      HjCrumb
 	    },
 		data(){
 			return {
-				title:'',				
+				title:'',
 				PSLists:pageSizes,
 				Imgpath:Imgpath,
 				checkAllFlag:false,
-        		selectedList:[],				
+        		selectedList:[],
 				isOnline:'',
 				Lstatus:1,
 				dialogVisible:false,
 				goods_name:'',
 				audit_status:2,
 				reason:'',
-				formstate: {},			
+				formstate: {},
 				CrumbBox:{
 	    			CrumbList:
 		    		[
@@ -202,29 +202,29 @@
 			    		}
 		    		]
 		    	},
-		    	clist:[],	
-				pageData:{					
+		    	clist:[],
+				pageData:{
                     PageID:1,
 					Perpage:10,
 					Results:1,
-					Pages:1									
+					Pages:1
                 }
 			}
-		},						       
+		},
 		mounted(){
 			this.$nextTick(function () {
-				this.getList(1);	//列表数据				
-				document.addEventListener('click', (e) => {				
+				this.getList(1);	//列表数据
+				document.addEventListener('click', (e) => {
 			       	if(this.$el.contains(e.target)){
 			       		if(this.clist.length>0){
 			              this.clist.forEach(function (item,index) {
 			                  item.isOptShow=false;
 			              })
-			            }			           
+			            }
 			       	}
 			   })
-			})						
-		},		
+			})
+		},
 		methods:{
 			fieldClassName: function (field) {
 		        if (!field) {
@@ -234,8 +234,8 @@
 		        }
 		    },
 			opToggle:CustomFun.opToggle,
-			checkedAll:CustomFun.checkedAll,			
-      		chkSelectAndAll:CustomFun.chkSelectAndAll,			
+			checkedAll:CustomFun.checkedAll,
+      		chkSelectAndAll:CustomFun.chkSelectAndAll,
 			handleSizeChange(val) {
 		        this.pageData.Perpage = val;
 		        this.getList(1);
@@ -243,12 +243,12 @@
 		    handleCurrentChange(val) {
 		       this.getList(val);
 		    },
-		    ListState(state,state2){		    	
+		    ListState(state,state2){
 		    	this.isOnline = state;
 		    	this.Lstatus = state2;
 		    	this.getList(1)
 		    },
-			getList(page) {									
+			getList(page) {
 				var that = this;
 				that.checkAllFlag=false;
 				that.selectedList=[];
@@ -264,39 +264,39 @@
 		  //       }
 		  //       if(that.Lstatus!=1){
 		  //           paramObj["status"]=that.Lstatus;
-		  //       }				     		    		
+		  //       }
 	      		that.$http({
 						  method:'post',
-						  url: '/goods/listdata',						  
-						  params:{						  							
+						  url: '/goods/listdata',
+						  params:{
 							'keyword':that.title,
 							'Perpage':that.pageData.Perpage,
 							'PageID':page,
 							'is_online':that.isOnline,
 							'status':that.Lstatus,
 						  }
-						}).then(function (res) {							
-							if(res.data.error==0){														
-								that.clist = res.data.data.table_data;			
+						}).then(function (res) {
+							if(res.data.error==0){
+								that.clist = res.data.data.table_data;
 								that.pageData.PageID  = res.data.data.PageID;
 								that.pageData.Perpage = res.data.data.Perpage;
 								that.pageData.Results = res.data.data.Results;
-								that.pageData.Pages   = res.data.data.Pages;							
+								that.pageData.Pages   = res.data.data.Pages;
 								that.title = '';
-								that.clist.forEach(function (item,index) {							      
+								that.clist.forEach(function (item,index) {
 							        that.$set(item,"isOptShow",false);
 							    })
 						    }else{
 								that.$message({
 		                          message: res.data.desc,
 		                          type: 'error'
-		                        });		                        
-							}						
+		                        });
+							}
 						}).catch(function (error) {
 							console.log(error);
 						});
-			},			
-			delOne:function(id,state){				
+			},
+			delOne:function(id,state){
 		        var that=this;
 		        this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
@@ -326,7 +326,7 @@
 		            message: '已取消删除'
 		          });
 		        });
-		    },		    
+		    },
 		    restore:function(id){
 				var that = this;
 				that.$http({
@@ -335,21 +335,21 @@
 						  params:{
 							'goods_id':id,
 		                  	'method':'restore'
-						  }			  
-						}).then(function (res){																			 
+						  }
+						}).then(function (res){
 							if(res.data.error==0){
 								that.$message({
 						            type: 'info',
 						            message: res.data.desc
 						          });
 								that.getList(that.pageData.PageID);
-							}									
+							}
 						}).catch(function (error) {
 							console.log(error);
 						});
-			},			
+			},
 			batchOpt:function(status,prompt){
-		        var that=this;		        
+		        var that=this;
 		        if(that.selectedList.length>0){
 		          var selectedId=[];
 		          var isRight=true;
@@ -362,7 +362,7 @@
 			              isRight=false;
 			              return;
 			            }
-			            selectedId.push(item.goods_id);	            
+			            selectedId.push(item.goods_id);
 		          })
 		          if(isRight&&selectedId.length>0){
 		            this.$confirm('确定要批量【'+prompt+'】吗？', '提示', {
@@ -382,11 +382,11 @@
 		                  type: 'success',
 		                  message: '操作成功!'
 		                });
-		                if(status=="del"){		                	
+		                if(status=="del"){
 		                	that.getList(1);
-		                }else{		                	
+		                }else{
 		                	that.getList(that.pageData.PageID);
-		                }		                
+		                }
 		              }).catch(function (error) {
 		                console.log(error);
 		              });
@@ -407,12 +407,12 @@
 		    openDialog:function(title,id,flag,reason){
 		    	this.dialogVisible = true;
 		    	this.goods_id = id;
-		    	this.goods_name = title;		    	
+		    	this.goods_name = title;
 		    	this.audit_status = flag;
-		    	this.reason = reason;		    	
+		    	this.reason = reason;
 		    },
 		    onSubmit:function(){
-		    	var that = this; 
+		    	var that = this;
 		    	if (this.formstate.$valid) {
 			    	that.$http({
 			            method: 'post',
@@ -421,9 +421,9 @@
 			            	goods_id:that.goods_id,
 			              	method:'examine',
 			              	examine:that.audit_status,
-			              	examine_msg:that.reason	              
+			              	examine_msg:that.reason
 			            }
-			          }).then(function (res) {			          	          	
+			          }).then(function (res) {
 			            if(res.data.error=='0'){
 			              that.$message({
 			                type: 'success',
@@ -444,9 +444,9 @@
 			            });
 			          });
 			    }
-		    },		    	
+		    },
 			editSort:function(cid,csort){
-				var that = this;					
+				var that = this;
 				event.currentTarget.blur();
 				that.$http({
 						  method:'post',
@@ -455,9 +455,9 @@
 							'goods_id':cid,
 							'sort':csort,
 							'method':'updateSort'
-						  }			  
+						  }
 						}).then(function (res) {
-						console.log(res)							 
+						console.log(res)
 							if(res.data.error==0){
 								//that.getList(that.pageData.PageID);
 							}else{
@@ -465,11 +465,11 @@
 		                          message: res.data.desc,
 		                          type: 'warning'
 		                        });
-							}									
+							}
 						}).catch(function (error) {
 							console.log(error);
 						});
-			}               
+			}
 		}
 	}
 </script>
