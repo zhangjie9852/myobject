@@ -6,7 +6,7 @@
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
                     	<div class="ibox-content">
-                    		<div class="form-inline m-b-sm clearfix">
+                    		<form action="" class="form-inline m-b-sm clearfix" role="form">
                     			<!--<div class="form-group">
                                   <input name="title" type="text" class="form-control m-r-xs" placeholder="商家名称" v-model="title" @keyup.enter="getList(pageData.PageID)">
                                 </div>
@@ -34,7 +34,7 @@
 				                <el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="商家名称" @keyup.enter="getList(pageData.PageID)"></el-input>
 				                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
 				                <router-link to="/shop/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加商家</router-link>
-                    		</div>
+                    		</form>
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
                     				<thead>
@@ -163,8 +163,10 @@
 	          <div class="hr-line-dashed"></div>
               <div class="form-group draggable ui-draggable">
                 <div class="col-sm-12 col-sm-offset-4">
-                  <button class="btn btn-primary" type="submit">确定</button>
-                  <button class="btn btn-white m-l-sm" type="button" @click="dialogVisible=false">取消</button>                  
+                  <!--<button class="btn btn-primary" type="submit">确定</button>
+                  <button class="btn btn-white m-l-sm" type="button" @click="dialogVisible=false">取消</button>  -->
+                  <el-button type="primary" native-type="submit">确定</el-button> 
+                  <el-button class="white-btn m-l-sm" @click="dialogVisible=false">取消</el-button>               
                 </div>
               </div>
 	      </vue-form>	      

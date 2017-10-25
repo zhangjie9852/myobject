@@ -4,14 +4,12 @@
 		<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>商品添加</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
+                    <div class="ibox float-e-margins">                       
+                        <div class="ibox-content add-user p-m">
                             <el-tabs v-model="activeName" type="card">
                               <el-tab-pane label="基本信息" name="first">
                                     <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm" >
+                                        <div class="hd-title">商品基本信息</div>
                                         <validate class="form-group">
                                             <label class="col-sm-3 control-label"><span class="f-c-r">*</span>所属分类：</label>
                                             <div class="col-sm-4">                                       
@@ -101,7 +99,7 @@
                                                     <div slot="pattern" class="error">库存预警值必须是大于0的整数.</div>
                                                 </field-messages>
                                             </div>
-                                            <span class="f-c-r">当库存少于或等于库存警告设置数量时，后台会提醒，提醒管理员增加库存</span>
+                                            <span class="f-c-r form-tips">当库存少于或等于库存警告设置数量时，后台会提醒，提醒管理员增加库存</span>
                                         </validate>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">商品品牌：</label>
@@ -190,7 +188,7 @@
                                                 <el-checkbox v-model="fields.goods_retail">零售</el-checkbox>
                                                 <el-checkbox v-model="fields.goods_wholesale">批发</el-checkbox>
                                             </div>
-                                        </div>
+                                        </div>     
                                         <validate class="form-group">
                                             <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商品描述：</label>
                                             <div class="col-sm-6">
@@ -208,17 +206,19 @@
                                                 <el-radio class="radio" v-model="fields.goods_isonline" :label="-1">否</el-radio>                                      
                                             </div>
                                         </div>
+                                        <div class="hd-title">商品详情</div>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">商品详情：</label>
-                                            <div class="col-sm-9">
+                                            <div class="form-fields">
                                                 <uediter :value="fields.goods_desc" :config="config" @input="setContent"></uediter>
                                             </div>
                                         </div>
                                       <div class="hr-line-dashed"></div>
                                         <div class="form-group draggable ui-draggable">
                                             <div class="col-sm-12 col-sm-offset-3">
-                                                <button class="btn btn-primary" type="submit">提交</button>
-                                                <router-link to="/goods/list" class="btn btn-white m-l-sm">返回</router-link>                                        
+                                                <!--<button class="btn btn-primary" type="submit">提交</button>
+                                                <router-link to="/goods/list" class="btn btn-white m-l-sm">返回</router-link> -->
+                                                <el-button type="primary" native-type="submit">确定</el-button>
+                                                <router-link to="/goods/list" class="white-btn m-l-sm">返回</router-link>                                      
                                             </div>  
                                         </div>
                                     </vue-form>

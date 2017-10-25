@@ -7,10 +7,22 @@
                     <div class="ibox float-e-margins">
                     	<div class="ibox-content">
                         	<div class="btn-group m-b-md">	                      
-		                      <button type="button" class="btn m-r-sm" :class="isOnline==''&&Lstatus==1?'btn-primary':'btn-default'" @click="ListState('',1)">全部商品</button>
+		                      <!--<button type="button" class="btn m-r-sm" :class="isOnline==''&&Lstatus==1?'btn-primary':'btn-default'" @click="ListState('',1)">全部商品</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==1?'btn-primary':'btn-default'" @click="ListState(1,1)">已上架商品(10)</button>
 		                      <button type="button" class="btn m-r-sm" :class="isOnline==-1?'btn-primary':'btn-default'" @click="ListState(-1,1)">下架商品(12)</button>
-		                      <button type="button" class="btn m-r-sm" :class="Lstatus==-1?'btn-primary':'btn-default'" @click="ListState('',-1)">商品回收站(2)</button>
+		                      <button type="button" class="btn m-r-sm" :class="Lstatus==-1?'btn-primary':'btn-default'" @click="ListState('',-1)">商品回收站(2)</button>-->
+		                      	<el-button class="m-r-sm" :type="isOnline==''&&Lstatus==1?'primary':'info'" @click="ListState('',1)">
+								    全部商品
+								 </el-button>
+								 <el-button class="m-r-sm" :type="isOnline==1?'primary':'info'" @click="ListState(1,1)">
+								    已上架商品(10)
+								 </el-button>
+								 <el-button class="m-r-sm" :type="isOnline==-1?'primary':'info'" @click="ListState(-1,1)">
+								    下架商品(12)
+								 </el-button>
+								 <el-button class="m-r-sm" :type="Lstatus==-1?'primary':'info'" @click="ListState('',-1)">
+								    商品回收站(2)
+								 </el-button>
 		                    </div>
 		                    <form action="#" class="form-inline m-b-sm" role="form">
 								<el-dropdown class="m-r-xs">

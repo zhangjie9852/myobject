@@ -17,7 +17,7 @@
                     排序：<input type="text" name="recmd_sort" v-model="fields[index].sort" class="form-control">
                 </div>
                 <div>                                        
-                    <a class="btn m-t icon-opt icon_l_delete" @click="delItem(index)" title="删除"></a>
+                    <a class="shop icon-shanchu" @click="delItem(index)" title="删除"></a>
                 </div>
                 <el-dialog title="选择图片" v-if="dialogInd==index" :visible.sync="dialogPic">
                     <el-tabs v-model="activeName" type="card">
@@ -50,8 +50,10 @@
           <div class="hr-line-dashed"></div>
             <div class="form-group draggable ui-draggable">
                 <div class="col-sm-12 col-sm-offset-3">
-                    <button class="btn btn-primary" type="submit" v-if="fields!=''">提交</button>
-                    <button class="btn btn-white m-l-md" type="button" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</button>               
+                    <!--<button class="btn btn-primary" type="submit" v-if="fields!=''">提交</button>
+                    <button class="btn btn-white m-l-md" type="button" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</button>-->
+                    <el-button type="primary" native-type="submit" v-if="fields!=''">提交</el-button>
+                    <el-button class="white-btn m-l-sm" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</el-button>        
                 </div>  
             </div>
         </vue-form>

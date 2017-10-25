@@ -4,11 +4,9 @@
 		<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>编辑规格</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
+                    <div class="ibox float-e-margins">                       
+                        <div class="ibox-content p-m">
+                            <div class="hd-title">编辑规格</div>
                             <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">                                                                
                                 <validate class="form-group">
                                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>规格名称：</label>
@@ -47,7 +45,7 @@
                                     </div>
                                 </field>
                                 <div class="table-responsive clearfix">
-                                	<h5>规格值</h5>
+                                	<div class="hd-title">规格值</div>
 	                                <table class="table table-bordered table-hover">
 	                                    <thead>
 	                                        <tr>
@@ -63,18 +61,21 @@
 	                                            <td class="text-center" v-if="fields.goods_sku_type!='1'"><img v-if="skuList[index].img_url" :src="skuList[index].img_url" @click="picChange(index)" class="listImg"/><a @click="picChange(index)" v-else>选择图片</a></td>
 	                                            <td class="text-center"><input type="number" onmousewheel="return false;" class="w100" v-model="skuList[index].sort"></td>
 	                                            <td class="text-center">
-													<a  @click="delItem(index)" title="删除"><i class="icon_l_delete"></i> 删除</a>
+													<a  @click="delItem(index)" title="删除">删除</a>
 	                                            </td>	                                                        
 	                                        </tr>
 	                                    </tbody>
 	                                </table>
-	                                <button type="button" class="btn btn-m btn-primary" @click="addSku">添加规格值</button>
+	                                <!--<button type="button" class="btn btn-m btn-primary" @click="addSku">添加规格值</button>-->
+                                    <el-button type="primary" @click="addSku">添加规格值</el-button>
 	                        	</div>
                               <div class="hr-line-dashed"></div>
                                 <div class="form-group draggable ui-draggable">
                                     <div class="col-sm-12 col-sm-offset-3">
-                                    	<button class="btn btn-primary" type="submit">提交</button>
-                                        <router-link to="/goods/sku" class="btn btn-white m-l-sm">返回列表</router-link>
+                                    	<!--<button class="btn btn-primary" type="submit">提交</button>
+                                        <router-link to="/goods/sku" class="btn btn-white m-l-sm">返回列表</router-link>-->
+                                        <el-button type="primary" native-type="submit">提交</el-button>
+                                        <router-link to="/goods/sku" class="white-btn m-l-sm">返回列表</router-link>
                                     </div>  
                                 </div>
                             </vue-form>

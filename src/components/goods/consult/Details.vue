@@ -4,11 +4,9 @@
 		<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>咨询查看</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
+                    <div class="ibox float-e-margins">                     
+                        <div class="ibox-content p-m">
+                            <div class="hd-title">咨询查看</div>
                             <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm" >
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">咨询商品：</label>
@@ -52,8 +50,10 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group draggable ui-draggable">
                                     <div class="col-sm-12 col-sm-offset-3">
-                                      <button class="btn btn-primary m-r-sm" type="submit" v-if="fields.is_answer==-1">确定</button>
-                                      <router-link to="/goods/consult/list" class="btn btn-white">返回列表</router-link>
+                                      <!--<button class="btn btn-primary m-r-sm" type="submit" v-if="fields.is_answer==-1">确定</button>
+                                      <router-link to="/goods/consult/list" class="btn btn-white">返回列表</router-link>-->
+                                        <el-button type="primary" native-type="submit" v-if="fields.is_answer==-1">确定</el-button>
+                                        <router-link to="/goods/consult/list" class="white-btn m-l-sm">返回列表</router-link>
                                     </div>                                      
                                 </div>                               
                             </vue-form>

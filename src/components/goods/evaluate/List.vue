@@ -69,7 +69,7 @@
 											</td>
 											<td>{{item.time_create}}</td>
 											<td class="opt">
-												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.assessment_id,'assessment_id')"> </span>
+												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.assessment_id,'assessment_id')"> </span>
                                                 <ul v-show="item.isOptShow">
                                                 	<li v-if="item.is_assess==1"><router-link :to="'/goods/evaluate/details/'+item.assessment_id"> 查看</router-link></li>
                                                 	<li v-else><router-link :to="'/goods/evaluate/details/'+item.assessment_id">回复</router-link></li>      	

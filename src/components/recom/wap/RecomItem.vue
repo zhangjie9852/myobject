@@ -5,15 +5,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>推荐栏目列表</h5>
-                        </div>
                         <div class="ibox-content">
-                            <div class="form-inline m-b-md clearfix">
+                            <form action="" class="form-inline m-b-sm clearfix" role="form">
                                 <!--<div class="form-group">
                                   <input name="title" v-model="filter.title" type="text" class="form-control m-r-xs" placeholder="推荐栏目名称" @keyup.enter="getList(pageData.PageID)">
                                 </div>-->
-                                <div class="form-group m-r-xs">
+                                <!--<div class="form-group m-r-xs">
 			                        <select class="form-control" name="status" v-model="remStatus">
 			                          <option :value="null">全部状态</option>
 			                          <option value="1">启用</option>
@@ -30,27 +27,40 @@
 			                    </div>
                                 <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>                                
                                 
-                                <router-link :to="'/recom/wap/itemadd/'+$route.params.id" class="btn btn-m btn-danger hj_fr">添加</router-link>
-                            </div>                                
+                                <router-link :to="'/recom/wap/itemadd/'+$route.params.id" class="btn btn-m btn-danger hj_fr">添加</router-link>-->
+                                <el-select class="m-r-sm m-b-sm" name="status" v-model="remStatus">
+				                  <el-option :key="null" label="全部状态" :value="null"></el-option>
+				                  <el-option :key="1" label="启用" value="1"></el-option>
+				                  <el-option :key="-1" label="隐藏" value="-1"></el-option>
+				                </el-select>
+				                <el-select class="m-r-sm m-b-sm" name="channel" v-model="remChannel">
+				                  <el-option :key="null" label="全部频道" :value="null"></el-option>
+				                  <el-option :key="1" label="首页" value="1"></el-option>
+				                  <el-option :key="2" label="列表" value="2"></el-option>
+				                  <el-option :key="3" label="详情" value="3"></el-option>
+				                </el-select>
+				                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
+                				<router-link :to="'/recom/wap/itemadd/'+$route.params.id" class="add-btn"><i class="shop icon-xinzeng"></i> 添加帮助信息</router-link>
+                            </form>                                
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>名称</th>
-                                            <th class="text-center">总条数</th>
-                                            <th class="text-center">投放频道</th>
-                                            <th class="text-center">状态</th>
-                                            <th class="text-center">操作</th>
+                                            <th>总条数</th>
+                                            <th>投放频道</th>
+                                            <th>状态</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody>                                    	
                                         <tr v-for="(item,index) in clist">                                            
                                             <td>{{item.recmd_item_label}}</td>
-                                            <td class="text-center">{{item.recmd_item_max}}</td>
-                                            <td class="text-center">{{item.recmd_item_channel}}</td>
-                                            <td class="text-center">{{item.status_recmd_item}}</td>
-                                            <td class="text-center icon-opt">
-                                            	<router-link :to="'/recom/wap/itemedit/'+$route.params.id+'/'+item.recmd_item_id" class="icon_l_edit" title="编辑"></router-link>
+                                            <td>{{item.recmd_item_max}}</td>
+                                            <td>{{item.recmd_item_channel}}</td>
+                                            <td>{{item.status_recmd_item}}</td>
+                                            <td class="icon-opt">
+                                            	<router-link :to="'/recom/wap/itemedit/'+$route.params.id+'/'+item.recmd_item_id" title="编辑">编辑</router-link>
                                            </td>
                                         </tr>
                                     </tbody>

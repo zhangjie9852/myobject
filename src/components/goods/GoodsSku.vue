@@ -2,22 +2,21 @@
 	<div id="skuData">
 	<vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">
 		<div class="table-responsive clearfix">
-            <h5>规格值</h5>
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>规格值名称</th>
-                        <th class="text-center">规格图片</th>
-                        <th class="text-center" v-if='skuMsg.goods_retail==true||(skuMsg.goods_wholesale==false && skuMsg.goods_retail==false)'>售价(元)</th>
-                        <th class="text-center" v-if='skuMsg.goods_wholesale==true'>批发价(元)</th>
-                        <th class="text-center">市场价(元)</th>
-                        <th class="text-center">成本价(元)</th>
-                        <th class="text-center">库存</th>
-                        <th class="text-center">商品编码</th>
-                        <th class="text-center">重量(g)</th>
-                        <th class="text-center">上架</th>
-                        <th class="text-center">排序</th>
-                        <th class="text-center" >操作</th>
+                        <th>规格图片</th>
+                        <th v-if='skuMsg.goods_retail==true||(skuMsg.goods_wholesale==false && skuMsg.goods_retail==false)'>售价(元)</th>
+                        <th v-if='skuMsg.goods_wholesale==true'>批发价(元)</th>
+                        <th>市场价(元)</th>
+                        <th>成本价(元)</th>
+                        <th>库存</th>
+                        <th>商品编码</th>
+                        <th>重量(g)</th>
+                        <th>上架</th>
+                        <th>排序</th>
+                        <th>操作</th>
                     </tr>
                 </thead>                                    
                 <tbody>                                     
@@ -31,7 +30,11 @@
                         <td class="text-center"><input type="number" onmousewheel="return false;" class="w100" name="product_store_nums" min="1" v-model="skuList[index].product_store_nums"></td><!-- 库存 -->
                         <td class="text-center"><input type="text" class="w80" name="product_code" v-model="skuList[index].product_code"></td><!-- 商品编码 -->
                         <td class="text-center"><input type="number" onmousewheel="return false;" class="w100" name="goods_weight" v-model="skuList[index].goods_weight"></td><!-- 重量 -->
-                        <td class="text-center"><input type="checkbox" name="isonline" v-model="skuList[index].goods_isonline"> <!-- 上架 --> 
+                        <td class="text-center">
+                          <el-checkbox v-model="skuList[index].goods_isonline" name="isonline"></el-checkbox>
+                        <!--<input type="checkbox" name="isonline" v-model="skuList[index].goods_isonline">-->
+
+                         <!-- 上架 --> 
                         </td>
                         <td class="text-center"><input type="number" onmousewheel="return false;" class="w100" name="goods_sort" v-model="skuList[index].sort"></td><!-- 排序 -->
                         <td class="text-center">
@@ -41,8 +44,10 @@
                 </tbody>
             </table>
             <div class="clearfix">
-              <button type="button" class="btn btn-m btn-primary m-r-xs" @click="addSku">添加规格值</button>
-              <button type="button" class="btn btn-m btn-primary" @click="batchAddSku">批量添加规格</button>
+              <!--<button type="button" class="btn btn-m btn-primary m-r-xs" @click="addSku">添加规格值</button>
+              <button type="button" class="btn btn-m btn-primary" @click="batchAddSku">批量添加规格</button>-->
+              <el-button type="primary" class="m-r-xs" @click="addSku">添加规格值</el-button>
+              <el-button type="primary" class="m-r-xs" @click="batchAddSku">批量添加规格</el-button>
               <div class="hj_fr"><a @click="openBatchDialog">批量设置</a> <!-- <a>售价</a> <a>库存</a> --></div>              
             </div>
             <div class="m-t">总库存：{{sumStock}}<!-- <input type="number" v-model="sum_stock" disabled> --></div>     
@@ -50,7 +55,8 @@
         <div class="hr-line-dashed"></div>
         <div class="form-group draggable ui-draggable">
             <div class="col-sm-12 col-sm-offset-5">
-                <button class="btn btn-primary" type="submit" v-show="skuList!=''">提交</button>
+               <!-- <button class="btn btn-primary" type="submit" v-show="skuList!=''">提交</button>-->
+                <el-button type="primary" v-show="skuList!=''">提交</el-button>
             </div>  
         </div>
         </vue-form>

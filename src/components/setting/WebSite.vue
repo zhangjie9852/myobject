@@ -4,12 +4,10 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>站点设置</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
-                            <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">                                              
+                    <div class="ibox float-e-margins">                       
+                        <div class="ibox-content p-m">
+                            <div class="hd-title">站点设置</div> 
+                            <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">                                          
                                 <validate class="form-group">
                                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>站点名称：</label>
                                     <div class="col-sm-4">                                        
@@ -85,7 +83,7 @@
                                     <div class="col-sm-4">
                                         <input type="text" name="record_number" v-model="fields.site_icp" class="form-control" >
                                     </div>
-                                    <span class="f-c-r">xxxxxx有限公司/京ICP备xxxxxxx号</span>
+                                    <span class="f-c-r form-tips">xxxxxx有限公司/京ICP备xxxxxxx号</span>
                                 </field>                        
                                 <field class="form-group">
                                     <label class="col-sm-3 control-label">是否关闭站点：</label>
@@ -105,8 +103,10 @@
                               <div class="hr-line-dashed"></div>
                                 <div class="form-group draggable ui-draggable">
                                     <div class="col-sm-12 col-sm-offset-3">
-                                        <button class="btn btn-primary" type="submit">提交</button>
-                                        <button class="btn btn-white m-l-sm" type="reset">重置</button>
+                                        <!--<button class="btn btn-primary" type="submit">提交</button>
+                                        <button class="btn btn-white m-l-sm" type="reset">重置</button>-->
+                                        <el-button type="primary" native-type="submit">提交</el-button>
+                                        <el-button native-type="reset">重置</el-button>
                                     </div>  
                                 </div>
                             </vue-form>

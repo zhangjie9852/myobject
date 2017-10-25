@@ -4,11 +4,9 @@
 		<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>评论详情</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
+                    <div class="ibox float-e-margins">                        
+                        <div class="ibox-content p-m">
+                            <div class="hd-title">评论详情</div>
                             <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm" >
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">评论用户：</label>
@@ -26,7 +24,7 @@
                                     <label class="col-sm-3 control-label">评论内容：</label>
                                     <div class="col-sm-8 m-t-8">
                                         <div>{{fields.goods_assessment}}</div>
-                                        <ul class="imgList clearfix">
+                                        <!--<ul class="imgList clearfix">
                                             <li v-if="fields.goods_pic1!=''&&fields.goods_pic1!=null">
                                                 <div class="img-box">
                                                     <img :src="fields.goods_pic1" @click="openPic(fields.goods_pic1)">
@@ -52,9 +50,36 @@
                                                     <img :src="item.img_url">
                                                 </div>
                                             </li> -->                                            
-                                        </ul>
+                                        <!---</ul>-->
                                     </div>
-                                </div>                                
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">晒图：</label>
+                                    <div class="col-sm-8 m-t-8">
+                                        <ul class="imgList clearfix">
+                                            <li v-if="fields.goods_pic1!=''&&fields.goods_pic1!=null">
+                                                <div class="img-box">
+                                                    <img :src="fields.goods_pic1" @click="openPic(fields.goods_pic1)">
+                                                </div>
+                                            </li>
+                                            <li v-if="fields.goods_pic2!=''&&fields.goods_pic2!=null">
+                                                <div class="img-box">
+                                                    <img :src="fields.goods_pic2" @click="openPic(fields.goods_pic2)">
+                                                </div>
+                                            </li>
+                                            <li v-if="fields.goods_pic3!=''&&fields.goods_pic3!=null">
+                                                <div class="img-box">
+                                                    <img :src="fields.goods_pic3" @click="openPic(fields.goods_pic3)">
+                                                </div>
+                                            </li>
+                                            <li v-if="fields.goods_pic4!=''&&fields.goods_pic4!=null">
+                                                <div class="img-box">
+                                                    <img :src="fields.goods_pic4" @click="openPic(fields.goods_pic4)">
+                                                </div>
+                                            </li>
+                                            </ul>
+                                    </div>
+                                </div>                              
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">评论时间：</label>
                                     <div class="col-sm-4 m-t-8">
@@ -91,8 +116,10 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group draggable ui-draggable">
                                     <div class="col-sm-12 col-sm-offset-3">
-                                      <button class="btn btn-primary m-r-sm" type="submit" v-if="fields.is_assess!=1">确定</button>
-                                      <router-link to="/goods/evaluate/list" class="btn btn-white">返回列表</router-link>
+                                      <!--<button class="btn btn-primary m-r-sm" type="submit" v-if="fields.is_assess!=1">确定</button>
+                                      <router-link to="/goods/evaluate/list" class="btn btn-white">返回列表</router-link>-->
+                                      <el-button type="primary" native-type="submit" v-if="fields.is_assess!=1">确定</el-button>
+                                      <router-link to="/goods/evaluate/list" class="white-btn m-l-sm">返回列表</router-link>
                                     </div>                                      
                                 </div>                               
                             </vue-form>

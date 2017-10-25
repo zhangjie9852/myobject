@@ -4,11 +4,8 @@
 		<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>添加品牌</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
+                    <div class="ibox float-e-margins">                       
+                        <div class="ibox-content p-m">
                             <el-tabs v-model="activeName" type="card">
                                 <el-tab-pane label="基本信息" name="first">
                                     <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm" >
@@ -89,7 +86,7 @@
                                                     <div slot="required" class="error">图片不能为空.</div>
                                                 </field-messages>
                                             </validate>
-                                            <span class="f-c-r">（注：电脑端与手机端图片单独上传）</span>
+                                            <span class="f-c-r  form-tips">（注：电脑端与手机端图片单独上传）</span>
                                         </div>                                
                                         <field class="form-group">
                                             <label class="col-sm-3 control-label">品牌描述：</label>
@@ -102,7 +99,7 @@
                                             <div class="col-sm-4">
                                                 <input type="number" onmousewheel="return false;" name="brand_sort" class="form-control" v-model="model.brand_sort">
                                             </div>
-                                            <span class="f-c-r">用于排序品牌显示先后顺序，数字越小越靠后显示</span>
+                                            <span class="f-c-r form-tips">用于排序品牌显示先后顺序，数字越小越靠后显示</span>
                                         </field>                                        
                                         <!-- <field class="form-group">
                                             <label class="col-sm-3 control-label">品牌标签：</label>
@@ -132,8 +129,10 @@
                                       <div class="hr-line-dashed"></div>
                                         <div class="form-group draggable ui-draggable">
                                             <div class="col-sm-12 col-sm-offset-3">
-                                                <button class="btn btn-primary" type="submit">提交</button>
-                                                <router-link to="/goods/Brand" class="btn btn-white m-l-sm">返回列表</router-link>
+                                                <!--<button class="btn btn-primary" type="submit">提交</button>
+                                                <router-link to="/goods/Brand" class="btn btn-white m-l-sm">返回列表</router-link>-->
+                                                <el-button type="primary" native-type="submit">提交</el-button>
+                                                <router-link to="/goods/Brand" class="white-btn m-l-sm">返回列表</router-link>
                                             </div>  
                                         </div>
                                     </vue-form>

@@ -5,10 +5,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                        <!--<div class="ibox-title">
                             <h5>全局SEO配置</h5>
-                        </div>                        
-                        <div class="ibox-content add-user">
+                        </div>   -->                     
+                        <div class="ibox-content p-m">
+                            <div class="hd-title">全局SEO配置</div> 
                             <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">                                              
                                 <field class="form-group">
                                     <label class="col-sm-3 control-label">全局标题后缀：</label>
@@ -52,8 +53,10 @@
                               <div class="hr-line-dashed"></div>
                                 <div class="form-group draggable ui-draggable">
                                     <div class="col-sm-12 col-sm-offset-3">
-                                        <button class="btn btn-primary" type="submit">提交</button>
-                                        <button class="btn btn-white m-l-sm" type="reset">重置</button>
+                                        <!--<button class="btn btn-primary" type="submit">提交</button>
+                                        <button class="btn btn-white m-l-sm" type="reset">重置</button>-->
+                                        <el-button type="primary" native-type="submit">确定</el-button>
+                                        <el-button native-type="reset">重置</el-button>
                                     </div>  
                                 </div>
                             </vue-form>
