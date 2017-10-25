@@ -77,7 +77,7 @@
 /*el-date-picker 日期选择器*/
 .el-date-table td.current:not(.disabled), .el-date-table td.end-date, .el-date-table td.start-date{
   background-color: #20a0ff !important;
-  color: #fff;
+  color: #fff !important;
 }
 .el-date-table td.today{
   color: #20a0ff;
