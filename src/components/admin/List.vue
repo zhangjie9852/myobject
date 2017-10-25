@@ -56,8 +56,8 @@
                     <td class="opt">
                       <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(adminList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                         <li><router-link :to="'/admin/list/edit/'+item.id">编辑</router-link></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                       </ul>
                     </td>
                   </tr>

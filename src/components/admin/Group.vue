@@ -41,8 +41,8 @@
                       <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(roleLists,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
                         <!--<li><router-link :to="'/admin/role/detail/'+item.id">查看</router-link></li>-->
-                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                         <li><router-link :to="'/admin/role/edit/'+item.id">编辑</router-link></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                       </ul>
                     </td>
                   </tr>

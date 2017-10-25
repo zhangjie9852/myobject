@@ -66,7 +66,7 @@
 											</td>
 											<td>{{item.goods_sku_type}}</td>
 											<td class="opt">
-												<span class="opt-down shop icon-guanli" @click.stop="opToggle(clist,item.goods_sku_id,'goods_sku_id')"></span>
+												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.goods_sku_id,'goods_sku_id')"></span>
                                                 <ul v-show="item.isOptShow">
                                                 	<li><router-link :to="'/goods/sku/edit/'+item.goods_sku_id">编辑</router-link></li>
                                                     <li><a @click="delOne(item.goods_sku_id)">删除</a></li>
@@ -96,16 +96,16 @@
 		</div>
 	</div>
 </template>
-<script>	
+<script>
 	import HjCrumb from '../comms/BreadCrumb.vue'
 	import {CustomFun,pageSizes,Imgpath} from '../comms/main.js'
 	export default{
-		components:{	      
+		components:{
 	      HjCrumb
 	    },
 	    data(){
 	    	return{
-	    		title:'',				
+	    		title:'',
 				PSLists:pageSizes,
 				clist:[],
 				checkAllFlag:false,
@@ -127,28 +127,28 @@
 			    		}
 		    		]
 		    	},
-		    	pageData:{					
+		    	pageData:{
                     PageID:1,
 					Perpage:10,
 					Results:1,
-					Pages:1									
+					Pages:1
                 }
-	    	}	
+	    	}
 	    },
 	    mounted(){
 			this.$nextTick(function () {
 				this.getList(1);	//列表数据
-				document.addEventListener('click', (e) => {				
+				document.addEventListener('click', (e) => {
 			       	if(this.$el.contains(e.target)){
 			       		if(this.clist.length>0){
 			              this.clist.forEach(function (item,index) {
 			                  item.isOptShow=false;
 			              })
-			            }			           
+			            }
 			       	}
 			   })
-			})	
-		},			
+			})
+		},
 		methods:{
 			opToggle:CustomFun.opToggle,
 			checkedAll:CustomFun.checkedAll,
@@ -160,7 +160,7 @@
 		    handleCurrentChange(val) {
 		       this.getList(val);
 		    },
-		    getList(page){		    	
+		    getList(page){
 		    	var that=this;
 		    	that.checkAllFlag=false;
 		    	that.selectedList=[];
@@ -180,12 +180,12 @@
 			    		that.pageData.Results = res.data.data.Results;
 			    		that.pageData.Pages = res.data.data.Pages;
 			    		that.title = '';
-			    		that.clist.forEach(function (item,index) {							      
+			    		that.clist.forEach(function (item,index) {
 					        that.$set(item,"isOptShow",false);
 					    })
-				    }else{						
-                        console.log(res.data.desc);                        
-					}	
+				    }else{
+                        console.log(res.data.desc);
+					}
 		    	}).catch(function(error){
 		    		console.log(error);
 		    	})
@@ -198,21 +198,21 @@
 						  params:{
 							'goods_sku_id':cid,
 							'status_goods_sku':status
-						  }			  
-						}).then(function (res) {																	 
+						  }
+						}).then(function (res) {
 							if(res.data.error==0){
 								that.getList(that.pageData.PageID);
 							}else{
 								that.$message({
 		                          message: res.data.desc,
 		                          type: 'warning'
-		                        });	
+		                        });
 							}
 						}).catch(function (error) {
 							console.log(error);
-						});				
+						});
 			},
-		    delOne:function(id){				
+		    delOne:function(id){
 		        var that=this;
 		        this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
@@ -224,9 +224,9 @@
 		            url: '/goods_sku/batchsubmit',
 		            params:{
 		            	'goods_sku_id':id,
-		            	'method':-2						
+		            	'method':-2
 		            }
-		          }).then(function (res) {		          	
+		          }).then(function (res) {
 		            that.$message({
 		              type: 'success',
 		              message: '删除成功!'
@@ -243,7 +243,7 @@
 		        });
 		    },
 		    batchOpt:function(status){
-		        var that=this;		        
+		        var that=this;
 		        if(that.selectedList.length>0){
 		          var selectedId=[];
 		          that.selectedList.forEach(function(item,index){
@@ -269,9 +269,9 @@
 			                  type: 'success',
 			                  message: '操作成功!'
 			                });
-			                if(status==-2){		                	
+			                if(status==-2){
 			                	that.getList(1);
-			                }else{		                	
+			                }else{
 			                	that.getList(that.pageData.PageID);
 			                }
 		              	}else{
@@ -279,7 +279,7 @@
 			                  type: 'error',
 			                  message: res.data.desc
 			                });
-		              	}		                		                
+		              	}
 		              }).catch(function (error) {
 		                console.log(error);
 		              });
@@ -299,7 +299,7 @@
 		    },
 		    /*
 		    delAll:function(){
-		        var that=this;		        
+		        var that=this;
 		        if(that.selectedList.length>0){
 		          var selectedId=[];
 		          that.selectedList.forEach(function(item,index){
@@ -316,14 +316,14 @@
 		                url: '/goods_sku/batchsubmit',
 		                params:{
 		                  'goods_sku_id':selectedId.join(','),
-		                  'method':-2         
+		                  'method':-2
 		                }
 		              }).then(function (res) {
 		                that.$message({
 		                  type: 'success',
 		                  message: '删除成功!'
 		                });
-		                that.getList(1);		                
+		                that.getList(1);
 		              }).catch(function (error) {
 		                console.log(error);
 		              });
@@ -342,7 +342,7 @@
 		        }
 		    },
 		    forbidden:function(){
-		    	var that=this;		        
+		    	var that=this;
 		        if(that.selectedList.length>0){
 		        	var selectedId=[];
 		          	var isRight=true;
@@ -356,7 +356,7 @@
 			              return;
 			            }else{
 			              selectedId.push(item.goods_sku_id);
-			            } 
+			            }
 			        })
 		          if(isRight){
 		            this.$confirm('确认全部禁用吗？', '提示', {
@@ -369,14 +369,14 @@
 		                url: '/goods_sku/batchsubmit',
 		                params:{
 		                  'goods_sku_id':selectedId.join(','),
-		                  'method':-1		                  
+		                  'method':-1
 		                }
 		              }).then(function (res) {
 		                that.$message({
 		                  type: 'success',
 		                  message: '确认禁用!'
 		                });
-		                that.getList(1);		                
+		                that.getList(1);
 		              }).catch(function (error) {
 		                console.log(error);
 		              });
@@ -395,7 +395,7 @@
 		        }
 		    },
 		    startUsing:function(){
-		    	var that=this;		        
+		    	var that=this;
 		        if(that.selectedList.length>0){
 		        	var selectedId=[];
 		        	var isRight=true;
@@ -409,7 +409,7 @@
 			              return;
 			            }else{
 			              selectedId.push(item.goods_sku_id);
-			            } 
+			            }
 			        })
 		          if(isRight){
 		            this.$confirm('确认全部启用吗？', '提示', {
@@ -422,7 +422,7 @@
 		                url: '/goods_sku/batchsubmit',
 		                params:{
 		                  'goods_sku_id':selectedId.join(','),
-		                  'method':1		                  
+		                  'method':1
 		                }
 		              }).then(function (res) {
 		                that.$message({
@@ -430,7 +430,7 @@
 		                  message: '确认启用!'
 		                });
 		                console.log(1111,selectedId);
-		                that.getList(1);		                
+		                that.getList(1);
 		              }).catch(function (error) {
 		                console.log(error);
 		              });
@@ -446,7 +446,7 @@
 		            type: 'warning',
 		            message: '请至少选择一条数据!'
 		          });
-		        }		        
+		        }
 		    }*/
 		}
 	}

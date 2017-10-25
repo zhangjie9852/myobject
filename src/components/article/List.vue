@@ -110,8 +110,8 @@
                       <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(articleList,'id',item.id)"></span>
                       <ul v-show="item.isOptShow">
                         <li v-if="index!=0" @click="toTop(item)"><a href="javascript:;">置顶</a></li>
-                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                         <li><router-link :to="'/article/list/edit/'+item.id">编辑</router-link></li>
+                        <li @click="removeSingle(item.id)"><a href="javascript:;">删除</a></li>
                         <li v-if="item.is_publish==0" @click="changeIsPublish(item)"><a href="javascript:;">发布</a></li>
                         <li v-if="item.is_publish==1" @click="changeIsPublish(item)"><a href="javascript:;">取消发布</a></li>
                       </ul>
