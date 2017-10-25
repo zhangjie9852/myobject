@@ -4,49 +4,49 @@
 		<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins">                     
+                    <div class="ibox float-e-margins">
                         <div class="ibox-content p-m">
                             <div class="hd-title">咨询查看</div>
-                            <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm" >
+                            <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal form-detail">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">咨询商品：</label>
-                                    <div class="col-sm-4 m-t-8">
+                                    <div class="col-sm-4 control-info">
                                         {{fields.goods_name}}
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">咨询内容：</label>
-                                    <div class="col-sm-8 m-t-8">
+                                    <div class="col-sm-8 control-info">
                                         {{fields. consult_assessment}}
-                                    </div>                                    
-                                </div>                                
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">咨询用户：</label>
-                                    <div class="col-sm-4 m-t-8">
+                                    <div class="col-sm-4 control-info">
                                         {{fields.consult_user_name}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">咨询时间：</label>
-                                    <div class="col-sm-4 m-t-8">
+                                    <div class="col-sm-4 control-info">
                                         {{fields.time_create}}
                                     </div>
                                 </div>
                                 <div class="form-group" v-if="fields.is_answer==1">
                                     <label class="col-sm-3 control-label">回复内容：</label>
-                                    <div class="col-sm-4 m-t-8">
+                                    <div class="col-sm-4 control-info">
                                         {{fields.answer_assessment}}
                                     </div>
                                 </div>
                                 <validate class="form-group" v-else>
                                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>回复内容：</label>
-                                    <div class="col-sm-5 m-t-8">
+                                    <div class="col-sm-5 control-info">
                                         <textarea name="answer_assessment" class="form-control" rows="5" v-model="fields.answer_assessment" required :class="fieldClassName(formstate.answer_assessment)">{{fields.answer_assessment}}</textarea>
                                         <field-messages name="answer_assessment" show="$touched || $submitted" class="form-control-callback">
                                             <div slot="required" class="error">回复内容不能为空</div>
                                         </field-messages>
                                     </div>
-                                </validate>                                                            
+                                </validate>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group draggable ui-draggable">
                                     <div class="col-sm-12 col-sm-offset-3">
@@ -54,8 +54,8 @@
                                       <router-link to="/goods/consult/list" class="btn btn-white">返回列表</router-link>-->
                                         <el-button type="primary" native-type="submit" v-if="fields.is_answer==-1">确定</el-button>
                                         <router-link to="/goods/consult/list" class="white-btn m-l-sm">返回列表</router-link>
-                                    </div>                                      
-                                </div>                               
+                                    </div>
+                                </div>
                             </vue-form>
                       </div>
                     </div>
@@ -100,12 +100,12 @@
                     consult_assessment:'',
                     answer_assessment:'',
                     time_create:'',
-                    is_answer:0,                             
+                    is_answer:0,
                 }
 	    	}
-	    },                     
-        mounted(){ 
-            this.EditList(this.$route.params.id)         
+	    },
+        mounted(){
+            this.EditList(this.$route.params.id)
         },
         methods:{
             fieldClassName: function (field) {
@@ -114,16 +114,16 @@
                 } else if ((field.$touched || field.$submitted) && field.$invalid) {
                   return 'error';
                 }
-            },          
+            },
             EditList(cid){
                 var that = this;
                 that.$http({
                           method:'post',
                           url: '/consult/infodata',
-                          params:{ 
-                            'consult_id':cid                       
-                          }           
-                        }).then(function (res) {                                                 
+                          params:{
+                            'consult_id':cid
+                          }
+                        }).then(function (res) {
                             var  fieldList =  res.data.data;
                             if(res.data.error==0){
                                 that.fields.consult_id = fieldList.consult_id;
@@ -132,20 +132,20 @@
                                 that.fields.consult_assessment = fieldList.consult_assessment;
                                 that.fields.is_answer = fieldList.is_answer;
                                 that.fields.answer_assessment = fieldList.answer_assessment;
-                                that.fields.time_create = fieldList.time_create; 
+                                that.fields.time_create = fieldList.time_create;
                             }else{
                                 that.$message({
                                     type: 'error',
                                     message: res.data.msg
-                                });                           
-                            }                                                        
+                                });
+                            }
                         }).catch(function (error) {
                             console.log(error);
                         });
-            }, 
+            },
             onSubmit: function () {
-                var that = this;        
-                if (this.formstate.$valid) {                 
+                var that = this;
+                if (this.formstate.$valid) {
                   that.$http({
                     method: 'post',
                     url: '/consult/editsubmit',
@@ -154,13 +154,13 @@
                       'answer_user':JSON.parse(window.localStorage.getItem("userid")),
                       'consult_id':that.fields.consult_id,
                     }
-                  }).then(function (res) {            
+                  }).then(function (res) {
                     if(res.data.error=='0'){
                       that.$message({
                         type: 'success',
                         message: '提交成功!'
                       });
-                      that.$router.push('/goods/consult/list');              
+                      that.$router.push('/goods/consult/list');
                     }else{
                       that.$message({
                         type: 'error',
@@ -174,7 +174,7 @@
                     });
                   });
                 }
-              }                       
+              }
         }
 	}
 </script>
