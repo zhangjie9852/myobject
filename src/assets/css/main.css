@@ -39,7 +39,6 @@ input:focus,button:focus{
 
 .bg-blue{background: #3399FF}
 .bg-org{background: #FF9900}
-
 .text-red{color: #ff0000}
 .text-org{color: #FF8E00}
 .text-gray{color: #b7bec7}
@@ -61,7 +60,6 @@ input[type="number"]{-moz-appearance:textfield;}
 .gallery li:hover, .gallery li.current {padding: 4px;border: 2px solid #2FB2E6;}
 .gallery-img-size{max-width: 70px; max-height: 70px;}
 
-
 .p-l-n{padding-left: 0}
 .p-l-md{padding-left: 15px !important}
 
@@ -79,7 +77,7 @@ input[type="number"]{-moz-appearance:textfield;}
 .goodlist em.text-org{border-color:#13ce66;color:#13ce66;}
 
 .web-pic{width: 230px; margin: 0 10px;border: 1px solid #ccc;}
-/*classification*/
+/*分类列表*/
 .listhead{background-color: #eef1f6; border-top: 1px solid #dfe6ec; border-bottom: 1px solid #dfe6ec;}
 .listhead li{width:13%; padding: 14px 0 14px 30px; box-sizing: border-box; line-height: 20px; float: left;}
 .listhead li.listTitle,.body-con>div.listTitle{width:61%;}
@@ -94,33 +92,15 @@ input[type="number"]{-moz-appearance:textfield;}
 .body-con>div.listTitle .save-btn{color: #20a0ff;}
 .body-con>div.listOpt a{display:inline-block; color:#20a0ff; margin-right: 24px;}
 
-/*.listhead{background-color: #F5F5F6; border: 1px solid #DDDDDD;}*/
-/*.listhead li{font-weight: 700}*/
-/*.listhead li,.listbody li{ float: left; width: 10%; padding: 8px; text-align: center; }*/
-.listbody li{ float: left; width: 10%; padding: 8px; text-align: center; }
-.listbody>li{border-bottom: 1px solid #DDDDDD; height: 45px; }
-
-.listbody{background-color: #FFF; }
-/*.listhead li.listTitle,.listbody li.listTitle{width: 65%; text-align: left;}*/
-/*.listhead li.listOpt,.listbody li.listOpt{width: 15%; text-align: left;}*/
-.listbody li.listTitle{width: 65%; text-align: left;}
-.listbody li.listOpt{width: 15%; text-align: left;}
-.listbody li.listOpt{font-size: 20px}
-.listbody li.listTitle input{ padding-left: 10px; border:1px solid #CCC; width: 150px;}
-
 .bigPic{text-align: center; max-height: 400px; overflow-x: hidden; overflow-y: auto;}
 .bigPic img{max-width: 620px;}
 /*inherit*/
 
-
 .operation{text-align:right; padding-top:10px; padding-bottom:6px;}
 .input_w80{width:80px !important;}
 .input_w120{width:120px !important;}
-
 .form-group .r-state{display:inline-block; margin-right:16px; padding-top:4px;}
-
 .el-upload-list--picture-card,.el-upload.el-upload--picture-card{display: inline-block !important;}
-
 
 /*Home*/
 .census{color:#fff;}
@@ -132,8 +112,6 @@ input[type="number"]{-moz-appearance:textfield;}
 .latest-orders{margin-bottom:15px;}
 .latest-orders .project-completion{padding:10px 8px; border-top:solid 1px #e7eaec;}
 .latest-orders .project-completion:first-child{border-top:0;}
-
-
 
 /*upload pic*/
 .form-group .imgList{list-style:none; padding:0; margin:0;}
@@ -153,7 +131,6 @@ input[type="number"]{-moz-appearance:textfield;}
 .imgList li .mask{width:100%; height:100%; background-color:rgba(160,160,160,0.8); position:absolute; left:0; top:0;}
 .imgList li .mask .tips{font-size:12px; color:#fff; text-align:center; line-height:20px; margin-top:42px;}
 .imgList li .mask img{width:15px; height:15px; display:block; margin:0 auto;}
-
 
 
 .item_select{width:158px; float:left; padding-left:10px; height:34px; line-height:34px; background:#FFF; border:#E5E6E7 1px solid; position:relative; cursor:pointer; z-index:1; margin:5px 0 6px 0;}
@@ -228,7 +205,6 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .border-none{border-bottom: none;}
 
 
-
 .ibox-title{position:relative;}
 .rt-btn{ position:absolute; right:20px; top:9px}
 .rt-btn .btn{font-size:12px; padding:4px 8px;}
@@ -292,8 +268,6 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
     max-height: 108px;
   }
 
-
-
 /*operation*/
 .t-right{text-align: right; padding-right: 20px !important}
 .opt{text-align:right; position:relative;}
@@ -341,9 +315,11 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .ibox-content .btn-group button:active{
   outline:0;
 }
+/*列表筛选条件中的el-input*/
 .ibox-content .form-inline .el-input{
   width:200px;
 }
+/*列表中的添加按钮*/
 .ibox-content .add-btn{
   display: inline-block;
   line-height: 20px;
@@ -361,6 +337,7 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .ibox-content .add-btn:hover{
   opacity: 0.8;
 }
+/*列表中的筛选按钮*/
 .ibox-content .form-inline .el-button.search-btn{
   margin-bottom: 10px;
   margin-right: 120px;
@@ -374,10 +351,12 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .ibox-content .form-inline .el-button+.el-button{
   margin-left: 0;
 }
+/*列表中单个操作--查看会员中的订单列表信息*/
 .single-opt{
   display:inline-block;
   color:#20a0ff;
 }
+/*内页头部*/
 .ibox-content .hd-title{
   padding:8px 18px;
   position: relative;
@@ -397,6 +376,7 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
   top:50%;
   margin-top: -9px;
 }
+/*内页 表单*/
 .form-group{
   margin-bottom: 20px;
 }
@@ -408,12 +388,14 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .form-group input.form-control{
   height: 36px;
 }
+/*表单验证 错误提示*/
 .form-control.error + .form-control-callback,
 .el-select.error + .form-control-callback,
 .el-cascader.error + .form-control-callback{
   margin-top:5px;
   margin-bottom: -10px;
 }
+/*表单中的el-select*/
 .form-group .el-select{
   width:100%;
 }
@@ -421,6 +403,20 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
   border-color: #eaeefb;
   margin-top:30px;
 }
+/*内容页 详情表单*/
+.form-detail{
+  line-height: 20px;
+}
+.form-detail .form-group{
+  margin-bottom: 15px;
+}
+.form-detail .form-group .control-label{
+  padding-top:0;
+}
+.form-detail .form-group .control-info{
+  color: #99a9bf;
+}
+/*内容页 编辑页面 返回列表*/
 .white-btn{
   display: inline-block;
   line-height: 20px;
@@ -441,6 +437,7 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .el-tabs .el-tabs__header{
   margin-bottom: 30px;
 }
+/*分类列表 全部收起按钮*/
 .gray-btn,.el-button.gray-btn{
   color: #1f2d3d;
   background-color: #eef1f6;
@@ -455,3 +452,4 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
   border-color: #eef1f6;
   opacity: 0.8;
 }
+

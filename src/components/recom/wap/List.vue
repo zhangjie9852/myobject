@@ -5,22 +5,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
-                        <div class="ibox-content">         
+                        <div class="ibox-content">
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
-                                        <tr>                                            
+                                        <tr>
                                             <th>推荐位名称</th>
-                                            <th class="text-center">推荐位类型</th>
-                                            <th class="text-center">操作</th>
+                                            <th>推荐位类型</th>
+                                            <th class="opt-select">操作</th>
                                         </tr>
-                                    </thead>                                    
-                                    <tbody>                                    	
+                                    </thead>
+                                    <tbody>
                                         <tr v-for="(item,index) in clist">
                                             <td>{{item.recmd_block_name}}</td>
-                                            <td class="text-center">{{item.recmd_block_type}}</td>
-                                            <td class="text-center">
-                                            	<router-link :to="'/recom/wap/item/'+item.recmd_block_id">管理</router-link>
+                                            <td>{{item.recmd_block_type}}</td>
+                                            <td class="opt">
+                                            	<router-link class="single-opt" :to="'/recom/wap/item/'+item.recmd_block_id">管理</router-link>
                                            </td>
                                         </tr>
                                     </tbody>
@@ -31,18 +31,18 @@
                     </div>
                 </div>
             </div>
-        </div>         
+        </div>
 	</div>
 </template>
-<script>	
-	import HjCrumb from '../../comms/BreadCrumb.vue'	
-	import {CustomFun,pageSizes,Imgpath} from '../../comms/main.js'	
+<script>
+	import HjCrumb from '../../comms/BreadCrumb.vue'
+	import {CustomFun,pageSizes,Imgpath} from '../../comms/main.js'
 	export default{
-		components:{	      
+		components:{
 	      HjCrumb
 	    },
 		data(){
-			return {								
+			return {
 				CrumbBox:{
 	    			CrumbList:
 		    		[
@@ -53,35 +53,35 @@
 			    		{
 				    		title:'推荐列表',
 				    		url:''
-			    		}			    		
+			    		}
 		    		]
 		    	},
 		    	pageError:false,
 		    	clist:[]
 			}
-		},					       
-		mounted(){												
+		},
+		mounted(){
 			this.getList();	//列表数据
 		},
 		// updated(){
   //           if(this.pageError){
   //               this.getList();
-  //           }           
-  //       },		
+  //           }
+  //       },
 		methods:{
-			getList() {	
-				var that = this;											     		    		
+			getList() {
+				var that = this;
 	      		that.$http({
 						  method:'post',
 						  url: '/recmd_block/listdata',
 						  params:{
 							'recmd_block_platform':2
-						  }			  
+						  }
 						}).then(function (res) {
 							//console.log(res);
 							if(res.data.error==0){
 								that.clist   = res.data.data.table_data;
-							}else{								 
+							}else{
 								 console.log(res.data.desc);
 								 that.pageError =true
 							}
