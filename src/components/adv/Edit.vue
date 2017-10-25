@@ -6,7 +6,7 @@
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
             <div class="ibox-content p-m">
-              <div class="hd-title">编辑广告</div> 
+              <div class="hd-title">编辑广告</div>
               <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">
                 <validate class="form-group">
                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告位置：</label>
@@ -45,7 +45,7 @@
                             <li class="upload" v-else>
                               <a @click="picChange('pc')"><img src="../../assets/img/add.png"></a>
                             </li>
-                        </ul>                                                
+                        </ul>
                         <span class="picTips">PC端</span>
                         <field-messages name="advertising_pc_logo" show="$submitted" class="form-control-callback">
                             <div class="valid">Success!</div>
@@ -69,12 +69,12 @@
                             <div class="valid">Success!</div>
                             <div slot="required" class="error">图片不能为空.</div>
                         </field-messages>
-                    </validate>                                            
+                    </validate>
                 </div>
                 <validate class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图片链接：</label>
                   <div class="col-sm-4">
-                    <input type="text" name="advertising_link" class="form-control" v-model="fields.advertising_link" required :class="fieldClassName(formstate.advertising_link)">                    
+                    <input type="text" name="advertising_link" class="form-control" v-model="fields.advertising_link" required :class="fieldClassName(formstate.advertising_link)">
                     <field-messages name="advertising_link" show="$touched || $submitted" class="form-control-callback">
                       <div slot="required" class="error">图片链接不能为空</div>
                     </field-messages>
@@ -95,14 +95,14 @@
                       <field-messages name="range" show="$submitted" class="form-control-callback">
                           <div slot="required" class="error">请选择广告时间.</div>
                       </field-messages>
-                  </validate>                  
-                </div>               
+                  </validate>
+                </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">备注：</label>
                   <div class="col-sm-4">
                     <textarea class="form-control" :rows="4" name="advertising_remark" v-model="fields.advertising_remark"></textarea>
                   </div>
-                </div>                
+                </div>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group draggable ui-draggable">
                   <div class="col-sm-12 col-sm-offset-3">
@@ -123,22 +123,22 @@
           <el-tab-pane label="本地图片" name="first">
             <el-upload
               class="avatar-uploader"
-              :action="sevUrl+'/admin/upload'" 
+              :action="sevUrl+'/admin/upload'"
               :show-file-list="false"
-              :data="usermsg"                                          
+              :data="usermsg"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload">
               <img v-if="uploadPic" :src="uploadPic" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>                        
+            </el-upload>
           </el-tab-pane>
           <el-tab-pane label="图片库" name="second" :data-val="galleryPicUrl">
             <PicLlibrary v-if="activeName2=='second'"></PicLlibrary>
           </el-tab-pane>
           <el-tab-pane label="网络图片" name="third">
             网络图片：<input type="text" class="web-pic" v-model="webLinkPic" @blur="CheckUrl(webLinkPic)"> 图片地址必须以http开头,以jpg,png,bmp,gif结束
-          </el-tab-pane>            
-        </el-tabs>          
+          </el-tab-pane>
+        </el-tabs>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="SureBtn">确 定</el-button>
           <el-button @click="CancelBtn">取 消</el-button>
@@ -194,7 +194,7 @@
           advertising_link:'',
           advertising_remark:'',
           advertising_start_time:'',
-          advertising_end_time:'',          
+          advertising_end_time:'',
         },
         advertising_time:'',
         advertising_time_str:'',
@@ -206,13 +206,13 @@
         dialogPic:false,
       }
     },
-    computed: {     
-        ...mapGetters([           
-          'galleryUrl'      
+    computed: {
+        ...mapGetters([
+          'galleryUrl'
         ]),
         galleryPicUrl(){
             this.galleryPic= this.galleryUrl;
-        }   
+        }
     },
     methods: {
       CheckUrl:CustomFun.CheckUrl,
@@ -233,7 +233,7 @@
           }
         }).then(function (res) {
           if(res.data.error=='0'){
-            var list = res.data.data; 
+            var list = res.data.data;
             that.fields={
               ad_id:list.id,
               advertising_location:list.advertising_location,
@@ -259,14 +259,14 @@
         });
       },
       adList () {//广告位置下拉
-        var that=this;        
+        var that=this;
         that.$http({
           method:'post',
           url: '/adposition/list',
           params:{
             goods_shop_base_id:that.shopId
           }
-        }).then(function (res) {             
+        }).then(function (res) {
           if(res.data.error=='0'){
             that.adPosition = res.data.data.table_data;
           }else{
@@ -276,7 +276,7 @@
             });
           }
         }).catch(function (error) {
-          console.log(error);          
+          console.log(error);
         });
       },
       /*选择日期*/
@@ -285,57 +285,57 @@
           this.advertising_time_str=val;
         }else{
           this.advertising_time = null;
-        }      
-      },      
+        }
+      },
       /*上传图片*/
       picChange(ptype){
-          this.ptype = ptype;            
-          this.dialogPic = true;                
+          this.ptype = ptype;
+          this.dialogPic = true;
           this.uploadPic = '';
           this.webLinkPic = '';
-          this.galleryPic='';         
+          this.galleryPic='';
       },
       SureBtn(){
-          var ind = this.dialogInd;                
+          var ind = this.dialogInd;
           if(this.activeName2 == "first"){
               if(this.uploadPic != ""){
                   if(this.ptype =="pc"){
-                      this.fields.advertising_pc_logo = this.uploadPic;     
+                      this.fields.advertising_pc_logo = this.uploadPic;
                   }else{
-                      this.fields.advertising_wap_logo = this.uploadPic;                            
+                      this.fields.advertising_wap_logo = this.uploadPic;
                   }
-                  this.dialogPic = false; 
+                  this.dialogPic = false;
               }else{
                   this.$message({
                     message: '请选择文件后再上传',
                     type: 'warning'
                   });
-              }                   
+              }
           }else if(this.activeName2 == "second"){
               if(this.galleryPic != ""){
                   if(this.ptype =="pc"){
-                      this.fields.advertising_pc_logo = this.galleryPic; 
+                      this.fields.advertising_pc_logo = this.galleryPic;
                   }else{
                       this.fields.advertising_wap_logo = this.galleryPic;
                   }
                   this.dialogPic = false;
-                  this.$store.commit('GALLERY_PIC_URL', ''); 
+                  this.$store.commit('GALLERY_PIC_URL', '');
                   this.activeName2 = 'first';
-              }else{                        
+              }else{
                   this.$message({
                     message: '未选择任何图片',
                     type: 'warning'
                   });
-              }                   
+              }
           }else{
               if(this.webLinkPic != ""){
-                  var str = this.webLinkPic;                                          
+                  var str = this.webLinkPic;
                   if(this.CheckUrl(str)){
                       if(this.ptype =="pc"){
-                          this.fields.advertising_pc_logo = this.webLinkPic;                       
+                          this.fields.advertising_pc_logo = this.webLinkPic;
                       }else{
                           this.fields.advertising_wap_logo = this.webLinkPic;
-                      }                            
+                      }
                       this.dialogPic = false;
                       this.activeName2 = 'first';
                   }else{
@@ -343,27 +343,27 @@
                         message: '请正确输入地址',
                         type: 'warning'
                       });
-                  }                         
+                  }
               }else{
                   this.$message({
                     message: '请输入网络图片地址',
                     type: 'warning'
                   });
               }
-          }                                 
+          }
       },
       CancelBtn(){
-        this.dialogPic = false;              
+        this.dialogPic = false;
         this.activeName2 = 'first';
       },
-      /*图片上传*/      
-      handleAvatarSuccess(res, file) { 
+      /*图片上传*/
+      handleAvatarSuccess(res, file) {
           var PcPath = Imgpath+res.data.file_path;
           if(res.result==1){
               this.uploadPic = PcPath;
           }
-      },            
-      beforeAvatarUpload(file) {                
+      },
+      beforeAvatarUpload(file) {
           const isJPG = file.type === 'image/jpeg';
           const isPNG = file.type === 'image/png';
           const isGIF = file.type === 'image/gif';
@@ -391,20 +391,20 @@
             if(res.data.error=='0'){
               that.isExist=false;
             }else{
-              that.isExist=true;  
+              that.isExist=true;
             }
           }).catch(function (error) {
             console.log(error);
           });
         }else{
           that.isExist=false;
-        }       
+        }
       },
       onSubmit: function () {
-        var that = this;       
+        var that = this;
         if (that.formstate.$valid && !that.isExist) {
           var start_time = new Date(that.fields.advertising_start_time);
-          start_time = start_time.getFullYear()+'-'+(start_time.getMonth()+1)+'-'+start_time.getDate();        
+          start_time = start_time.getFullYear()+'-'+(start_time.getMonth()+1)+'-'+start_time.getDate();
           that.$http({
             method: 'post',
             url: '/ad/editsubmit',
@@ -418,7 +418,7 @@
               advertising_link:that.fields.advertising_link,
               advertising_remark:that.fields.advertising_remark,
               advertising_start_time:that.advertising_time_str.slice(0,19),
-              advertising_end_time:that.advertising_time_str.slice(22,42)              
+              advertising_end_time:that.advertising_time_str.slice(22,42)
             }
           }).then(function (res) {
             if(res.data.error=='0'){
