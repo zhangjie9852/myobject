@@ -1,47 +1,48 @@
 <template>
   <div>
     <div class="btn-group m-b-sm">
-      <button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>
+      <!--<button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>-->
+      <el-button :type="tabIndex==index?'primary':'info'" v-for="(item,index) in orderCount" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</el-button>
     </div>
     <form action="#" class="form-inline m-b-sm" role="form">
-      <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收货人姓名"></el-input>
-      <el-select class="m-r-xs m-b-sm" name="payment_id" v-model="paymentId" v-show="tabIndex!=2">
+      <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收货人姓名"></el-input>
+      <el-select class="m-r-sm m-b-sm" name="payment_id" v-model="paymentId" v-show="tabIndex!=2">
         <el-option :key="null" label="支付类型" :value="null"></el-option>
         <el-option :key="3" label="余额支付" value="3"></el-option>
         <el-option :key="2" label="微信支付" value="2"></el-option>
         <el-option :key="1" label="支付宝支付" value="1"></el-option>
         <el-option :key="4" label="银联支付" value="4"></el-option>
       </el-select>
-      <el-select class="m-r-xs m-b-sm" name="status_order" v-model="statusOrder">
+      <el-select class="m-r-sm m-b-sm" name="status_order" v-model="statusOrder">
         <el-option :key="null" label="订单总状态" :value="null"></el-option>
         <el-option :key="0" label="未开始" value="0"></el-option>
         <el-option :key="1" label="进行中" value="1"></el-option>
         <el-option :key="2" label="已完成" value="2"></el-option>
         <el-option :key="9" label="已取消" value="9"></el-option>
       </el-select>
-      <el-select class="m-r-xs m-b-sm" name="status_pay" v-model="statusPay" v-show="tabIndex!=2 && tabIndex!=4">
+      <el-select class="m-r-sm m-b-sm" name="status_pay" v-model="statusPay" v-show="tabIndex!=2 && tabIndex!=4">
         <el-option :key="null" label="支付状态" :value="null"></el-option>
         <el-option :key="0" label="未支付" value="0"></el-option>
         <el-option :key="1" label="已支付" value="1"></el-option>
         <el-option :key="2" label="退款中" value="2"></el-option>
       </el-select>
-      <el-select class="m-r-xs m-b-sm" name="status_deliver" v-model="statusDeliver" v-show="tabIndex!=1 && tabIndex!=4">
+      <el-select class="m-r-sm m-b-sm" name="status_deliver" v-model="statusDeliver" v-show="tabIndex!=1 && tabIndex!=4">
         <el-option :key="null" label="配送状态" :value="null"></el-option>
         <el-option :key="0" label="未发货" value="0"></el-option>
         <el-option :key="1" label="配货中" value="1"></el-option>
         <el-option :key="3" label="已发货" value="3"></el-option>
         <el-option :key="4" label="已收货" value="4"></el-option>
       </el-select>
-      <el-select class="m-r-xs m-b-sm" name="status_check" v-model="statusCheck" v-show="tabIndex!=1 && tabIndex!=4">
+      <el-select class="m-r-sm m-b-sm" name="status_check" v-model="statusCheck" v-show="tabIndex!=1 && tabIndex!=4">
         <el-option :key="null" label="审核状态" :value="null"></el-option>
         <el-option :key="0" label="未审核" value="0"></el-option>
         <el-option :key="1" label="已审核" value="1"></el-option>
       </el-select>
-      <el-button :type="amountRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogAmountVisible=true">
+      <el-button :type="amountRange?'default':'primary'" class="m-r-sm m-b-sm" @click="dialogAmountVisible=true">
         {{amountRange?'金额：￥'+amountRange.replace(',','-'):'订单金额范围'}}
         <em class="shop icon-cha" @click.stop="closedAmount"></em>
       </el-button>
-      <el-button :type="dateRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogDateVisible=true">
+      <el-button :type="dateRange?'default':'primary'" class="m-r-sm m-b-sm" @click="dialogDateVisible=true">
         {{dateRange?'日期：'+dateRange.replace(',','-'):'日期范围'}}
         <em class="shop icon-cha" @click.stop="closedDate"></em>
       </el-button>

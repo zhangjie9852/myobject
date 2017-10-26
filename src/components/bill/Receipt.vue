@@ -7,25 +7,25 @@
           <div class="ibox float-e-margins">
             <div class="ibox-content">
               <form action="#" class="form-inline m-b-sm" role="form">
-                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收款编号"></el-input>
-                <el-select class="m-r-xs m-b-sm" name="payment_id" v-model="paymentId">
+                <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/收款编号"></el-input>
+                <el-select class="m-r-sm m-b-sm" name="payment_id" v-model="paymentId">
                   <el-option :key="null" label="支付类型" :value="null"></el-option>
                   <el-option :key="3" label="余额支付" value="3"></el-option>
                   <el-option :key="2" label="微信支付" value="2"></el-option>
                   <el-option :key="1" label="支付宝支付" value="1"></el-option>
                   <el-option :key="4" label="银联支付" value="4"></el-option>
                 </el-select>
-                <el-select class="m-r-xs m-b-sm" name="pay_type" v-model="payType">
+                <el-select class="m-r-sm m-b-sm" name="pay_type" v-model="payType">
                   <el-option :key="null" label="支付方式" :value="null"></el-option>
                   <el-option :key="1" label="线上付款" value="1"></el-option>
                   <el-option :key="2" label="货到付款" value="2"></el-option>
                   <el-option :key="3" label="预付款" value="3"></el-option>
                 </el-select>
-                <el-button :type="amountRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogAmountVisible=true">
+                <el-button :type="amountRange?'default':'primary'" class="m-r-sm m-b-sm" @click="dialogAmountVisible=true">
                   {{amountRange?'金额：￥'+amountRange.replace(',','-'):'付款金额范围'}}
                   <em class="shop icon-cha" @click.stop="closedAmount"></em>
                 </el-button>
-                <el-button :type="dateRange?'default':'primary'" class="m-r-xs m-b-sm" @click="dialogDateVisible=true">
+                <el-button :type="dateRange?'default':'primary'" class="m-r-sm m-b-sm" @click="dialogDateVisible=true">
                   {{dateRange?'日期：'+dateRange.replace(',','-'):'付款时间范围'}}
                   <em class="shop icon-cha" @click.stop="closedDate"></em>
                 </el-button>

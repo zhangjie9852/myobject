@@ -7,7 +7,7 @@
           <div class="ibox float-e-margins">
             <div class="ibox-content">
               <form action="#" class="form-inline m-b-sm" role="form">
-                <el-dropdown class="m-r-xs m-b-sm">
+                <el-dropdown class="m-r-sm m-b-sm">
                   <el-button type="warning">
                     批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
                   </el-button>
@@ -17,9 +17,9 @@
                     <el-dropdown-item><span @click="batchWithdrawal">批量撤回</span></el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
-                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="帮助内容"></el-input>
-                <el-input class="m-r-xs m-b-sm" name="articleCateId" v-model="articleCateId" placeholder="帮助分类ID"></el-input>
-                <el-select class="m-r-xs m-b-sm" name="is_publish" v-model="isPublish">
+                <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="帮助内容"></el-input>
+                <el-input class="m-r-sm m-b-sm" name="articleCateId" v-model="articleCateId" placeholder="帮助分类ID"></el-input>
+                <el-select class="m-r-sm m-b-sm" name="is_publish" v-model="isPublish">
                   <el-option :key="null" label="是否发布" :value="null"></el-option>
                   <el-option :key="0" label="未发布" value="0"></el-option>
                   <el-option :key="1" label="已发布" value="1"></el-option>

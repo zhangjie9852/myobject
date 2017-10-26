@@ -7,7 +7,7 @@
           <div class="ibox float-e-margins">
             <div class="ibox-content">
               <form action="#" class="form-inline m-b-sm" role="form">
-                <el-dropdown class="m-r-xs m-b-sm">
+                <el-dropdown class="m-r-sm m-b-sm">
                   <el-button type="warning">
                     批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
                   </el-button>
@@ -16,26 +16,26 @@
                     <el-dropdown-item><span @click="cancelDeliver">取消发货</span></el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
-                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/发货单单号/收货人姓名"></el-input>
-                <el-select class="m-r-xs m-b-sm" name="province_id" v-model="provinceId" @change="changeProvince">
+                <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="订单编号/发货单单号/收货人姓名"></el-input>
+                <el-select class="m-r-sm m-b-sm" name="province_id" v-model="provinceId" @change="changeProvince">
                   <el-option :key="null" label="发往所在省" :value="null"></el-option>
                   <template v-for="item in provinceList">
                     <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
                   </template>
                 </el-select>
-                <el-select class="m-r-xs m-b-sm" name="city_id" v-model="cityId" :disabled="provinceId==null" @change="changeCity">
+                <el-select class="m-r-sm m-b-sm" name="city_id" v-model="cityId" :disabled="provinceId==null" @change="changeCity">
                   <el-option :key="null" label="发往所在市" :value="null"></el-option>
                   <template v-for="item in cityList">
                     <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
                   </template>
                 </el-select>
-                <el-select class="m-r-xs m-b-sm" name="region_id" v-model="regionId" :disabled="cityId==null">
+                <el-select class="m-r-sm m-b-sm" name="region_id" v-model="regionId" :disabled="cityId==null">
                   <el-option :key="null" label="发往所在区" :value="null"></el-option>
                   <template v-for="item in regionList">
                     <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
                   </template>
                 </el-select>
-                <el-select class="m-r-xs m-b-sm" name="status_invoice" v-model="statusInvoice">
+                <el-select class="m-r-sm m-b-sm" name="status_invoice" v-model="statusInvoice">
                   <el-option :key="null" label="发货单状态" :value="null"></el-option>
                   <el-option :key="0" label="未发货" value="0"></el-option>
                   <el-option :key="1" label="已发货" value="1"></el-option>

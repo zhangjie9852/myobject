@@ -7,8 +7,8 @@
           <div class="ibox float-e-margins">
             <div class="ibox-content">
               <form action="#" class="form-inline m-b-sm" role="form">
-                <el-button type="warning" class="m-r-xs m-b-sm" @click="remove">批量删除</el-button>
-                <el-input class="m-r-xs m-b-sm" name="userLogin" v-model="userLogin" placeholder="用户名"></el-input>
+                <el-button type="warning" class="m-r-sm m-b-sm" @click="remove">批量删除</el-button>
+                <el-input class="m-r-sm m-b-sm" name="userLogin" v-model="userLogin" placeholder="用户名"></el-input>
                 <el-button class="search-btn" type="primary" icon="search" @click="getAdminList(1,pageData.Perpage,true)">筛选</el-button>
                 <router-link to="/admin/list/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加管理员</router-link>
                 <!--<div class="form-group m-r-xs m-t-xs">-->

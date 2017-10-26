@@ -288,7 +288,7 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 }
 .el-switch{margin-bottom: 2px;}
 
-.form-inline .btn{border-radius:4px !important;border:none !important;}
+.form-inline .btn,.btn-group button{border-radius:4px !important;border:none !important;}
 .btn-group button.btn-default{background:#eef1f6;color:#1f2d3d;}
 .ibox-group{background:#fff;padding:20px;}
 .form-inline .btn .shop{font-size:15px;margin-right:7px;}
@@ -312,6 +312,17 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
   outline: none;
   color: #fff;
   border:none;
+}
+.btn-group button{
+  height:36px;
+  margin-bottom: 10px !important;
+  outline: 0;
+}
+.btn-group button:hover{
+  opacity: 0.8;
+}
+.btn-group button:active{
+  outline: 0;
 }
 
 .ibox-content .form-inline,.ibox-content .btn-group{

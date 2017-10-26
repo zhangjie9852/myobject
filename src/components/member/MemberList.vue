@@ -7,7 +7,7 @@
           <div class="ibox float-e-margins">
             <div class="ibox-content">
               <form action="#" class="form-inline m-b-sm" role="form">
-                <el-dropdown class="m-r-xs m-b-sm">
+                <el-dropdown class="m-r-sm m-b-sm">
                   <el-button type="warning">
                     批量操作&nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
                   </el-button>
@@ -17,7 +17,7 @@
                     <el-dropdown-item><span @click="recovery">恢复登陆</span></el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
-                <el-input class="m-r-xs m-b-sm" name="keyword" v-model="keyword" placeholder="关键词"></el-input>
+                <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="关键词"></el-input>
                 <el-button class="search-btn" type="primary" icon="search" @click="getMemberLists(1,pageData.Perpage,true)">筛选</el-button>
                 <router-link to="/member/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加会员</router-link>
                 <!--<div class="form-group m-r-xs m-t-xs">-->

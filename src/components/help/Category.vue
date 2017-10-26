@@ -7,7 +7,7 @@
           <div class="ibox float-e-margins">
             <div class="ibox-content">
               <div class="form-inline m-b-md clearfix">
-                <el-button type="primary" class="m-r-xs" @click="allOpen">全部展开</el-button>
+                <el-button type="primary" class="m-r-sm" @click="allOpen">全部展开</el-button>
                 <el-button class="gray-btn" @click="allPack">全部收起</el-button>
                 <el-button type="primary" class="hj_fr" @click="add"><i class="shop icon-xinzeng"></i> 添加一级分类</el-button>
               </div>
