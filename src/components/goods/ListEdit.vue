@@ -100,7 +100,7 @@
                                             </div>                                            
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商品图片：</label>                                 
+                                            <label class="col-sm-3 control-label"><span class="f-c-r">*</span>封面图：</label>                                 
                                             <validate class="col-sm-2">
                                                 <input type="hidden" name="goods_img_url_pc" v-model="fields.goods_img_url_pc" required :class="fieldClassName(formstate.goods_img_url_pc)">
                                                 <ul class="imgList clearfix">
@@ -112,31 +112,37 @@
                                                     <li class="upload" v-else>
                                                       <a @click="picChange('pc')"><img src="../../assets/img/add.png"></a>
                                                     </li>
-                                                </ul>                                                
-                                                <span class="picTips">PC端</span>
+                                                </ul> 
                                                 <field-messages name="goods_img_url_pc" show="$submitted" class="form-control-callback">
                                                     <div class="valid">Success!</div>
                                                     <div slot="required" class="error">图片不能为空.</div>
                                                 </field-messages>
                                             </validate>
-                                            <validate class="col-sm-2">
-                                                <input type="hidden" name="goods_img_url" v-model="fields.goods_img_url" required :class="fieldClassName(formstate.goods_img_url)">
+                                            <span class="f-c-r form-tips m-t">图片比例：1：1 <br>如：350px*350px</span>                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图册：</label>
+                                            <div class="col-sm-7">
                                                 <ul class="imgList clearfix">
-                                                    <li v-if="fields.goods_img_url">
+                                                    <li v-for="(item,index) in fields.picArr">
                                                       <div class="img-box">
-                                                        <img :src="fields.goods_img_url"  @click="picChange('wap')">
+                                                        <img :src="item">
                                                       </div>
+                                                      <a class="img-del" @click="RemovePic(item);"></a>
                                                     </li>
-                                                    <li class="upload" v-else>
+                                                    <li class="upload">
                                                       <a @click="picChange('wap')"><img src="../../assets/img/add.png"></a>
                                                     </li>
                                                 </ul>
-                                                <span class="picTips"> 手机端</span>
-                                                <field-messages name="goods_img_url" show="$submitted" class="form-control-callback">
-                                                    <div class="valid">Success!</div>
-                                                    <div slot="required" class="error">图片不能为空.</div>
-                                                </field-messages>
-                                            </validate>                                            
+                                                <validate>
+                                                    <input type="hidden" name="picStr" v-model="fields.picStr" required :class="fieldClassName(formstate.picStr)">
+                                                    <field-messages name="picStr" show="$touched ||$submitted" class="form-control-callback">
+                                                        <div class="valid">Success!</div>
+                                                        <div slot="required" class="error">图片不能为空.</div>
+                                                    </field-messages>
+                                                </validate>
+                                            </div>
+                                            <span class="f-c-r form-tips m-t">图片比例：1：1 <br>如：700px*700px</span>                      
                                         </div>
                                         <field class="form-group">
                                             <label class="col-sm-3 control-label">是否为免运费商品：</label>
@@ -258,7 +264,7 @@
         </div>
         <el-dialog title="选择图片" :visible.sync="dialogPic">
             <el-tabs v-model="activeName2" type="card">
-              <el-tab-pane label="本地图片" name="first">
+              <el-tab-pane label="本地图片" name="first" v-if="ptype=='pc'">
                 <el-upload
                   class="avatar-uploader"
                   :action="sevUrl+'/admin/upload'" 
@@ -270,8 +276,22 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>                        
               </el-tab-pane>
+              <el-tab-pane label="本地图片" name="first" v-else>
+                <el-upload
+                  class="avatarlist-uploader"
+                  :action="sevUrl+'/admin/upload'"
+                  list-type="picture-card" 
+                  :multiple="true"
+                  :data="usermsg"
+                  :on-remove="handleRemove"
+                  :file-list="fileList"                                          
+                  :on-success="handleListSuccess"
+                  :before-upload="beforeAvatarUpload">                  
+                  <i class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>                        
+              </el-tab-pane>
               <el-tab-pane label="图片库" name="second" :data-val="galleryPicUrl">
-                <PicLlibrary v-if="dialogPic"></PicLlibrary>
+                <PicLlibrary v-if="activeName2=='second'"></PicLlibrary>
               </el-tab-pane>
               <el-tab-pane label="网络图片" name="third">
                 网络图片：<input type="text" class="web-pic" v-model="webLinkPic" @blur="CheckUrl(webLinkPic)"> 图片地址必须以http开头,以jpg,png,bmp,gif结束
@@ -281,7 +301,7 @@
               <el-button type="primary" @click="SureBtn">确 定</el-button>
               <el-button @click="CancelBtn">取 消</el-button>
             </div>
-        </el-dialog>
+        </el-dialog>        
     </div>
 </template>
 <script>
@@ -361,7 +381,9 @@
                 },                
                 category_id_arr:[], 
                 category_id_intarr:[],
-                loadSku:false,              
+                loadSku:false,
+                fileList: [],
+                uploadArr:[],              
                 fields:{
                     goods_id:0,
                     category_id_f:0,
@@ -390,7 +412,9 @@
                     goods_wholesale:false,
                     goods_retail:false,
                     freight_framker:null,
-                    shop_id:''                           
+                    shop_id:'',
+                    picArr:[],
+                    picStr:''                          
                 },
                 freightTemp:[],
                 fields2:{},
@@ -420,6 +444,7 @@
             this.ListInfo(this.$route.params.id); 
         },   
         methods:{
+            removeByValue:CustomFun.removeByValue,
             objectAssign (obj,oldObj) {
                 for (var key in oldObj){
                   obj[key]=oldObj[key];
@@ -464,7 +489,12 @@
                                 that.fields.category_id_str = categoryList.category_id_str;
                                 that.fields.brand_id = categoryList.brand_id;
                                 that.fields.goods_name = categoryList.goods_name;
-                                that.fields.goods_img_url = categoryList.goods_img_url;
+                                //that.fields.goods_img_url = categoryList.goods_img_url;
+                                var listArr = categoryList.goods_img_url.split(",");
+                                for(var i=0;i<listArr.length;i++){
+                                    that.fields.picArr.push(listArr[i]);
+                                    that.fields.picStr = that.fields.picArr.join(",");
+                                }
                                 that.fields.goods_img_url_pc = categoryList.goods_img_url_pc;
                                 that.fields.goods_weight = categoryList.goods_weight;
                                 that.fields.goods_item_num = categoryList.goods_item_num;
@@ -503,10 +533,7 @@
                         }).catch(function (error) {
                             console.log(error);
                         });
-            },
-            xieru(){
-                UE.getEditor('editor').setContent(this.fields.goods_desc);
-            },
+            },            
             changeTab (target) {
                 var that=this;               
                 that.loadSku = true;                
@@ -625,22 +652,32 @@
                     }).catch(function (error) {
                         console.log(error);
                     });
-            },
+            },            
             picChange(ptype){
-                this.ptype = ptype;            
+                this.ptype = ptype;           
                 this.dialogPic = true;                
                 this.uploadPic = '';
                 this.webLinkPic = '';
-                this.galleryPic='';         
+                this.galleryPic=''; 
+                this.fileList = []; 
+                this.uploadArr = [];       
             },
             SureBtn(){
                 var ind = this.dialogInd;                
                 if(this.activeName2 == "first"){
-                    if(this.uploadPic != ""){
+                    if(this.uploadPic != "" || this.uploadArr != ""){
                         if(this.ptype =="pc"){
                             this.fields.goods_img_url_pc = this.uploadPic;     
                         }else{
-                            this.fields.goods_img_url = this.uploadPic;                            
+                            if(this.uploadArr.length>1){
+                              for(var i=0;i<this.uploadArr.length;i++){                                   
+                                  this.fields.picArr.push(this.uploadArr[i])
+                              } 
+                            }else{
+                              this.fields.picArr.push(this.uploadArr); 
+                            }                            
+                            this.fields.picStr = this.fields.picArr.join(",");                         
+                            this.dialogPic = false;                          
                         }
                         this.dialogPic = false; 
                     }else{
@@ -654,7 +691,8 @@
                         if(this.ptype =="pc"){
                             this.fields.goods_img_url_pc = this.galleryPic; 
                         }else{
-                            this.fields.goods_img_url = this.galleryPic;
+                            this.fields.picArr.push(this.galleryPic);
+                            this.fields.picStr = this.fields.picArr.join(",");
                         }
                         this.dialogPic = false;
                         this.$store.commit('GALLERY_PIC_URL', ''); 
@@ -672,7 +710,8 @@
                             if(this.ptype =="pc"){
                                 this.fields.goods_img_url_pc = this.webLinkPic;                       
                             }else{
-                                this.fields.goods_img_url = this.webLinkPic;
+                                this.fields.picArr.push(str);
+                                this.fields.picStr = this.fields.picArr.join(",");
                             }                            
                             this.dialogPic = false;
                             this.activeName2 = 'first';
@@ -706,7 +745,21 @@
                 if(res.result==1){
                     this.uploadPic = PcPath;
                 }
-            },            
+            },
+            handleListSuccess(res, file,fileList) { 
+                var picpath = Imgpath+res.data.file_path;                                
+                if(res.result==1){
+                  this.uploadArr.push(picpath);                                                
+                }                         
+            },
+            handleRemove(file, fileList) {
+              this.removeByValue(this.fields.picArr,file.url);
+            },
+            RemovePic(url){
+              this.removeByValue(this.fields.picArr,url);
+              this.fields.picStr = this.fields.picArr.join(","); 
+              console.log(this.fields.picArr)
+            },          
             beforeAvatarUpload(file) {                
                 const isJPG = file.type === 'image/jpeg';
                 const isPNG = file.type === 'image/png';
@@ -734,7 +787,8 @@
                             'category_id_str':that.fields.category_id_str,
                             'brand_id':that.fields.brand_id,
                             'goods_name':that.fields.goods_name,
-                            'goods_img_url':that.fields.goods_img_url,
+                            //'goods_img_url':that.fields.goods_img_url,
+                            'goods_img_url':that.fields.picStr,
                             'goods_img_url_pc':that.fields.goods_img_url_pc,
                             'goods_weight':that.fields.goods_weight,
                             'goods_item_num':that.fields.goods_item_num,

@@ -168,8 +168,8 @@ export default new Router({
             { path: '/recom/wap/itemedit/:pid/:id', component: RecomItemEdit, name: 'RecomItemEdit'},
 
             { path: '/adv/list', component: AdvList, name: 'AdvList'},
-            { path: '/adv/add', component: AdvAdd, name: 'AdvAdd'},
-            { path: '/adv/edit/:id', component: AdvEdit, name: 'AdvEdit'},
+            { path: '/adv/list/add', component: AdvAdd, name: 'AdvAdd'},
+            { path: '/adv/list/edit/:id', component: AdvEdit, name: 'AdvEdit'},
             { path: '/adv/setting', component: AdvSetting, name: 'AdvSetting'},
             { path: '/adv/setting/add', component: AdvSettingAdd, name: 'AdvSettingAdd'},
             { path: '/adv/setting/edit/:id', component: AdvSettingEdit, name: 'AdvSettingEdit'},

@@ -304,7 +304,7 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .ibox-content .table tr th.opt-select{width:62px;}
 .ibox-content .table tr th.table-checkbox{width:27px;}
 .ibox-content .form-inline .m-r-sm{margin-right:10px;}
-.ibox-content .form-group .form-tips{width:320px;display:inline-block;}
+.ibox-content .form-group .form-tips{max-width:320px;display:inline-block;}
 .inside-title p{padding:10px 5px;font-size:14px;vertical-align:middle;border-bottom:1px solid #eaeefb;}
 .inside-title p i{width:4px;height:18px;border-radius:3px;background:#20a0ff;display:inline-block;vertical-align:middle;margin-right:10px;}
 .form-fields{margin:0 60px;}

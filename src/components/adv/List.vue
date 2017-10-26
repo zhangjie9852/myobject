@@ -15,7 +15,7 @@
                                 </div>
 			                    <button type="button" class="btn btn-m btn-primary" @click="getList(pageData.PageID)">查询</button>
 			                    <button type="button" class="btn btn-m btn-danger m-l-xs" @click="batchOpt('del','删除')">批量删除</button>	-->			                   
-			                    <router-link to="/adv/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加广告</router-link>
+			                    <router-link to="/adv/list/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加广告</router-link>
                     		</form>
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
@@ -47,7 +47,7 @@
 											<td class="opt">
 												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.id,'id')"></span>
                                                 <ul v-show="item.isOptShow">
-                                                	<li><router-link :to="'/adv/edit/'+item.id">编辑</router-link></li>      	
+                                                	<li><router-link :to="'/adv/list/edit/'+item.id">编辑</router-link></li>      	
                                                     <li><a @click="delOne(item.id)">删除</a></li>                                      
                                                 </ul>
 											</td>

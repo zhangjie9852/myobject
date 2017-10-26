@@ -84,7 +84,7 @@
                                             	<em class="bg-blue" v-if="item.goods_wholesale==1">支持批发</em>
                                             	<em class="text-org" v-if="item.goods_retail==1">支持零售</em>
                                             </td>
-                                            <td><img :src="item.goods_img_url" class="listImg"></td>
+                                            <td><img :src="item.goods_img_url_pc" class="listImg"></td>
                                             <td>{{item.shop_name}}</td>
                                             <td>{{item.category_name}}</td>
                                             <td>{{item.goods_price}}</td>
