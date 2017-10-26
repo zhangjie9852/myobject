@@ -35,7 +35,7 @@
                                               <template v-if="item.calculation==1">按件数计算({{item.unit_freight}}元/件)</template>
                                               <template v-else>按重量计算({{item.default_freight}}元/{{item.default_weight}}kg)</template>
                                             </td>
-                                            <td class="text-center">
+                                            <td>
                                               <template v-if="item.cash_on_delivery==1">是</template>
                                               <template v-else>否</template>
                                             </td>

@@ -22,10 +22,16 @@
                   <validate class="form-group">
                       <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商家类型：</label>
                       <div class="col-sm-4">
-                        <select class="form-control" name="shop_modes" v-model="fields.shop_modes" required :class="fieldClassName(formstate.shop_modes)">
+                        <!--<select class="form-control" name="shop_modes" v-model="fields.shop_modes" required :class="fieldClassName(formstate.shop_modes)">
                               <option :value="null">请选择商家类型</option>
                               <option v-for="(item,index) in sellerType" :value="item.id">{{item.name}}</option>
-                          </select>
+                          </select>-->
+                          <el-select name="shop_modes" v-model="fields.shop_modes" required :class="fieldClassName(formstate.shop_modes)">
+                            <el-option :key="null" label="请选择商家类型" :value="null"></el-option>
+                            <template v-for="item in sellerType">
+                              <el-option :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            </template>
+                          </el-select>
                           <field-messages name="shop_modes" show="$touched ||$submitted" class="form-control-callback">
                               <div class="valid">Success!</div>
                               <div slot="required" class="error">请选择商家类型.</div>
@@ -66,36 +72,54 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>选择区域：</label>
                     <validate class="col-sm-2">
-                      <select class="form-control" name="shop_province_id" v-model="fields.shop_province_id" required :class="fieldClassName(formstate.shop_province_id)" @change="changeProvince" ref="province">
+                      <!--<select class="form-control" name="shop_province_id" v-model="fields.shop_province_id" required :class="fieldClassName(formstate.shop_province_id)" @change="changeProvince" ref="province">
                         <option :value="null">请选择</option>
                         <template v-for="item in provinceList">
                           <option :value="item.region_id">{{item.region_name}}</option>
                         </template>
-                      </select>
+                      </select>-->
+                      <el-select name="shop_province_id" v-model="fields.shop_province_id" required :class="fieldClassName(formstate.shop_province_id)" @change="changeProvince" ref="province">
+                            <el-option :key="null" label="请选择" :value="null"></el-option>
+                            <template v-for="item in provinceList">
+                              <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
+                            </template>
+                      </el-select>
                       <field-messages name="shop_province_id" show="$touched ||$submitted" class="form-control-callback">
                           <div class="valid">Success!</div>
                           <div slot="required" class="error">请选择区域.</div>
                       </field-messages>
                     </validate>
                     <validate class="col-sm-2">
-                      <select class="form-control" name="shop_city_id" v-model="fields.shop_city_id" :disabled="fields.shop_province_id==null" required :class="fieldClassName(formstate.shop_city_id)" @change="changeCity">
+                      <!--<select class="form-control" name="shop_city_id" v-model="fields.shop_city_id" :disabled="fields.shop_province_id==null" required :class="fieldClassName(formstate.shop_city_id)" @change="changeCity">
                         <option :value="null">请选择</option>
                         <template v-for="item in cityList">
                           <option :value="item.region_id">{{item.region_name}}</option>
                         </template>
-                      </select>
+                      </select>-->
+                      <el-select name="shop_city_id" v-model="fields.shop_city_id" required :class="fieldClassName(formstate.shop_province_id)" :disabled="fields.shop_province_id==null" @change="changeCity">
+                            <el-option :key="null" label="请选择" :value="null"></el-option>
+                            <template v-for="item in cityList">
+                              <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
+                            </template>
+                          </el-select>
                       <field-messages name="shop_city_id" show="$touched ||$submitted" class="form-control-callback">
                           <div class="valid">Success!</div>
                           <div slot="required" class="error">请选择区域.</div>
                       </field-messages>
                     </validate>
                     <validate class="col-sm-2">
-                      <select class="form-control" name="shop_area_id" v-model="fields.shop_area_id" :disabled="fields.shop_city_id==null" required :class="fieldClassName(formstate.shop_area_id)">
+                      <!--<select class="form-control" name="shop_area_id" v-model="fields.shop_area_id" :disabled="fields.shop_city_id==null" required :class="fieldClassName(formstate.shop_area_id)">
                         <option :value="null">请选择</option>
                         <template v-for="item in regionList">
                           <option :value="item.region_id">{{item.region_name}}</option>
                         </template>
-                      </select>
+                      </select>-->
+                      <el-select name="shop_area_id" v-model="fields.shop_area_id" required :class="fieldClassName(formstate.shop_area_id)" :disabled="fields.shop_city_id==null">
+                            <el-option :key="null" label="请选择" :value="null"></el-option>
+                            <template v-for="item in regionList">
+                              <el-option :key="item.region_id" :label="item.region_name" :value="item.region_id"></el-option>
+                            </template>
+                      </el-select>
                       <field-messages name="shop_area_id" show="$touched ||$submitted" class="form-control-callback">
                           <div class="valid">Success!</div>
                           <div slot="required" class="error">请选择区域.</div>

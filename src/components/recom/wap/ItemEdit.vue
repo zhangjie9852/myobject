@@ -22,12 +22,21 @@
                                     <validate class="form-group">
                                         <label class="col-sm-3 control-label"><span class="f-c-r">*</span>投放频道：</label>
                                         <div class="col-sm-4">
-                                          <select class="form-control" name="recmd_item_channel" v-model="fields.recmd_item_channel" required :class="fieldClassName(formstate.recmd_item_channel)">
+                                          <!--<select class="form-control" name="recmd_item_channel" v-model="fields.recmd_item_channel" required :class="fieldClassName(formstate.recmd_item_channel)">
                                                 <option :value="null">请选择投放频道</option>
                                                 <option value="1">首页</option>
                                                 <option value="2">列表</option>
                                                 <option value="3">详情</option>
-                                            </select>
+                                            </select>-->
+                                            <el-select name="recmd_item_channel" v-model="fields.recmd_item_channel" required :class="fieldClassName(formstate.recmd_item_channel)">
+                                              <el-option :key="null" label="请选择投放频道" :value="null"></el-option>
+                                              <!--<template v-for="item in freightTemp">
+                                                <el-option :key="item.id" :label="item.templet_name" :value="item.id"></el-option>
+                                              </template>-->
+                                              <el-option :key="1" label="首页" :value="1"></el-option>
+                                              <el-option :key="2" label="列表" :value="2"></el-option>
+                                              <el-option :key="3" label="详情  " :value="3"></el-option>
+                                            </el-select>
                                             <field-messages name="recmd_item_channel" show="$touched ||$submitted" class="form-control-callback">
                                                 <div class="valid">Success!</div>
                                                 <div slot="required" class="error">请选择投放频道.</div>
@@ -48,11 +57,19 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">是否打开新窗口：</label>
                                         <div class="col-sm-4">
-                                          <select class="form-control" name="is_blank" v-model="fields.is_blank">
+                                          <!--<select class="form-control" name="is_blank" v-model="fields.is_blank">
                                                 <option value="0">不打开新窗口</option>
                                                 <option value="1">打开新窗口</option>
                                                 <option value="2">自定义</option>
-                                            </select>                                            
+                                            </select>  -->
+                                             <el-select name="is_blank" v-model="fields.is_blank" required :class="fieldClassName(formstate.is_blank)">
+                                              <!--<template v-for="item in freightTemp">
+                                                <el-option :key="item.id" :label="item.templet_name" :value="item.id"></el-option>
+                                              </template>-->
+                                              <el-option :key="0" label="不打开新窗口" :value="0"></el-option>
+                                              <el-option :key="1" label="打开新窗口" :value="1"></el-option>
+                                              <el-option :key="2" label="自定义  " :value="2"></el-option>
+                                            </el-select>                                          
                                         </div>
                                     </div>
                                     <validate class="form-group">

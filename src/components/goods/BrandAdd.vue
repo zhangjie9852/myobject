@@ -12,10 +12,16 @@
                                         <validate class="form-group" v-if="cateList!=''">
                                             <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商品分类：</label>
                                             <div class="col-sm-4">
-                                              <select class="form-control" name="category_id" v-model="model.category_id" required :class="fieldClassName(formstate.category_id)">
+                                                <!--<select class="form-control" name="category_id" v-model="model.category_id" required :class="fieldClassName(formstate.category_id)">
                                                     <option :value="null">请选择商品分类</option>
                                                     <option v-for="(item,index) in cateList" :value="item.category_id">{{item.category_name}}</option>
-                                                </select>
+                                                </select>-->
+                                                <el-select name="category_id" v-model="model.category_id" required :class="fieldClassName(formstate.category_id)">
+                                                    <el-option :key="null" label="请选择角色" :value="null"></el-option>
+                                                    <template v-for="item in cateList">
+                                                        <el-option :key="item.category_id" :label="item.category_name" :value="item.category_id"></el-option>
+                                                    </template>
+                                                </el-select>
                                                 <field-messages name="category_id" show="$touched ||$submitted" class="form-control-callback">
                                                     <div class="valid">Success!</div>
                                                     <div slot="required" class="error">请选择商品分类.</div>

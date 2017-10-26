@@ -11,12 +11,18 @@
                 <validate class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>导航类型：</label>
                   <div class="col-sm-4">
-                    <select class="form-control" name="nav_parent" v-model="fields.nav_parent" required>
+                    <!--<select class="form-control" name="nav_parent" v-model="fields.nav_parent" required>
                       <option :value="null">请选择</option>
                       <template v-for="item in navType">
                         <option :value="item.id">{{item.name}}</option>
                       </template>
-                    </select>
+                    </select>-->
+                      <el-select name="nav_parent" v-model="fields.nav_parent" required :class="fieldClassName(formstate.nav_parent)">
+                        <el-option :key="null" label="请选择" :value="null"></el-option>
+                        <template v-for="item in navType">
+                          <el-option :key="item.id" :label="item.name" :value="item.id"></el-option>
+                        </template>
+                      </el-select>
                     <field-messages name="nav_parent" show="$touched || $submitted" class="form-control-callback">
                       <div slot="required" class="error">导航类型不能为空</div>
                     </field-messages>
@@ -65,12 +71,18 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">导航位置：</label>
                   <div class="col-sm-4">
-                    <select class="form-control" name="nav_point" v-model="fields.nav_point" required>
+                    <!--<select class="form-control" name="nav_point" v-model="fields.nav_point" required>
                       <option :value="null">请选择</option>
                       <template v-for="item in navPointType">
                         <option :value="item.id">{{item.name}}</option>
                       </template>
-                    </select>
+                    </select>-->
+                    <el-select name="nav_point" v-model="fields.nav_point" required>
+                        <el-option :key="null" label="请选择" :value="null"></el-option>
+                        <template v-for="item in navPointType">
+                          <el-option :key="item.id" :label="item.name" :value="item.id"></el-option>
+                        </template>
+                      </el-select>
                   </div>
                 </div>
                 <div class="form-group">

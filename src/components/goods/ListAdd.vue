@@ -104,10 +104,16 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">商品品牌：</label>
                                             <div class="col-sm-4">                                        
-                                                <select class="form-control" name="brand_id" v-if="brandList" v-model="fields.brand_id">
+                                                <!--<select class="form-control" name="brand_id" v-if="brandList" v-model="fields.brand_id">
                                                     <option :value="0">请选择品牌</option>
                                                     <option v-for="(item,index) in brandList" :value="item.brand_id">{{item.brand_ch_name}}</option>
-                                                </select>
+                                                </select>-->
+                                                <el-select name="brand_id" v-if="brandList" v-model="fields.brand_id" required :class="fieldClassName(formstate.brand_id)">
+                                                  <el-option :key="0" label="请选择品牌" :value="0"></el-option>
+                                                  <template v-for="item in brandList">
+                                                    <el-option :key="item.brand_id" :label="item.brand_ch_name" :value="item.brand_id"></el-option>
+                                                  </template>
+                                                </el-select>
                                             </div>                                            
                                         </div>
                                         <div class="form-group">
@@ -165,10 +171,16 @@
                                         <validate class="form-group" v-if="fields.is_freight==0">
                                             <label class="col-sm-3 control-label"><span class="f-c-r">*</span>运费模板：</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="freight_framker" v-model="fields.freight_framker" required :class="fieldClassName(formstate.freight_framker)">
+                                                <!--<select class="form-control" name="freight_framker" v-model="fields.freight_framker" required :class="fieldClassName(formstate.freight_framker)">
                                                     <option :value="null">请选择运费模板</option>
                                                     <option v-for="(item,index) in freightTemp" :value="item.id">{{item.templet_name}}</option>
-                                                </select>
+                                                </select>-->
+                                                <el-select name="freight_framker" v-model="fields.freight_framker" required :class="fieldClassName(formstate.freight_framker)">
+                                                  <el-option :key="null" label="请选择运费模板" :value="null"></el-option>
+                                                  <template v-for="item in freightTemp">
+                                                    <el-option :key="item.id" :label="item.templet_name" :value="item.id"></el-option>
+                                                  </template>
+                                                </el-select>
                                                 <field-messages name="freight_framker" show="$touched ||$submitted" class="form-control-callback">
                                                     <div class="valid">Success!</div>
                                                     <div slot="required" class="error">请选择运费模板.</div>

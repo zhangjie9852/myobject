@@ -12,9 +12,15 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商品分类：</label>
                                             <div class="col-sm-4">
-                                            <select class="form-control" name="category_id" v-model="fields.category_id" v-if="cateList!=''">
+                                            <!--<select class="form-control" name="category_id" v-model="fields.category_id" v-if="cateList!=''">
                                                     <option v-for="(item,index) in cateList" :value="item.category_id">{{item.category_name}}</option>
-                                                </select>
+                                                </select>-->
+                                                <el-select name="category_id" v-model="fields.category_id" required :class="fieldClassName(formstate.category_id)">
+                                                  <el-option :key="null" label="商品分类" :value="null"></el-option>
+                                                  <template v-for="item in cateList">
+                                                    <el-option :key="item.category_id" :label="item.category_name" :value="item.category_id"></el-option>
+                                                  </template>
+                                                </el-select>
                                             </div>
                                         </div>                        
                                         <validate class="form-group">

@@ -11,10 +11,16 @@
                 <validate class="form-group">
                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告位置：</label>
                     <div class="col-sm-4">
-                      <select class="form-control" name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
+                      <!--<select class="form-control" name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
                             <option :value="null">请选择</option>
                             <option v-for="(item,index) in adPosition" :value="item.id">{{item.ad_position_name}}</option>
-                        </select>
+                        </select>-->
+                        <el-select name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
+                          <el-option :key="null" label="请选择" :value="null"></el-option>
+                          <template v-for="item in adPosition">
+                            <el-option :key="item.id" :label="item.ad_position_name" :value="item.id"></el-option>
+                          </template>
+                        </el-select>
                         <field-messages name="advertising_location" show="$touched ||$submitted" class="form-control-callback">
                             <div class="valid">Success!</div>
                             <div slot="required" class="error">请选择广告位置.</div>
