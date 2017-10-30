@@ -8,7 +8,7 @@
             <div class="ibox-content">
               <div class="btn-group m-b-sm">
                 <!--<button type="button" v-for="(item,index) in orderCount" :class="['btn','m-r-sm',tabIndex==index?'btn-primary':'btn-default']" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</button>-->
-                <el-button :type="tabIndex==index?'primary':'info'" v-for="(item,index) in orderCount" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</el-button>
+                <el-button :type="tabIndex==index?'primary':'info'" v-for="(item,index) in orderCount" :key="index" @click="getOrderLists(index,1,pageData.Perpage,false)">{{item.title}}({{item.count}})</el-button>
               </div>
               <form action="#" class="form-inline m-b-sm" role="form">
                 <el-dropdown class="m-r-sm m-b-sm">
