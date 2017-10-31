@@ -71,7 +71,7 @@
                 <field class="form-group">
                   <label class="col-sm-3 control-label">出生日期：</label>
                   <div class="col-sm-4">
-                    <el-date-picker v-model="memberInfo.userBirthday" type="date" @change="changeDate"></el-date-picker>
+                    <el-date-picker v-model="memberInfo.userBirthday" :picker-options="pickerOptions" :editable="false" type="date" @change="changeDate"></el-date-picker>
                   </div>
                 </field>
                 <validate class="form-group">
@@ -166,6 +166,11 @@
           ]
         },
         memberId:'',
+        pickerOptions: {
+            disabledDate:(time)=>{
+            return time.getTime() > Date.now() - 8.64e7;
+          }
+        },
         yearList: [],
         monthList: [],
         dayList: [],

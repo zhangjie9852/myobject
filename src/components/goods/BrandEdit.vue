@@ -133,7 +133,7 @@
                                                 <!--<button class="btn btn-primary" type="submit">提交</button>
                                                 <router-link to="/goods/Brand" class="btn btn-white m-l-sm">返回列表</router-link>-->
                                                 <el-button type="primary" native-type="submit">提交</el-button>
-                                                <router-link to="/goods/Brand" class="white-btn m-l-sm">返回列表</router-link>
+                                                <router-link to="/goods/brand" class="white-btn m-l-sm">返回列表</router-link>
                                             </div>  
                                         </div>
                                     </vue-form>
@@ -164,7 +164,7 @@
                                                 <!--<button class="btn btn-primary" type="submit">提交</button>
                                                 <router-link to="/goods/Brand" class="btn btn-white m-l-sm">返回列表</router-link>-->
                                                 <el-button type="primary" native-type="submit">提交</el-button>
-                                                <router-link to="/goods/Brand" class="white-btn m-l-sm">返回列表</router-link>
+                                                <router-link to="/goods/brand" class="white-btn m-l-sm">返回列表</router-link>
                                             </div>  
                                         </div>
                                     </vue-form>
@@ -192,11 +192,11 @@
 		    		[
 			    		{
                             title:'商品中心',
-                            url:'/goods/category'
+                            url:'/goods/brand'
                         },
                         {
                             title:'商品配置',
-                            url:'/goods/Brand'
+                            url:'/goods/brand'
                         },
                         {
                             title:'品牌管理',

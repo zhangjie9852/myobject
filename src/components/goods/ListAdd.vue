@@ -135,7 +135,7 @@
                                                     <div slot="required" class="error">图片不能为空.</div>
                                                 </field-messages>
                                             </validate>
-                                            <span class="f-c-r form-tips m-t">图片比例：1：1 <br>如：350px*350px</span>                           
+                                            <span class="f-c-r form-tips m-t">图片比例：1：1 <br>建议尺寸：350px*350px</span>                           
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图册：</label>
@@ -159,7 +159,7 @@
                                                     </field-messages>
                                                 </validate>
                                             </div>
-                                            <span class="f-c-r form-tips m-t">图片比例：1：1 <br>如：700px*700px</span>                      
+                                            <span class="f-c-r form-tips m-t">图片比例：1：1 <br>建议尺寸：700px*700px</span>                      
                                         </div>
                                         <field class="form-group">
                                             <label class="col-sm-3 control-label">是否为免运费商品：</label>
@@ -445,12 +445,11 @@
                             that.$message({
                               message: '品牌'+res.data.desc,
                               type: 'warning'
-                            });
-                            //console.log(res.data.desc);                           
+                            });                                                   
                         }                                                         
                     }).catch(function (error) {
                         console.log(error);
-                    });
+                    });                   
             },
             freightList() {//运费模板
                 var that = this;                                         

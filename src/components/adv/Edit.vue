@@ -86,7 +86,7 @@
                     </field-messages>
                   </div>
                 </validate>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告时间：</label>
                   <validate class="col-sm-5">
                       <el-date-picker
@@ -102,6 +102,25 @@
                           <div slot="required" class="error">请选择广告时间.</div>
                       </field-messages>
                   </validate>
+                </div> -->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告时间：</label>
+                  <div class="col-sm-5">
+                    <validate class="col-sm-6 p-l-n">
+                      <el-date-picker type="datetime" name="advertising_start_time" placeholder="选择开始日期" v-model="fields.advertising_start_time" @change="changeStartDate" :editable="false" required :class="fieldClassName(formstate.advertising_start_time)"></el-date-picker>
+                      <field-messages name="advertising_start_time" show="$submitted" class="form-control-callback">
+                          <div class="valid">Success!</div>
+                          <div slot="required" class="error">请选择开始日期.</div>
+                      </field-messages>
+                    </validate>
+                    <validate class="col-sm-6">
+                      <el-date-picker type="datetime" placeholder="选择结束日期" name="advertising_end_time" v-model="fields.advertising_end_time" :picker-options="pickerOptions" @change="changeEndDate" :editable="false" :disabled="fields.advertising_start_time==null||fields.advertising_start_time==''?true:false" required :class="fieldClassName(formstate.advertising_end_time)"></el-date-picker>
+                      <field-messages name="advertising_end_time" show="$submitted" class="form-control-callback">
+                          <div class="valid">Success!</div>
+                          <div slot="required" class="error">请选择结束日期.</div>
+                      </field-messages>
+                    </validate>
+                  </div>                  
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">备注：</label>
@@ -182,6 +201,11 @@
             }
           ]
         },
+        pickerOptions: {
+            disabledDate:(time)=>{
+            return time.getTime() < this.fields.advertising_start_time;
+          }
+        },
         formstate: {},
         shopId:'',
         isExist:false,
@@ -201,9 +225,7 @@
           advertising_remark:'',
           advertising_start_time:'',
           advertising_end_time:'',
-        },
-        advertising_time:'',
-        advertising_time_str:'',
+        },        
         usermsg:{
             'token_admin':JSON.parse(window.localStorage.getItem('access_token')),
             'admin_id':JSON.parse(window.localStorage.getItem('userid'))
@@ -250,9 +272,7 @@
               advertising_remark:list.advertising_remark,
               advertising_start_time:list.advertising_start_time,
               advertising_end_time:list.advertising_end_time
-            };
-            that.advertising_time = [new Date(list.advertising_start_time), new Date(list.advertising_end_time)];
-            that.advertising_time_str = list.advertising_start_time+" 至 "+list.advertising_end_time;
+            };            
             that.advertising_name = list.advertising_name;
           }else{
             that.$message({
@@ -262,7 +282,7 @@
           }
         }).catch(function (error) {
           console.log(error);
-        });
+        });        
       },
       adList () {//广告位置下拉
         var that=this;
@@ -287,11 +307,14 @@
       },
       /*选择日期*/
       changeStartDate (val) {
-        if(val != undefined){
-          this.advertising_time_str=val;
+        if(this.fields.advertising_start_time != null && this.fields.advertising_start_time != '') {
+          this.fields.advertising_start_time=new Date(this.fields.advertising_start_time);   
         }else{
-          this.advertising_time = null;
-        }
+          this.fields.advertising_start_time = null
+        } 
+      },
+      changeEndDate (val) {                
+        this.fields.advertising_end_time=val;
       },
       /*上传图片*/
       picChange(ptype){
@@ -423,8 +446,8 @@
               advertising_wap_logo:that.fields.advertising_wap_logo,
               advertising_link:that.fields.advertising_link,
               advertising_remark:that.fields.advertising_remark,
-              advertising_start_time:that.advertising_time_str.slice(0,19),
-              advertising_end_time:that.advertising_time_str.slice(22,42)
+              advertising_start_time:start_time,
+              advertising_end_time:that.fields.advertising_end_time
             }
           }).then(function (res) {
             if(res.data.error=='0'){

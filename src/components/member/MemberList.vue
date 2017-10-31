@@ -19,7 +19,7 @@
                 </el-dropdown>
                 <el-input class="m-r-sm m-b-sm" name="keyword" v-model="keyword" placeholder="关键词"></el-input>
                 <el-button class="search-btn" type="primary" icon="search" @click="getMemberLists(1,pageData.Perpage,true)">筛选</el-button>
-                <router-link to="/member/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加会员</router-link>
+                <router-link to="/member/list/add" class="add-btn"><i class="shop icon-xinzeng"></i> 添加会员</router-link>
                 <!--<div class="form-group m-r-xs m-t-xs">-->
                   <!--<input type="text" class="form-control" name="keyword" placeholder="关键词" v-model="keyword">-->
                 <!--</div>-->
@@ -78,8 +78,8 @@
                     <td class="opt">
                       <span class="opt-down shop icon-shezhicaozuo" @click.stop="viewOpt(memberLists,'user_id',item.user_id)"></span>
                       <ul v-show="item.isOptShow">
-                        <li><router-link :to="'/member/detail/'+item.user_id">查看</router-link></li>
-                        <li><router-link :to="'/member/edit/'+item.user_id">编辑</router-link></li>
+                        <li><router-link :to="'/member/list/detail/'+item.user_id">查看</router-link></li>
+                        <li><router-link :to="'/member/list/edit/'+item.user_id">编辑</router-link></li>
                         <li @click="removeSingle(item.user_id)"><a href="javascript:;">删除</a></li>
                       </ul>
                     </td>

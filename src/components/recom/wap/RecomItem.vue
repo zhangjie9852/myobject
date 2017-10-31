@@ -40,7 +40,7 @@
 				                  <el-option :key="3" label="详情" value="3"></el-option>
 				                </el-select>
 				                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
-                				<router-link :to="'/recom/wap/itemadd/'+$route.params.id" class="add-btn"><i class="shop icon-xinzeng"></i> 添加帮助信息</router-link>
+                				<router-link :to="'/recom/wap/itemadd/'+$route.params.id" class="add-btn"><i class="shop icon-xinzeng"></i> 添加推荐</router-link>
                             </form>                                
                             <div class="table-responsive clearfix">
                                 <table class="table table-striped table-bordered table-hover">

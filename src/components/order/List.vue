@@ -101,9 +101,9 @@
                     </td>
                     <td>{{item.pay_type}}</td>
                     <td>{{item.payment_id}}</td>
-                    <td>来源：{{item.order_source}}</td>
+                    <td>{{item.order_source}}</td>
                     <td>
-                      <div><span class="inner-label">订单总金额：</span><span class="inner-amount">￥ {{item.order_amount}}</span></div>
+                      <div><span class="inner-label">订单总额：</span><span class="inner-amount">￥ {{item.order_amount}}</span></div>
                       <div><span class="inner-label">实付金额：</span><span class="inner-amount">￥ {{item.real_amount}}</span></div>
                     </td>
                     <td>

@@ -129,5 +129,5 @@ export default {
 	.login-btn{height: 42px; margin-top: 20px; font-size: 18px;}
 	.login-form>div{position:relative;}
 	.login-form>div>i{position:absolute; display: inline-block; width: 20px; height: 20px; background-position: center center; background-repeat: no-repeat; left: 10px; top: 10px;}
-
+	.login-form .form-group input.form-control{height: 42px;}
 </style>

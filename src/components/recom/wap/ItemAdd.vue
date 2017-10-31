@@ -50,6 +50,8 @@
                                             <field-messages name="recmd_item_max" show="$touched ||$submitted" class="form-control-callback">
                                                 <div class="valid">Success!</div>
                                                 <div slot="required" class="error">数据最大条数不能为空.</div>
+                                                <div slot="min" class="error">数据最少条数不能少于1</div>
+                                                <div slot="max" class="error">数据最大条数不能超过10</div>
                                             </field-messages>
                                         </div>
                                         <span class="f-c-r form-tips">数据最大条数不超过10</span>

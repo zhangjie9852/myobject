@@ -7,8 +7,7 @@
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2" href="javascript:;"><i class="shop icon-caidanzhedie"></i> </a>
                 </div>
-                <div class="logo-title"></div>
-                
+                <div class="logo-title"></div>                
                 <div class="head-top-right">
                   <div class="search">
                     <!-- <input placeholder="请输入功能关键词，例如商品" v-model="searchVal" @input="searchFun" /> -->

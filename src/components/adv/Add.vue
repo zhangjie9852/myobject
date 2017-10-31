@@ -85,24 +85,26 @@
                       <div slot="required" class="error">图片链接不能为空</div>
                     </field-messages>
                   </div>
-                </validate>
+                </validate>                
                 <div class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告时间：</label>
-                  <validate class="col-sm-5">
-                      <el-date-picker
-                        v-model="rangeChange"
-                        name="range"
-                        type="datetimerange"
-                        range-separator=" 至 "
-                        required :class="fieldClassName(formstate.range)"
-                        @change = "changeStartDate"
-                        placeholder="选择日期范围">
-                      </el-date-picker>
-                      <field-messages name="range" show="$submitted" class="form-control-callback">
-                          <div slot="required" class="error">请选择广告时间.</div>
+                  <div class="col-sm-5">
+                    <validate class="col-sm-6 p-l-n">
+                      <el-date-picker type="datetime" name="advertising_start_time" placeholder="选择开始日期" v-model="fields.advertising_start_time" @change="changeStartDate" :editable="false" required :class="fieldClassName(formstate.advertising_start_time)"></el-date-picker>
+                      <field-messages name="advertising_start_time" show="$submitted" class="form-control-callback">
+                          <div class="valid">Success!</div>
+                          <div slot="required" class="error">请选择开始日期.</div>
                       </field-messages>
-                  </validate> 
-                </div>               
+                    </validate>
+                    <validate class="col-sm-6">
+                      <el-date-picker type="datetime" placeholder="选择结束日期" name="advertising_end_time" v-model="fields.advertising_end_time" :picker-options="pickerOptions" @change="changeEndDate" :editable="false" :disabled="fields.advertising_start_time==''?true:false" required :class="fieldClassName(formstate.advertising_end_time)"></el-date-picker>
+                      <field-messages name="advertising_end_time" show="$submitted" class="form-control-callback">
+                          <div class="valid">Success!</div>
+                          <div slot="required" class="error">请选择结束日期.</div>
+                      </field-messages>
+                    </validate>
+                  </div>                  
+                </div>             
                 <div class="form-group">
                   <label class="col-sm-3 control-label">备注：</label>
                   <div class="col-sm-4">
@@ -182,6 +184,11 @@
             }
           ]
         }, 
+        pickerOptions: {
+            disabledDate:(time)=>{
+            return time.getTime() < this.fields.advertising_start_time;
+          }
+        },
         formstate: {},
         shopId:'',
         isExist:false,
@@ -199,9 +206,7 @@
           advertising_remark:'',
           advertising_start_time:'',
           advertising_end_time:''
-        },
-        rangeChange:[],
-        rangeChange_str:'',
+        },        
         usermsg:{
             'token_admin':JSON.parse(window.localStorage.getItem('access_token')),
             'admin_id':JSON.parse(window.localStorage.getItem('userid'))
@@ -247,14 +252,14 @@
         }).catch(function (error) {
           console.log(error);          
         });
-      },
+      },     
       /*选择日期*/
-      changeStartDate (val) {
-        if(val != undefined && val !=''){
-          this.rangeChange_str=val;
-        }else{
-          this.rangeChange = [];
-        }      
+      changeStartDate (val) {        
+        //this.fields.advertising_start_time=val;        
+      },
+      changeEndDate (val) {
+        //this.fields.advertising_start_time=new Date(val);         
+        this.fields.advertising_end_time=val;
       },
       /*上传图片*/
       picChange(ptype){
@@ -368,8 +373,8 @@
       onSubmit: function () {
         var that = this;
         if (that.formstate.$valid && !that.isExist) {
-          //var start_time = new Date(that.fields.advertising_start_time);
-          //start_time = start_time.getFullYear()+'-'+(start_time.getMonth()+1)+'-'+start_time.getDate();          
+          var start_time = new Date(that.fields.advertising_start_time);
+          start_time = start_time.getFullYear()+'-'+(start_time.getMonth()+1)+'-'+start_time.getDate();
           that.$http({
             method: 'post',
             url: '/ad/addsubmit',
@@ -381,8 +386,8 @@
               advertising_wap_logo:that.fields.advertising_wap_logo,
               advertising_link:that.fields.advertising_link,
               advertising_remark:that.fields.advertising_remark,
-              advertising_start_time:that.rangeChange_str.slice(0,19),
-              advertising_end_time:that.rangeChange_str.slice(22,42)             
+              advertising_start_time:start_time,
+              advertising_end_time:that.fields.advertising_end_time             
             }
           }).then(function (res) {
             if(res.data.error=='0'){
