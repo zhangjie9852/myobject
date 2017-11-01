@@ -45,7 +45,7 @@
           <div class="ibox">
             <div class="ibox-title">
               <h5><i class="shop icon-huiyuanxinxi"></i><span>会员信息</span></h5>
-              <div class="pull-right">（单位：位）</div>
+              <div class="pull-right text-greyblue">（单位：位）</div>
             </div>
             <div class="ibox-content">
               <ul class="info-container clearfix">
@@ -61,7 +61,7 @@
           <div class="ibox">
             <div class="ibox-title">
               <h5><i class="shop icon-dingdanxinxi"></i><span>订单信息</span></h5>
-              <div class="pull-right">（单位：笔）</div>
+              <div class="pull-right text-greyblue">（单位：笔）</div>
             </div>
             <div class="ibox-content">
               <ul class="info-container clearfix">

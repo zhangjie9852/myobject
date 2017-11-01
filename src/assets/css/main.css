@@ -45,6 +45,7 @@ input:focus,button:focus{
 .text-red{color: #ff0000}
 .text-org{color: #FF8E00}
 .text-gray{color: #b7bec7}
+.text-greyblue{color:#8492a6;}
 
 /*.el-upload-list--picture-card .el-progress{ display: none;}*/
 .el-upload-list--picture-card .el-progress{width: 90px; height: 90px}
