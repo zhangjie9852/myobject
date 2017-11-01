@@ -52,7 +52,7 @@
         <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal">
             <div class="p-lr-m"><!-- 修改权限 -->
               <validate class="form-group"> 
-                  <input type="text" name="pass1" v-model="pass1" class="form-control" placeholder="请输入原始密码" required :class="fieldClassName(formstate.pass1)"> 
+                  <input type="password" name="pass1" v-model="pass1" class="form-control" placeholder="请输入原始密码" required :class="fieldClassName(formstate.pass1)"> 
                   <field-messages name="pass1" show="$touched || $submitted" class="form-control-callback">
                       <div slot="required" class="error">请输入原始密码</div>
                   </field-messages> 
@@ -177,16 +177,16 @@
           if (this.formstate.$valid) {            
             that.$http({
               method: 'post',
-              url: '/user/addUser',
+              url: '/user/changepwsubmit',
               params: {                
-                user_pass:that.pass2,                
-                id:id               
+                password:that.pass2,                
+                repassword:that.pass1               
               }
             }).then(function (res) {                
               if(res.data.error=='0'){
                 that.$message({
                   type: 'success',
-                  message: '成功!'
+                  message: '修改成功!'
                 });
                 that.dialogVisible = false;                
               }else{
@@ -297,7 +297,12 @@
         userinfo(command) { //退出登录           
           var that = this;
           if(command =='logout'){
-            that.$http({
+            this.$confirm('您确认要退出吗？', '提示', {
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              that.$http({
                 method:'post',
                 url: '/user/logout'                                              
               }).then(function (res) {                
@@ -309,10 +314,18 @@
                     message: res.data.desc
                    });
                    that.$router.push('/login');
-                }                     
+                }else{
+                   that.$message({
+                    type: 'error',
+                    message: res.data.desc
+                  });
+                }                    
               }).catch(function (error) {
                 console.log(error);
               });
+            }).catch(() => {
+              //已取消
+            });            
           }
           if(command=='password'){
             that.dialogVisible = true;

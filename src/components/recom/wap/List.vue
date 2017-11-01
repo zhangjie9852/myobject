@@ -55,19 +55,13 @@
 				    		url:''
 			    		}
 		    		]
-		    	},
-		    	pageError:false,
+		    	},		    	
 		    	clist:[]
 			}
 		},
 		mounted(){
 			this.getList();	//列表数据
-		},
-		// updated(){
-  //           if(this.pageError){
-  //               this.getList();
-  //           }
-  //       },
+		},		
 		methods:{
 			getList() {
 				var that = this;
@@ -82,8 +76,10 @@
 							if(res.data.error==0){
 								that.clist   = res.data.data.table_data;
 							}else{
-								 console.log(res.data.desc);
-								 that.pageError =true
+								that.$message({
+					                type: 'error',
+					                message: res.data.desc
+					              });								 
 							}
 						}).catch(function (error) {
 							console.log(error);

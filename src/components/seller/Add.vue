@@ -399,7 +399,7 @@
                 type: 'success',
                 message: '添加成功!'
               });
-              that.$router.push('/shop/edit/'+res.data.data.id);
+              that.$router.push('/shop/list/edit/'+res.data.data.id);
             }else{
               that.$message({
                 type: 'error',

@@ -18,7 +18,7 @@
                                                   placeholder="请选择分类"
                                                   :options="cateList"
                                                   :props="cprops"
-                                                  filterable                                                  
+                                                  filterable                                     
                                                   @change="handleChange" 
                                                   change-on-select
                                                 ></el-cascader>
@@ -328,19 +328,7 @@
                   initialFrameWidth: null,
                   initialFrameHeight: 250,         
                   BaseUrl: '',
-                  UEDITOR_HOME_URL: '/static/UEditor/',
-                  toolbars:[  
-                            ['source', '|', 'undo', 'redo', '|',  
-                                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'pasteplain', '|', 'forecolor', 'backcolor', 'lineheight', '|',  
-                                'paragraph', 'fontfamily', 'fontsize', '|',  
-                                'indent', '|',  
-                                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',   
-                                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter','map', '|',  
-                                'insertimage', 'insertvideo', 'attachment', '|',  
-                                'horizontal', '|',  
-                                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',  
-                                'preview', 'searchreplace','drafts']  
-                        ]
+                  UEDITOR_HOME_URL: '/static/UEditor/'                  
                 },
                 activeName: 'first',
                 activeName2: 'first',

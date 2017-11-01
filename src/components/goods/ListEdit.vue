@@ -355,19 +355,7 @@
                   initialFrameWidth: null,
                   initialFrameHeight: 250,         
                   BaseUrl: '',
-                  UEDITOR_HOME_URL: '/static/UEditor/',
-                  toolbars:[  
-                            ['source', '|', 'undo', 'redo', '|',  
-                                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'pasteplain', '|', 'forecolor', 'backcolor', 'lineheight', '|',  
-                                'paragraph', 'fontfamily', 'fontsize', '|',  
-                                'indent', '|',  
-                                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',   
-                                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter','map', '|',  
-                                'insertimage', 'insertvideo', 'attachment', '|',  
-                                'horizontal', '|',  
-                                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',  
-                                'preview', 'searchreplace','drafts']  
-                        ]
+                  UEDITOR_HOME_URL: '/static/UEditor/'                  
                 },                           
                 activeName: 'first',
                 curActiveName:'first',
@@ -501,7 +489,6 @@
                                 that.fields.category_id_str = categoryList.category_id_str;
                                 that.fields.brand_id = categoryList.brand_id;
                                 that.fields.goods_name = categoryList.goods_name;
-                                //that.fields.goods_img_url = categoryList.goods_img_url;
                                 var listArr = categoryList.goods_img_url.split(",");
                                 for(var i=0;i<listArr.length;i++){
                                     that.fields.picArr.push(listArr[i]);

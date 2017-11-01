@@ -6,7 +6,7 @@ body,html{min-height:100%;_height:100%;}
  ul,li{list-style:none;padding:0;margin:0;}
  i,em{font-style:normal;}
  .login_body{ background-image: url("../img/bj.jpg"); background-size:100% 100%; -moz-background-size:100% 100%; }
-
+.el-message-box{box-shadow: 0 1px 3px rgba(0,0,0,.3);}
 .hj_fl{float:left;}
 .hj_fr{float:right;}
 .clearfix:after,.clearfix:before{content: "";clear:both;display:table;}
@@ -89,7 +89,7 @@ input[type="number"]{-moz-appearance:textfield;}
 .body-con>div input,
 .table tbody tr td input{width:48px; height:28px; padding: 0 5px; border:1px solid #bfcbd9; border-radius:3px; box-sizing: border-box; outline: 0; text-align: center;}
 .body-con>div.listTitle .icon{font-size:14px; color:#20a0ff; margin-right: 2px;}
-.body-con>div.listTitle .split-icon{font-size:14px; color:#bfcbd9; margin-right: 2px;}
+.body-con>div.listTitle .split-icon{font-size:15px; color:#bfcbd9; margin-right: 2px;}
 .body-con>div.listTitle input{width:100px; text-align: left; margin-right: 3px;}
 .body-con>div.listTitle .button{height:28px; background-color: transparent; padding: 0 3px; font-size:14px; color:#1f2d3d; border:0; outline:0; vertical-align: inherit;}
 .body-con>div.listTitle .save-btn{color: #20a0ff;}

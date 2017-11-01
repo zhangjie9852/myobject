@@ -8,6 +8,21 @@
             <div class="ibox-content p-m">
               <div class="hd-title">添加广告</div> 
               <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">
+                <validate class="form-group" v-if="cateList!=''">
+                    <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商品分类：</label>
+                    <div class="col-sm-4">                        
+                        <el-select name="category_id" v-model="fields.category_id" required :class="fieldClassName(formstate.category_id)">
+                            <el-option :key="null" label="请选择商品分类" :value="null"></el-option>
+                            <template v-for="item in cateList">
+                                <el-option :key="item.category_id" :label="item.category_name" :value="item.category_id"></el-option>
+                            </template>
+                        </el-select>
+                        <field-messages name="category_id" show="$touched ||$submitted" class="form-control-callback">
+                            <div class="valid">Success!</div>
+                            <div slot="required" class="error">请选择商品分类.</div>
+                        </field-messages>
+                    </div>
+                </validate>
                 <validate class="form-group">
                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告位置：</label>
                     <div class="col-sm-4">
@@ -15,7 +30,7 @@
                             <option :value="null">请选择</option>
                             <option v-for="(item,index) in adPosition" :value="item.id">{{item.ad_position_name}}</option>
                         </select>-->
-                        <el-select name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
+                        <el-select name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)"  @change="handleChange">
                           <el-option :key="null" label="请选择" :value="null"></el-option>
                           <template v-for="item in adPosition">
                             <el-option :key="item.id" :label="item.ad_position_name" :value="item.id"></el-option>
@@ -52,13 +67,13 @@
                               <a @click="picChange('pc')"><img src="../../assets/img/add.png"></a>
                             </li>
                         </ul>                                                
-                        <span class="picTips">PC端</span>
+                        <!-- <span class="picTips">PC端</span> -->
                         <field-messages name="advertising_pc_logo" show="$submitted" class="form-control-callback">
                             <div class="valid">Success!</div>
                             <div slot="required" class="error">图片不能为空.</div>
                         </field-messages>
                     </validate>
-                    <validate class="col-sm-2">
+                    <!-- <validate class="col-sm-2">
                         <input type="hidden" name="advertising_wap_logo" v-model="fields.advertising_wap_logo" required :class="fieldClassName(formstate.advertising_wap_logo)">
                         <ul class="imgList clearfix">
                             <li v-if="fields.advertising_wap_logo">
@@ -75,7 +90,8 @@
                             <div class="valid">Success!</div>
                             <div slot="required" class="error">图片不能为空.</div>
                         </field-messages>
-                    </validate>                                            
+                    </validate> -->
+                    <span class="f-c-r form-tips m-t" v-if="ad_position_high>0">建议尺寸：{{ad_position_high}}px*{{ad_position_wide}}px</span>                                                              
                 </div>
                 <validate class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图片链接：</label>
@@ -189,6 +205,7 @@
             return time.getTime() < this.fields.advertising_start_time;
           }
         },
+        cateList:[],
         formstate: {},
         shopId:'',
         isExist:false,
@@ -197,7 +214,10 @@
         webLinkPic:'',
         galleryPic:'',
         sevUrl:sevUrl,
+        ad_position_high:0,
+        ad_position_wide:0,
         fields: {
+          category_id:null,
           advertising_location:null,
           advertising_name: '',
           advertising_pc_logo:'',
@@ -225,6 +245,27 @@
     },
     methods: {
       CheckUrl:CustomFun.CheckUrl,
+      CatePrent() {
+          var that = this;                                         
+          that.$http({
+                method:'post',
+                url: '/goods_category/listdata',
+                params:{ 
+                  'level':1
+                }           
+              }).then(function (res) {                                                                
+                  if(res.data.error==0){
+                     that.cateList = res.data.data.table_data;                      
+                  }else{
+                     that.$message({
+                      type: 'warning',
+                      message: res.data.desc
+                    });                          
+                  }                            
+              }).catch(function (error) {
+                  console.log(error);
+              });
+      },
       fieldClassName: function (field) {
         if (!field) {
           return '';
@@ -232,6 +273,14 @@
           return 'error';
         }
       },
+      handleChange(value) {//选择广告位出现对应的图片尺寸        
+        var obj = {};
+        obj = this.adPosition.find((item)=>{          
+            return item.id === value;
+        });
+        this.ad_position_high = obj.ad_position_high;
+        this.ad_position_wide = obj.ad_position_wide;
+      },      
       adList () {//广告位置下拉
         var that=this;        
         that.$http({
@@ -379,6 +428,7 @@
             method: 'post',
             url: '/ad/addsubmit',
             params: {
+              goods_category:that.fields.category_id,
               goods_shop_base_id:that.shopId,
               advertising_location:that.fields.advertising_location,
               advertising_name: that.fields.advertising_name,
@@ -427,7 +477,8 @@
     mounted () {
       this.$nextTick(function () {
         this.shopId=JSON.parse(window.localStorage.getItem("shopid"));
-        this.adList();        
+        this.adList(); 
+        this.CatePrent();    //上级分类数据         
       })
     }
   }

@@ -19,7 +19,7 @@ import './assets/css/style.css';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import "./assets/css/radio_checkbox.css"
-import "./assets/css/public.css"
+//import "./assets/css/public.css"
 import './assets/css/main.css'
 import './assets/css/skin.css'
 

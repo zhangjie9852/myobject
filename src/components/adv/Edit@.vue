@@ -5,18 +5,37 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>编辑广告</h5>
-            </div>
-            <div class="ibox-content">
+            <div class="ibox-content p-m">
+              <div class="hd-title">编辑广告</div>
               <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t">
+                <validate class="form-group" v-if="cateList!=''">
+                    <label class="col-sm-3 control-label"><span class="f-c-r">*</span>商品分类：</label>
+                    <div class="col-sm-4">                        
+                        <el-select name="category_id" v-model="fields.category_id" required :class="fieldClassName(formstate.category_id)">
+                            <el-option :key="null" label="请选择商品分类" :value="null"></el-option>
+                            <template v-for="item in cateList">
+                                <el-option :key="item.category_id" :label="item.category_name" :value="item.category_id"></el-option>
+                            </template>
+                        </el-select>
+                        <field-messages name="category_id" show="$touched ||$submitted" class="form-control-callback">
+                            <div class="valid">Success!</div>
+                            <div slot="required" class="error">请选择商品分类.</div>
+                        </field-messages>
+                    </div>
+                </validate>
                 <validate class="form-group">
                     <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告位置：</label>
                     <div class="col-sm-4">
-                      <select class="form-control" name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
+                      <!--<select class="form-control" name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
                             <option :value="null">请选择</option>
                             <option v-for="(item,index) in adPosition" :value="item.id">{{item.ad_position_name}}</option>
-                        </select>
+                        </select>-->
+                        <el-select name="advertising_location" v-model="fields.advertising_location" required :class="fieldClassName(formstate.advertising_location)">
+                          <el-option :key="null" label="请选择" :value="null"></el-option>
+                          <template v-for="item in adPosition">
+                            <el-option :key="item.id" :label="item.ad_position_name" :value="item.id"></el-option>
+                          </template>
+                        </el-select>
                         <field-messages name="advertising_location" show="$touched ||$submitted" class="form-control-callback">
                             <div class="valid">Success!</div>
                             <div slot="required" class="error">请选择广告位置.</div>
@@ -47,7 +66,7 @@
                             <li class="upload" v-else>
                               <a @click="picChange('pc')"><img src="../../assets/img/add.png"></a>
                             </li>
-                        </ul>                                                
+                        </ul>
                         <span class="picTips">PC端</span>
                         <field-messages name="advertising_pc_logo" show="$submitted" class="form-control-callback">
                             <div class="valid">Success!</div>
@@ -71,47 +90,49 @@
                             <div class="valid">Success!</div>
                             <div slot="required" class="error">图片不能为空.</div>
                         </field-messages>
-                    </validate>                                            
+                    </validate>
                 </div>
                 <validate class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图片链接：</label>
                   <div class="col-sm-4">
-                    <input type="text" name="advertising_link" class="form-control" v-model="fields.advertising_link" required :class="fieldClassName(formstate.advertising_link)">                    
+                    <input type="text" name="advertising_link" class="form-control" v-model="fields.advertising_link" required :class="fieldClassName(formstate.advertising_link)">
                     <field-messages name="advertising_link" show="$touched || $submitted" class="form-control-callback">
                       <div slot="required" class="error">图片链接不能为空</div>
                     </field-messages>
                   </div>
-                </validate>
+                </validate>                
                 <div class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>广告时间：</label>
                   <div class="col-sm-5">
                     <validate class="col-sm-6 p-l-n">
-                      <el-date-picker type="date" name="advertising_start_time" placeholder="选择开始日期" v-model="fields.advertising_start_time" @change="changeStartDate" :editable="false" required :class="fieldClassName(formstate.advertising_start_time)"></el-date-picker>
+                      <el-date-picker type="datetime" name="advertising_start_time" placeholder="选择开始日期" v-model="fields.advertising_start_time" @change="changeStartDate" :editable="false" required :class="fieldClassName(formstate.advertising_start_time)"></el-date-picker>
                       <field-messages name="advertising_start_time" show="$submitted" class="form-control-callback">
                           <div class="valid">Success!</div>
                           <div slot="required" class="error">请选择开始日期.</div>
                       </field-messages>
                     </validate>
                     <validate class="col-sm-6">
-                      <el-date-picker type="date" placeholder="选择结束日期" name="advertising_end_time" v-model="fields.advertising_end_time" :picker-options="pickerOptions" @change="changeEndDate" :editable="false" required :class="fieldClassName(formstate.advertising_end_time)"></el-date-picker>
+                      <el-date-picker type="datetime" placeholder="选择结束日期" name="advertising_end_time" v-model="fields.advertising_end_time" :picker-options="pickerOptions" @change="changeEndDate" :editable="false" :disabled="fields.advertising_start_time==null||fields.advertising_start_time==''?true:false" required :class="fieldClassName(formstate.advertising_end_time)"></el-date-picker>
                       <field-messages name="advertising_end_time" show="$submitted" class="form-control-callback">
                           <div class="valid">Success!</div>
                           <div slot="required" class="error">请选择结束日期.</div>
                       </field-messages>
                     </validate>
                   </div>                  
-                </div>               
+                </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">备注：</label>
                   <div class="col-sm-4">
                     <textarea class="form-control" :rows="4" name="advertising_remark" v-model="fields.advertising_remark"></textarea>
                   </div>
-                </div>                
+                </div>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group draggable ui-draggable">
                   <div class="col-sm-12 col-sm-offset-3">
-                    <button class="btn btn-primary" type="submit">确定</button>
-                    <router-link to="/adv/list" class="btn btn-white m-l-sm">返回列表</router-link>
+                    <!--<button class="btn btn-primary" type="submit">确定</button>
+                    <router-link to="/adv/list" class="btn btn-white m-l-sm">返回列表</router-link>-->
+                    <el-button type="primary" native-type="submit">确定</el-button>
+                    <router-link to="/adv/list" class="white-btn m-l-sm">返回列表</router-link>
                   </div>
                 </div>
               </vue-form>
@@ -125,22 +146,22 @@
           <el-tab-pane label="本地图片" name="first">
             <el-upload
               class="avatar-uploader"
-              :action="sevUrl+'/admin/upload'" 
+              :action="sevUrl+'/admin/upload'"
               :show-file-list="false"
-              :data="usermsg"                                          
+              :data="usermsg"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload">
               <img v-if="uploadPic" :src="uploadPic" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>                        
+            </el-upload>
           </el-tab-pane>
           <el-tab-pane label="图片库" name="second" :data-val="galleryPicUrl">
             <PicLlibrary v-if="activeName2=='second'"></PicLlibrary>
           </el-tab-pane>
           <el-tab-pane label="网络图片" name="third">
             网络图片：<input type="text" class="web-pic" v-model="webLinkPic" @blur="CheckUrl(webLinkPic)"> 图片地址必须以http开头,以jpg,png,bmp,gif结束
-          </el-tab-pane>            
-        </el-tabs>          
+          </el-tab-pane>
+        </el-tabs>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="SureBtn">确 定</el-button>
           <el-button @click="CancelBtn">取 消</el-button>
@@ -177,7 +198,7 @@
               url:''
             }
           ]
-        },        
+        },
         pickerOptions: {
             disabledDate:(time)=>{
             return time.getTime() < this.fields.advertising_start_time;
@@ -192,7 +213,9 @@
         galleryPic:'',
         sevUrl:sevUrl,
         advertising_name:'',
+        cateList:[],
         fields: {
+          category_id:null,
           ad_id:0,
           advertising_location:null,
           advertising_name: '',
@@ -201,8 +224,8 @@
           advertising_link:'',
           advertising_remark:'',
           advertising_start_time:'',
-          advertising_end_time:''
-        },
+          advertising_end_time:'',
+        },        
         usermsg:{
             'token_admin':JSON.parse(window.localStorage.getItem('access_token')),
             'admin_id':JSON.parse(window.localStorage.getItem('userid'))
@@ -211,16 +234,37 @@
         dialogPic:false,
       }
     },
-    computed: {     
-        ...mapGetters([           
-          'galleryUrl'      
+    computed: {
+        ...mapGetters([
+          'galleryUrl'
         ]),
         galleryPicUrl(){
             this.galleryPic= this.galleryUrl;
-        }   
+        }
     },
     methods: {
       CheckUrl:CustomFun.CheckUrl,
+      CatePrent() {
+          var that = this;                                         
+          that.$http({
+                method:'post',
+                url: '/goods_category/listdata',
+                params:{ 
+                  'level':1
+                }           
+              }).then(function (res) {                                                                
+                  if(res.data.error==0){
+                     that.cateList = res.data.data.table_data;                      
+                  }else{
+                     that.$message({
+                      type: 'warning',
+                      message: res.data.desc
+                    });                          
+                  }                            
+              }).catch(function (error) {
+                  console.log(error);
+              });
+      },
       fieldClassName: function (field) {
         if (!field) {
           return '';
@@ -238,8 +282,9 @@
           }
         }).then(function (res) {
           if(res.data.error=='0'){
-            var list = res.data.data; 
+            var list = res.data.data;
             that.fields={
+              category_id:list.goods_category,
               ad_id:list.id,
               advertising_location:list.advertising_location,
               advertising_name:list.advertising_name,
@@ -249,8 +294,29 @@
               advertising_remark:list.advertising_remark,
               advertising_start_time:list.advertising_start_time,
               advertising_end_time:list.advertising_end_time
-            };
-            that.advertising_name = list.advertising_name;                 
+            };            
+            that.advertising_name = list.advertising_name;
+          }else{
+            that.$message({
+              type: 'error',
+              message: res.data.desc
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });        
+      },
+      adList () {//广告位置下拉
+        var that=this;
+        that.$http({
+          method:'post',
+          url: '/adposition/list',
+          params:{
+            goods_shop_base_id:that.shopId
+          }
+        }).then(function (res) {
+          if(res.data.error=='0'){
+            that.adPosition = res.data.data.table_data;
           }else{
             that.$message({
               type: 'error',
@@ -261,83 +327,66 @@
           console.log(error);
         });
       },
-      adList () {//广告位置下拉
-        var that=this;        
-        that.$http({
-          method:'post',
-          url: '/adposition/list',
-          params:{
-            goods_shop_base_id:that.shopId
-          }
-        }).then(function (res) {             
-          if(res.data.error=='0'){
-            that.adPosition = res.data.data.table_data;
-          }else{
-            that.$message({
-              type: 'error',
-              message: res.data.desc
-            });
-          }
-        }).catch(function (error) {
-          console.log(error);          
-        });
-      },
       /*选择日期*/
-      changeStartDate (val) {        
-        //this.fields.advertising_start_time=val;        
+      changeStartDate (val) {
+        if(this.fields.advertising_start_time != null && this.fields.advertising_start_time != '') {
+          this.fields.advertising_start_time=new Date(this.fields.advertising_start_time);   
+        }else{
+          this.fields.advertising_start_time = null
+        } 
       },
       changeEndDate (val) {                
         this.fields.advertising_end_time=val;
       },
       /*上传图片*/
       picChange(ptype){
-          this.ptype = ptype;            
-          this.dialogPic = true;                
+          this.ptype = ptype;
+          this.dialogPic = true;
           this.uploadPic = '';
           this.webLinkPic = '';
-          this.galleryPic='';         
+          this.galleryPic='';
       },
       SureBtn(){
-          var ind = this.dialogInd;                
+          var ind = this.dialogInd;
           if(this.activeName2 == "first"){
               if(this.uploadPic != ""){
                   if(this.ptype =="pc"){
-                      this.fields.advertising_pc_logo = this.uploadPic;     
+                      this.fields.advertising_pc_logo = this.uploadPic;
                   }else{
-                      this.fields.advertising_wap_logo = this.uploadPic;                            
+                      this.fields.advertising_wap_logo = this.uploadPic;
                   }
-                  this.dialogPic = false; 
+                  this.dialogPic = false;
               }else{
                   this.$message({
                     message: '请选择文件后再上传',
                     type: 'warning'
                   });
-              }                   
+              }
           }else if(this.activeName2 == "second"){
               if(this.galleryPic != ""){
                   if(this.ptype =="pc"){
-                      this.fields.advertising_pc_logo = this.galleryPic; 
+                      this.fields.advertising_pc_logo = this.galleryPic;
                   }else{
                       this.fields.advertising_wap_logo = this.galleryPic;
                   }
                   this.dialogPic = false;
-                  this.$store.commit('GALLERY_PIC_URL', ''); 
+                  this.$store.commit('GALLERY_PIC_URL', '');
                   this.activeName2 = 'first';
-              }else{                        
+              }else{
                   this.$message({
                     message: '未选择任何图片',
                     type: 'warning'
                   });
-              }                   
+              }
           }else{
               if(this.webLinkPic != ""){
-                  var str = this.webLinkPic;                                          
+                  var str = this.webLinkPic;
                   if(this.CheckUrl(str)){
                       if(this.ptype =="pc"){
-                          this.fields.advertising_pc_logo = this.webLinkPic;                       
+                          this.fields.advertising_pc_logo = this.webLinkPic;
                       }else{
                           this.fields.advertising_wap_logo = this.webLinkPic;
-                      }                            
+                      }
                       this.dialogPic = false;
                       this.activeName2 = 'first';
                   }else{
@@ -345,27 +394,27 @@
                         message: '请正确输入地址',
                         type: 'warning'
                       });
-                  }                         
+                  }
               }else{
                   this.$message({
                     message: '请输入网络图片地址',
                     type: 'warning'
                   });
               }
-          }                                 
+          }
       },
       CancelBtn(){
-        this.dialogPic = false;              
+        this.dialogPic = false;
         this.activeName2 = 'first';
       },
-      /*图片上传*/      
-      handleAvatarSuccess(res, file) { 
+      /*图片上传*/
+      handleAvatarSuccess(res, file) {
           var PcPath = Imgpath+res.data.file_path;
           if(res.result==1){
               this.uploadPic = PcPath;
           }
-      },            
-      beforeAvatarUpload(file) {                
+      },
+      beforeAvatarUpload(file) {
           const isJPG = file.type === 'image/jpeg';
           const isPNG = file.type === 'image/png';
           const isGIF = file.type === 'image/gif';
@@ -393,25 +442,26 @@
             if(res.data.error=='0'){
               that.isExist=false;
             }else{
-              that.isExist=true;  
+              that.isExist=true;
             }
           }).catch(function (error) {
             console.log(error);
           });
         }else{
           that.isExist=false;
-        }       
+        }
       },
       onSubmit: function () {
-        var that = this;       
+        var that = this;
         if (that.formstate.$valid && !that.isExist) {
           var start_time = new Date(that.fields.advertising_start_time);
-          start_time = start_time.getFullYear()+'-'+(start_time.getMonth()+1)+'-'+start_time.getDate();        
+          start_time = start_time.getFullYear()+'-'+(start_time.getMonth()+1)+'-'+start_time.getDate();
           that.$http({
             method: 'post',
             url: '/ad/editsubmit',
             params: {
               id:that.fields.ad_id,
+              goods_category:that.fields.category_id,
               goods_shop_base_id:that.shopId,
               advertising_location:that.fields.advertising_location,
               advertising_name: that.fields.advertising_name,
@@ -420,7 +470,7 @@
               advertising_link:that.fields.advertising_link,
               advertising_remark:that.fields.advertising_remark,
               advertising_start_time:start_time,
-              advertising_end_time:that.fields.advertising_end_time              
+              advertising_end_time:that.fields.advertising_end_time
             }
           }).then(function (res) {
             if(res.data.error=='0'){
@@ -450,6 +500,7 @@
         this.adList();
         this.fields.ad_id=this.$route.params.id;
         this.getInfo();
+        this.CatePrent();    //上级分类数据        
       })
     }
   }

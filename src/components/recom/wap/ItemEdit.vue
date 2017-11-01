@@ -56,24 +56,16 @@
                                         </div>
                                         <span class="f-c-r form-tips">数据最大条数不超过10</span>
                                     </validate>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-sm-3 control-label">是否打开新窗口：</label>
-                                        <div class="col-sm-4">
-                                          <!--<select class="form-control" name="is_blank" v-model="fields.is_blank">
-                                                <option value="0">不打开新窗口</option>
-                                                <option value="1">打开新窗口</option>
-                                                <option value="2">自定义</option>
-                                            </select>  -->
-                                             <el-select name="is_blank" v-model="fields.is_blank" required :class="fieldClassName(formstate.is_blank)">
-                                              <!--<template v-for="item in freightTemp">
-                                                <el-option :key="item.id" :label="item.templet_name" :value="item.id"></el-option>
-                                              </template>-->
+                                        <div class="col-sm-4">                                          
+                                             <el-select name="is_blank" v-model="fields.is_blank" required :class="fieldClassName(formstate.is_blank)">  
                                               <el-option :key="0" label="不打开新窗口" :value="0"></el-option>
                                               <el-option :key="1" label="打开新窗口" :value="1"></el-option>
                                               <el-option :key="2" label="自定义  " :value="2"></el-option>
                                             </el-select>                                          
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <validate class="form-group">
                                         <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图片宽度：</label>
                                         <div class="col-sm-4">                                        
@@ -143,7 +135,7 @@
 	    			CrumbList:
 		    		[
 			    		{
-                            title:'推荐列表WAP',
+                            title:'推荐管理',
                             url:'/recom/wap/list'
                         },
                         {
@@ -155,10 +147,11 @@
                             url:''
                         }
 		    		]
-		    	},
-                pageError:false,
+		    	},                
                 recomList:{
                     maxLen:0,
+                    pwidth:0,
+                    pheight:0,
                     itemid:this.$route.params.id,
                     pid:this.$route.params.pid,
                 },
@@ -172,7 +165,7 @@
                     recmd_block_name:"",                    
                     recmd_item_channel:null,
                     recmd_item_max:"",
-                    is_blank:0,
+                    is_blank:2,
                     recmd_item_img_w:0,
                     recmd_item_img_h:0,
                     status_recmd_item:1
@@ -180,14 +173,8 @@
 	    	}
 	    },
          mounted(){
-            //console.log(this.$route.params.id);                 
             this.itemInfo(this.$route.params.id);               
-        },
-        // updated(){
-        //     if(this.pageError){
-        //         this.itemInfo(this.$route.params.id)
-        //     }           
-        // },        
+        },          
         methods:{    
             fieldClassName:function(field){
                 if(!field){
@@ -207,21 +194,24 @@
                             'recmd_item_id':cid                       
                           }           
                         }).then(function (res) {                                                    
-                            var  fieldList =  res.data.data;
-                            //console.log(fieldList.recmd_item_max)                                                      
+                            var  fieldList =  res.data.data;                   
                             if(res.data.error==0){
-                                that.fields.recmd_item_id = fieldList.recmd_item_id;                               
+                                that.fields.recmd_item_id = fieldList.recmd_item_id;
                                 that.fields.recmd_item_label = fieldList.recmd_item_label;
                                 that.fields.recmd_item_channel = fieldList.recmd_item_channel;
                                 that.fields.recmd_item_max = fieldList.recmd_item_max;
                                 that.recomList.maxLen = fieldList.recmd_item_max;
+                                that.recomList.pwidth = fieldList.recmd_item_img_w;
+                                that.recomList.pheight = fieldList.recmd_item_img_h;
                                 that.fields.is_blank = fieldList.is_blank;
                                 that.fields.recmd_item_img_w = fieldList.recmd_item_img_w;
                                 that.fields.recmd_item_img_h = fieldList.recmd_item_img_h;
                                 that.fields.status_recmd_item = fieldList.status_recmd_item;             
                             }else{
-                                console.log(res.data.desc);
-                                that.pageError=true                                                          
+                                that.$message({
+                                    type: 'error',
+                                    message: res.data.desc
+                                  });                                          
                             }                                                        
                         }).catch(function (error) {
                             console.log(error);

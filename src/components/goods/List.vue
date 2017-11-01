@@ -15,13 +15,13 @@
 								    全部商品
 								 </el-button>
 								 <el-button class="m-r-sm" :type="isOnline==1?'primary':'info'" @click="ListState(1,1)">
-								    已上架商品(10)
+								    已上架商品({{upGoods}})
 								 </el-button>
 								 <el-button class="m-r-sm" :type="isOnline==-1?'primary':'info'" @click="ListState(-1,1)">
-								    下架商品(12)
+								    下架商品({{downGoods}})
 								 </el-button>
 								 <el-button class="m-r-sm" :type="Lstatus==-1?'primary':'info'" @click="ListState('',-1)">
-								    商品回收站(2)
+								    商品回收站({{recycleGoods}})
 								 </el-button>
 		                    </div>
 		                    <form action="#" class="form-inline m-b-sm" role="form">
@@ -99,7 +99,7 @@
                                             	<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.goods_id,'goods_id')"></span>
                                                 <ul v-if="Lstatus==1" v-show="item.isOptShow">
                                                     <li><router-link :to="'/goods/list/edit/'+item.goods_id">编辑</router-link></li>
-                                                    <li v-if="item.goods_examine == -1 || item.goods_examine == 3 || item.goods_examine == null"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)"><i class="icon_s_password"></i> 审核</a></li>
+                                                    <li v-if="item.goods_examine == -1 || item.goods_examine == 3 || item.goods_examine == null"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)">审核</a></li>
                                                     <li><a @click="delOne(item.goods_id,'del')">删除</a></li>
                                                 </ul>
                                                 <ul v-else v-show="item.isOptShow">
@@ -203,6 +203,10 @@
 		    		]
 		    	},
 		    	clist:[],
+		    	upGoods:0,
+		    	downGoods:0,
+		    	total:0,
+		    	recycleGoods:0,
 				pageData:{
                     PageID:1,
 					Perpage:10,
@@ -214,6 +218,7 @@
 		mounted(){
 			this.$nextTick(function () {
 				this.getList(1);	//列表数据
+				this.goodsCount(); //统计
 				document.addEventListener('click', (e) => {
 			       	if(this.$el.contains(e.target)){
 			       		if(this.clist.length>0){
@@ -327,6 +332,23 @@
 		          });
 		        });
 		    },
+		    goodsCount:function(){
+				var that = this;
+				that.$http({
+						  method:'post',
+						  url: '/goods/goodsCount'						  
+						}).then(function (res){
+							//console.log(res)
+							if(res.data.error==0){
+								that.upGoods = res.data.data.upGoods; //上架
+								that.downGoods = res.data.data.downGoods; //下架 
+								that.total = res.data.data.total; //全部
+								that.recycleGoods = res.data.data.recycleGoods; //回收站
+							}
+						}).catch(function (error) {
+							console.log(error);
+						});
+			},
 		    restore:function(id){
 				var that = this;
 				that.$http({

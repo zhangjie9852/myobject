@@ -56,24 +56,16 @@
                                         </div>
                                         <span class="f-c-r form-tips">数据最大条数不超过10</span>
                                     </validate>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-sm-3 control-label">是否打开新窗口：</label>
-                                        <div class="col-sm-4">
-                                            <!--<select class="form-control" name="is_blank" v-model="fields.is_blank">
-                                                <option value="0">不打开新窗口</option>
-                                                <option value="1">打开新窗口</option>
-                                                <option value="2">自定义</option>
-                                            </select>  -->
-                                            <el-select name="is_blank" v-model="fields.is_blank" required :class="fieldClassName(formstate.is_blank)">
-                                              <!--<template v-for="item in freightTemp">
-                                                <el-option :key="item.id" :label="item.templet_name" :value="item.id"></el-option>
-                                              </template>-->
+                                        <div class="col-sm-4">                                            
+                                            <el-select name="is_blank" v-model="fields.is_blank" required :class="fieldClassName(formstate.is_blank)">  
                                               <el-option :key="0" label="不打开新窗口" :value="0"></el-option>
                                               <el-option :key="1" label="打开新窗口" :value="1"></el-option>
                                               <el-option :key="2" label="自定义  " :value="2"></el-option>
                                             </el-select>                                          
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <validate class="form-group">
                                         <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图片宽度：</label>
                                         <div class="col-sm-4">                                        
@@ -128,12 +120,10 @@
     </div>
 </template>
 <script>
-    import HjCrumb from '../../comms/BreadCrumb.vue'
-    import ItemAddData from './ItemAddData.vue'    
+    import HjCrumb from '../../comms/BreadCrumb.vue'     
     export default{
         components:{
-          HjCrumb,
-          ItemAddData
+          HjCrumb          
         },
         data(){
             return{
@@ -141,7 +131,7 @@
                     CrumbList:
                     [
                         {
-                            title:'推荐列表WAP',
+                            title:'推荐管理',
                             url:'/recom/wap/list'
                         },
                         {
@@ -165,7 +155,7 @@
                     recmd_block_name:"",                    
                     recmd_item_channel:null,
                     recmd_item_max:"",
-                    is_blank:0,
+                    is_blank:2,
                     recmd_item_img_w:"",
                     recmd_item_img_h:"",
                     status_recmd_item:1

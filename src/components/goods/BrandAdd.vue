@@ -17,7 +17,7 @@
                                                     <option v-for="(item,index) in cateList" :value="item.category_id">{{item.category_name}}</option>
                                                 </select>-->
                                                 <el-select name="category_id" v-model="model.category_id" required :class="fieldClassName(formstate.category_id)">
-                                                    <el-option :key="null" label="请选择角色" :value="null"></el-option>
+                                                    <el-option :key="null" label="请选择商品分类" :value="null"></el-option>
                                                     <template v-for="item in cateList">
                                                         <el-option :key="item.category_id" :label="item.category_name" :value="item.category_id"></el-option>
                                                     </template>

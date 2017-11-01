@@ -91,7 +91,8 @@
                     <div class="form-group">
                       <label class="col-sm-3 control-label">帮助内容：</label>
                       <div class="col-sm-8">
-                        <script id="editor" ref="editor" type="text/plain" style="width:100%;height:200px;"></script>
+                        <!-- <script id="editor" ref="editor" type="text/plain" style="width:100%;height:200px;"></script> -->
+                        <uediter :value="articleInfo.articleContent" :config="config" @input="setContent"></uediter>
                       </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -147,17 +148,15 @@
     </div>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
   import HjCrumb from '../comms/BreadCrumb.vue'
   import vueForm from 'vue-form'
   import UnderScore from 'underscore'
-  import '../../../static/UEditor/ueditor.config'
-  import '../../../static/UEditor/ueditor.all';
-  import '../../../static/UEditor/lang/zh-cn/zh-cn';
+  import uediter from '../comms/editor.vue'
 
   export default{
     components: {
-      HjCrumb
+      HjCrumb,uediter
     },
     mixins: [vueForm],
     data(){
@@ -177,6 +176,12 @@
               url: ''
             }
           ]
+        },
+        config: {
+          initialFrameWidth: null,
+          initialFrameHeight: 250,         
+          BaseUrl: '',
+          UEDITOR_HOME_URL: '/static/UEditor/'                  
         },
         activeName: 'first',
         curActiveName:'first',
@@ -202,7 +207,7 @@
           seoDescription: ''
         },
         articleInfoTemp:{},
-        ue: ''
+        //ue: ''
       }
     },
     methods: {
@@ -217,6 +222,10 @@
         for (var key in oldObj){
           obj[key]=oldObj[key];
         }
+      },
+      //设置编辑器内容
+      setContent:function(input){
+          this.articleInfo.articleContent = input.content;
       },
       getArticleCateList () {
         var that = this;
@@ -264,7 +273,7 @@
               that.articleInfo.articleCateIds[index]=parseInt(that.articleInfo.articleCateIds[index]);
             });
             that.objectAssign(that.articleInfoTemp,that.articleInfo);
-            UE.getEditor('editor').setContent(that.articleInfo.articleContent);
+            //UE.getEditor('editor').setContent(that.articleInfo.articleContent);
           }else{
             that.$message({
               type: 'error',
@@ -318,7 +327,7 @@
       },
       articleConfirm () {
         var that = this;
-        that.articleInfo.articleContent = UE.getEditor('editor').getContent();
+        //that.articleInfo.articleContent = UE.getEditor('editor').getContent();
         that.$http({
           method: 'post',
           url: '/help/editsubmit',
@@ -412,7 +421,7 @@
         var that=this;
         that.getArticleCateList();
         that.getArticleInfo();
-        that.ue = UE.getEditor(that.$refs.editor.id,{
+        /* that.ue = UE.getEditor(that.$refs.editor.id,{
           BaseUrl: '',
           UEDITOR_HOME_URL: '/static/UEditor/',
           toolbars:[
@@ -431,11 +440,11 @@
         UE.getEditor('editor').ready(function () {
           UE.getEditor('editor').setContent(that.articleInfo.articleContent);
         });
-      })
+ */      })
     },
-    destroyed() {
+    /* destroyed() {
       this.ue.destroy();
-    }
+    } */
   }
 </script>
 

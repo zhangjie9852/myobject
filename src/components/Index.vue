@@ -103,8 +103,7 @@
     </div>
   </div>
 </template>
-<script>
-  import "../assets/css/home.css"
+<script>  
   import HjCrumb from './comms/BreadCrumb.vue'
   let echarts = require('echarts/lib/echarts')
   require('echarts/lib/chart/line')

@@ -3,7 +3,7 @@
         <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal m-t" id="commentForm">
             <validate class="form-group" v-for="(item,index) in fields" :key="index">                
                 <div class="col-sm-3 posR">                                        
-                    <span class="f-c-r">*</span>图片：<input type="text" :name="'img_url'+index" readonly class="form-control picurl" v-model="fields[index].img_url" required :class="fieldClassName(formstate.img_url)">
+                    <span class="f-c-r">*</span>图片({{recomMsg.pwidth}}px*{{recomMsg.pheight}}px)：<input type="text" :name="'img_url'+index" readonly class="form-control picurl" v-model="fields[index].img_url" required :class="fieldClassName(formstate.img_url)">
                     <!-- <img :src="fields[index].img_url" width="60" height="60"> -->
                     <button type="button" class="btn btn-primary picBtn" @click="picChange(index)" value="选择">选择</button>
                 </div>                
@@ -50,10 +50,10 @@
           <div class="hr-line-dashed"></div>
             <div class="form-group draggable ui-draggable">
                 <div class="col-sm-12 col-sm-offset-3">
-                    <!--<button class="btn btn-primary" type="submit" v-if="fields!=''">提交</button>
-                    <button class="btn btn-white m-l-md" type="button" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</button>-->
-                    <el-button type="primary" native-type="submit" v-if="fields!=''">提交</el-button>
-                    <el-button class="white-btn m-l-sm" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</el-button>        
+                    <button class="btn btn-primary" type="submit" v-if="fields!=''">提交</button>
+                    <button class="btn btn-white m-l-md" type="button" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</button>
+                    <!-- <el-button type="primary" native-type="submit" v-if="fields!=''">提交</el-button>
+                    <el-button class="white-btn m-l-sm" @click="additem" v-if="recomMsg.maxLen>fields.length">添加数据</el-button>  -->       
                 </div>  
             </div>
         </vue-form>
@@ -71,8 +71,7 @@ import {mapGetters,mapActions} from 'vuex'
           PicLlibrary
         },
         data(){
-            return{
-                pageError:false,                 
+            return{                               
                 formstate:{},                
                 fields:[],
                 activeName: 'first',
@@ -149,8 +148,10 @@ import {mapGetters,mapActions} from 'vuex'
                                     } 
                                 }    
                             }else{
-                                 console.log(res.data.desc);
-                                 that.pageError =true                          
+                                 that.$message({
+                                    type: 'error',
+                                    message: res.data.desc
+                                  });                            
                             }                                                        
                         }).catch(function (error) {
                             console.log(error);

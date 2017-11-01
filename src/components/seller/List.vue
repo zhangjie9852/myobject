@@ -33,7 +33,7 @@
 				                </el-dropdown>
 				                <el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="商家名称" @keyup.enter="getList(pageData.PageID)"></el-input>
 				                <el-button class="search-btn" type="primary" icon="search" @click="getList(pageData.PageID)">筛选</el-button>
-				                <router-link to="/shop/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加商家</router-link>
+				                <router-link to="/shop/list/add"  class="add-btn"><i class="shop icon-xinzeng"></i> 添加商家</router-link>
                     		</form>
                     		<div class="table-responsive clearfix">
                     			<table class="table table-striped table-bordered table-hover">
@@ -79,7 +79,7 @@
 											<td class="opt">
 												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.shop_id,'shop_id')"></span>
                                                 <ul v-show="item.isOptShow">
-                                                	<li><router-link :to="'/shop/edit/'+item.shop_id"> 编辑</router-link></li>      	
+                                                	<li><router-link :to="'/shop/list/edit/'+item.shop_id"> 编辑</router-link></li>      	
                                                     <li><a @click="delOne(item.shop_id)">删除</a></li>
                                                     <li v-if="item.user_id==''||item.user_id==null"><a @click="openDialog(item.shop_name,item.shop_id,item.user_id,item.user_login,item.user_pass)">分配账户</a></li>
                                                     <li v-else><a @click="openDialog(item.shop_name,item.shop_id,item.user_id,item.user_login,item.user_pass)"> 修改账户</a></li>

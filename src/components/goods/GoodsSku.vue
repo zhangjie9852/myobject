@@ -38,7 +38,7 @@
                         </td>
                         <td class="text-center"><input type="number" onmousewheel="return false;" class="w100" name="goods_sort" v-model="skuList[index].sort"></td><!-- 排序 -->
                         <td class="text-center">
-                            <a class="icon_l_delete" @click="delItem(index,skuList[index].goods_product_id)" title="删除"></a>
+                            <a class="shop icon-shanchu1" @click="delItem(index,skuList[index].goods_product_id)" title="删除"></a>
                         </td>                                                           
                     </tr>
                 </tbody>
