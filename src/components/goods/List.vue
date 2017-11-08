@@ -23,6 +23,9 @@
 								 <el-button class="m-r-sm" :type="Lstatus==-1?'primary':'info'" @click="ListState('',-1)">
 								    商品回收站({{recycleGoods}})
 								 </el-button>
+								 <el-button class="m-r-sm" :type="Lstatus==null?'primary':'info'" @click="ListStore">
+								    店铺商品
+								 </el-button>
 		                    </div>
 		                    <form action="#" class="form-inline m-b-sm" role="form">
 								<el-dropdown class="m-r-xs m-b-sm">
@@ -102,7 +105,11 @@
                                                     <li v-if="item.goods_examine == -1 || item.goods_examine == 3 || item.goods_examine == null"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)">审核</a></li>
                                                     <li><a @click="delOne(item.goods_id,'del')">删除</a></li>
                                                 </ul>
-                                                <ul v-else v-show="item.isOptShow">
+                                                <ul v-if="Lstatus==null" v-show="item.isOptShow">  
+                                                    <li v-if="item.goods_examine == -1 || item.goods_examine == 3 || item.goods_examine == null"><a @click="openDialog(item.goods_name,item.goods_id,item.goods_examine,item.examine_msg)">审核</a></li>
+                                                    <li><a @click="delOne(item.goods_id,'del')">删除</a></li>
+                                                </ul>
+                                                <ul v-if="Lstatus==-1" v-show="item.isOptShow">
                                                     <li><a @click="restore(item.goods_id)"><i class="icon_l_reply"></i> 还原</a></li>
                                                     <li><a @click="delOne(item.goods_id,'callback')"><i class="icon_l_delete"></i> 删除</a></li>
                                                 </ul>
@@ -129,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <el-dialog title="商品审核" :visible.sync="dialogVisible" size="tiny">
+        <el-dialog title="商品审核" :visible.sync="dialogVisible" size="tiny" :close-on-click-modal="false">
 	      <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal">
 	      	  <div class="form-group">
 	            <label class="col-sm-4 control-label">商品名称：</label>
@@ -180,6 +187,7 @@
         		selectedList:[],
 				isOnline:'',
 				Lstatus:1,
+				isStore:1,
 				dialogVisible:false,
 				goods_name:'',
 				audit_status:2,
@@ -251,7 +259,14 @@
 		    ListState(state,state2){
 		    	this.isOnline = state;
 		    	this.Lstatus = state2;
+		    	this.isStore = 1;
 		    	this.getList(1)
+		    },
+		    ListStore(){
+		    	this.isOnline = null;
+		    	this.Lstatus = null;
+		    	this.isStore = null;
+		    	this.getList(1);
 		    },
 			getList(page) {
 				var that = this;
@@ -279,6 +294,7 @@
 							'PageID':page,
 							'is_online':that.isOnline,
 							'status':that.Lstatus,
+							'shop_id':that.isStore
 						  }
 						}).then(function (res) {
 							if(res.data.error==0){
@@ -306,7 +322,8 @@
 		        this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
 		          cancelButtonText: '取消',
-		          type: 'warning'
+		          type: 'warning',		          
+		          closeOnClickModal:false
 		        }).then(() => {
 		          that.$http({
 		            method:'post',
@@ -326,10 +343,7 @@
 		            console.log(error);
 		          });
 		        }).catch(() => {
-		          this.$message({
-		            type: 'info',
-		            message: '已取消删除'
-		          });
+		          //已取消删除
 		        });
 		    },
 		    goodsCount:function(){

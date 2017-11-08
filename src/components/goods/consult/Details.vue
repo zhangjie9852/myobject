@@ -78,7 +78,7 @@
 		    		[
 			    		{
                             title:'商品中心',
-                            url:'/goods/list'
+                            url:'/goods/consult/list'
                         },
                         {
                             title:'商品咨询',

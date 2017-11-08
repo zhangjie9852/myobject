@@ -143,7 +143,7 @@
         </div>
       </div>
     </div>
-    <el-dialog title="选择订单金额" :visible.sync="dialogAmountVisible">
+    <el-dialog title="选择订单金额" :visible.sync="dialogAmountVisible" :close-on-click-modal="false">
       <div>
         <el-input placeholder="请输入最小金额" v-model="amountLow" @focus="amountError=false">
           <template slot="prepend">￥</template>
@@ -159,7 +159,7 @@
         <el-button type="primary" @click="confirmAmount">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="选择订单日期" :visible.sync="dialogDateVisible">
+    <el-dialog title="选择订单日期" :visible.sync="dialogDateVisible" :close-on-click-modal="false">
       <div>
         <el-date-picker type="date" placeholder="选择开始日期" v-model="startDate" @change="changeStartDate"></el-date-picker>
         <span>-</span>

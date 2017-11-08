@@ -119,11 +119,11 @@
 		    		[
 			    		{
 				    		title:'商品中心',
-				    		url:'/goods/list'
+				    		url:'/goods/evaluate/list'
 			    		},
 			    		{
 				    		title:'商品管理',
-				    		url:'/goods/list'
+				    		url:'/goods/evaluate/list'
 			    		},			    		
 			    		{
 				    		title:'用户评论',
@@ -209,7 +209,8 @@
 		        this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
 		          cancelButtonText: '取消',
-		          type: 'warning'
+		          type: 'warning',
+		          closeOnClickModal:false
 		        }).then(() => {
 		          that.$http({
 		            method:'post',
@@ -229,10 +230,7 @@
 		            console.log(error);
 		          });
 		        }).catch(() => {
-		          this.$message({
-		            type: 'info',
-		            message: '已取消删除'
-		          });
+		          //已取消
 		        });
 		    },
 		    batchOpt:function(status,prompt,val){

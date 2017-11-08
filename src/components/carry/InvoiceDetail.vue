@@ -259,7 +259,7 @@
         </div>
       </div>
     </div>
-    <el-dialog title="收货地址" :visible.sync="deliverFormVisible">
+    <el-dialog title="收货地址" :visible.sync="deliverFormVisible" :close-on-click-modal="false">
       <div class="form-group">
         <div class="deliver-row clearfix">
           <label>收货人：</label>

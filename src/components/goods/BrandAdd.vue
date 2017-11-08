@@ -281,7 +281,7 @@
                             'brand_sort':that.model.brand_sort,
                             'is_show':that.model.is_show,
                             'is_topic':that.model.is_topic,
-                            'check_status':1
+                            'check_status':2
                             //'brand_tag':that.model.brand_tag                            
                           }           
                         }).then(function (res) {

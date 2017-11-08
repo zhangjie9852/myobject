@@ -22,7 +22,7 @@
                                 <router-link to="/setting/navigation/add" class="btn btn-m btn-danger hj_fr">添加导航</router-link>-->
                                 <el-button  type="warning" class="m-r-sm" @click="batchOpt('del','删除')">批量删除</el-button>
                                 <el-input class="m-r-sm m-b-sm" name="title" v-model="title" placeholder="导航名称"></el-input>
-                                <el-select class="m-r-xs m-b-sm" name="nav_parent" v-model="nav_parent">
+                                <el-select class="m-r-sm m-b-sm" name="nav_parent" v-model="nav_parent">
                                   <el-option :key="null" label="导航类型" :value="null"></el-option>
                                   <el-option :key="0" label="电脑端导航" value="0"></el-option>
                                   <el-option :key="1" label="移动端导航" value="1"></el-option>
@@ -183,7 +183,8 @@
             this.$confirm('确认删除此信息吗？', '提示', {
               confirmButtonText: '确认',
               cancelButtonText: '取消',
-              type: 'warning'
+              type: 'warning',
+              closeOnClickModal:false
             }).then(() => {
               that.$http({
                 method:'post',
@@ -202,10 +203,7 @@
                 console.log(error);
               });
             }).catch(() => {
-              this.$message({
-                type: 'info',
-                message: '已取消删除'
-              });
+              //已取消删除
             });
         },
         batchOpt:function(status,prompt){
@@ -220,7 +218,8 @@
                 this.$confirm('确定要批量【'+prompt+'】吗？', '提示', {
                   confirmButtonText: '确认',
                   cancelButtonText: '取消',
-                  type: 'warning'
+                  type: 'warning',
+                  closeOnClickModal:false
                 }).then(() => {
                   that.$http({
                     method:'post',

@@ -19,7 +19,7 @@
                 <div>                                        
                     <a class="shop icon-shanchu" @click="delItem(index)" title="删除"></a>
                 </div>
-                <el-dialog title="选择图片" v-if="dialogInd==index" :visible.sync="dialogPic">
+                <el-dialog title="选择图片" v-if="dialogInd==index" :visible.sync="dialogPic" :close-on-click-modal="false">
                     <el-tabs v-model="activeName" type="card">
                       <el-tab-pane label="本地图片" name="first">
                         <el-upload

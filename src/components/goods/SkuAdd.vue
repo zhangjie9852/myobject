@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div>
-        <el-dialog title="选择图片" :visible.sync="dialogPic">
+        <el-dialog title="选择图片" :visible.sync="dialogPic" :close-on-click-modal="false">
             <el-tabs v-model="activeName" type="card">
               <el-tab-pane label="本地图片" name="first">
                 <el-upload
@@ -216,14 +216,12 @@
             	this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
 		          cancelButtonText: '取消',
-		          type: 'warning'
+		          type: 'warning',
+		          closeOnClickModal:false
 		        }).then(() => {
 		          this.skuList.splice(index, 1); 
 		        }).catch(() => {
-		          this.$message({
-		            type: 'info',
-		            message: '已取消删除'
-		          });
+		          //已取消
 		        });
                 
             },

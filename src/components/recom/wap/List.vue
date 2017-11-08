@@ -69,7 +69,7 @@
 						  method:'post',
 						  url: '/recmd_block/listdata',
 						  params:{
-							'recmd_block_platform':2
+							'recmd_block_platform':0
 						  }
 						}).then(function (res) {
 							//console.log(res);

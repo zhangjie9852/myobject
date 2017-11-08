@@ -263,7 +263,7 @@
                 </div>
             </div>
         </div>
-        <el-dialog title="选择图片" :visible.sync="dialogPic">
+        <el-dialog title="选择图片" :visible.sync="dialogPic" :close-on-click-modal="false">
             <el-tabs v-model="activeName2" type="card">
               <el-tab-pane label="本地图片" name="first">
                 <el-upload

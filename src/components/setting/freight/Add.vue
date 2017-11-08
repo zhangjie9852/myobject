@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        <el-dialog title="选择区域" :visible.sync="dialogAreaVisible">          
+        <el-dialog title="选择区域" :visible.sync="dialogAreaVisible" :close-on-click-modal="false">          
           <div class="areaBox">
             <div class="menu-item clearfix" v-for="(item,index) in AreaList">
               <div class="menu-title">

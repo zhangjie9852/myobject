@@ -29,7 +29,8 @@
                                             <th>商家名称</th>
                                             <th>商品分类</th>
                                             <th>广告位置</th>
-                                            <th>广告图片</th>       
+                                            <th>广告图片</th>
+                                            <th>是否推荐</th>      
                                             <th>创建时间</th>
                                             <th class="opt-select">操作</th>
                                         </tr>
@@ -44,7 +45,7 @@
 											<td>{{item.goods_shop_base_name}}</td>
 											<td>{{item.goods_category_name}}</td>
 											<td>{{item.advertising_location_name}}</td>
-											<td><img :src="item.advertising_pc_logo" class="listImg"></td>												
+											<td><img :src="item.advertising_pc_logo" class="listImg"></td>	<td>{{item.recommend_name}}</td>	
 											<td>{{item.time_create}}</td>
 											<td class="opt">
 												<span class="opt-down shop icon-shezhicaozuo" @click.stop="opToggle(clist,item.id,'id')"></span>
@@ -174,7 +175,8 @@
 		        this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
 		          cancelButtonText: '取消',
-		          type: 'warning'
+		          type: 'warning',
+		          closeOnClickModal:false
 		        }).then(() => {
 		          that.$http({
 		            method:'post',

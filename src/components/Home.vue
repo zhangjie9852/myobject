@@ -48,7 +48,7 @@
           <!--</keep-alive>-->
           <FooterView></FooterView>
       </div>
-      <el-dialog title="密码修改" :visible.sync="dialogVisible" size="tiny">        
+      <el-dialog title="密码修改" :visible.sync="dialogVisible" size="tiny" :close-on-click-modal="false">        
         <vue-form :state="formstate" @submit.prevent="onSubmit" class="form-horizontal">
             <div class="p-lr-m"><!-- 修改权限 -->
               <validate class="form-group"> 
@@ -73,8 +73,8 @@
             </div>
             <div class="draggable ui-draggable">
               <div class="col-sm-offset-4">
-                <button class="btn btn-primary" type="submit">确定</button>
-                <button class="btn btn-white m-l-sm" type="button" @click="dialogVisible=false">取消</button>                  
+                <button class="btn btn-primary btn-radius" type="submit">确定</button>
+                <button class="btn btn-white btn-radius m-l-sm" type="button" @click="dialogVisible=false">取消</button>                  
               </div>
             </div>
         </vue-form>       
@@ -300,7 +300,8 @@
             this.$confirm('您确认要退出吗？', '提示', {
               confirmButtonText: '确认',
               cancelButtonText: '取消',
-              type: 'warning'
+              type: 'warning',
+              closeOnClickModal:false
             }).then(() => {
               that.$http({
                 method:'post',

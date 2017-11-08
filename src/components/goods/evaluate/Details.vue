@@ -129,7 +129,7 @@
             </div>
         </div>
 <!-- 图片放大 -->
-        <el-dialog title="图片放大" :visible.sync="dialogPic">
+        <el-dialog title="图片放大" :visible.sync="dialogPic" :close-on-click-modal="false">
             <div class="bigPic">
                 <img :src="bigPic">
             </div>
@@ -150,11 +150,11 @@
 		    		[
 			    		{
                             title:'商品中心',
-                            url:'/goods/list'
+                            url:'/goods/evaluate/list'
                         },
                         {
                             title:'商品管理',
-                            url:'/goods/list'
+                            url:'/goods/evaluate/list'
                         },
                         {
                             title:'用户评论',

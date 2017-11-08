@@ -91,7 +91,7 @@
                             <div slot="required" class="error">图片不能为空.</div>
                         </field-messages>
                     </validate> -->
-                    <span class="f-c-r form-tips m-t" v-if="ad_position_high>0">建议尺寸：{{ad_position_high}}px*{{ad_position_wide}}px</span>
+                    <span class="f-c-r form-tips m-t-xl" v-if="ad_position_high>0">建议尺寸：{{ad_position_high}}px*{{ad_position_wide}}px</span>
                 </div>
                 <validate class="form-group">
                   <label class="col-sm-3 control-label"><span class="f-c-r">*</span>图片链接：</label>
@@ -122,6 +122,13 @@
                   </div>                  
                 </div>
                 <div class="form-group">
+                  <label class="col-sm-3 control-label">是否推荐：</label>
+                  <div class="col-sm-4">
+                    <el-radio class="radio" name="is_recommend" v-model="fields.is_recommend" :label="1">是</el-radio>
+                    <el-radio class="radio" name="is_recommend" v-model="fields.is_recommend" :label="0">否</el-radio>
+                  </div>
+                </div>
+                <div class="form-group">
                   <label class="col-sm-3 control-label">备注：</label>
                   <div class="col-sm-4">
                     <textarea class="form-control" :rows="4" name="advertising_remark" v-model="fields.advertising_remark"></textarea>
@@ -142,7 +149,7 @@
         </div>
       </div>
     </div>
-    <el-dialog title="选择图片" :visible.sync="dialogPic">
+    <el-dialog title="选择图片" :visible.sync="dialogPic" :close-on-click-modal="false">
         <el-tabs v-model="activeName2" type="card">
           <el-tab-pane label="本地图片" name="first">
             <el-upload
@@ -228,6 +235,7 @@
           advertising_remark:'',
           advertising_start_time:'',
           advertising_end_time:'',
+          is_recommend:0
         },        
         usermsg:{
             'token_admin':JSON.parse(window.localStorage.getItem('access_token')),
@@ -296,7 +304,8 @@
               advertising_link:list.advertising_link,
               advertising_remark:list.advertising_remark,
               advertising_start_time:list.advertising_start_time,
-              advertising_end_time:list.advertising_end_time
+              advertising_end_time:list.advertising_end_time,
+              is_recommend:list.is_recommend,
             };            
             that.advertising_name = list.advertising_name;            
           }else{
@@ -481,7 +490,8 @@
               advertising_link:that.fields.advertising_link,
               advertising_remark:that.fields.advertising_remark,
               advertising_start_time:start_time,
-              advertising_end_time:that.fields.advertising_end_time
+              advertising_end_time:that.fields.advertising_end_time,
+              is_recommend:that.fields.is_recommend
             }
           }).then(function (res) {
             if(res.data.error=='0'){

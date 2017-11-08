@@ -56,11 +56,11 @@
         <div class="form-group draggable ui-draggable">
             <div class="col-sm-12 col-sm-offset-5">
                <!-- <button class="btn btn-primary" type="submit" v-show="skuList!=''">提交</button>-->
-                <el-button type="primary" v-show="skuList!=''">提交</el-button>
+                <el-button type="primary" native-type="submit" v-show="skuList!=''">提交</el-button>
             </div>  
         </div>
         </vue-form>
-		    <el-dialog title="选择图片" :visible.sync="dialogPic" :top="mgTop+'px'">
+		    <el-dialog title="选择图片" :visible.sync="dialogPic" :top="mgTop+'px'" :close-on-click-modal="false">
             <el-tabs v-model="activeName2" type="card">
               <el-tab-pane label="本地图片" name="first">
                 <el-upload
@@ -86,7 +86,7 @@
               <el-button @click="CancelBtn">取 消</el-button>
             </div>
         </el-dialog>
-        <el-dialog title="商品规格" :visible.sync="goodSpecVisible" :top="mgTop+'px'">
+        <el-dialog title="商品规格" :visible.sync="goodSpecVisible" :top="mgTop+'px'" :close-on-click-modal="false">
           <div class="spec-box">
             <div class="spec-head">商品规格（点选当前产品所需要规格）</div>
             <div class="spec-body clearfix">
@@ -116,7 +116,7 @@
             <el-button type="primary" @click="generateAll">生成所有货品</el-button>
           </div>
         </el-dialog>
-        <el-dialog title="价格模式" :visible.sync="dialogPrice" :top="mgTop+'px'" v-if="skuList!=''">      
+        <el-dialog title="价格模式" :visible.sync="dialogPrice" :top="mgTop+'px'" v-if="skuList!=''" :close-on-click-modal="false">      
           <vue-form :state="formstate2" @submit.prevent="onSubmit2" class="form-horizontal">
               <div class="form-group">
                 <label class="col-sm-3 control-label">价格模式：</label>
@@ -178,7 +178,7 @@
               </div>
           </vue-form>
         </el-dialog>
-        <el-dialog title="批量设置" :visible.sync="dialogBatchPrice" :top="mgTop+'px'">        
+        <el-dialog title="批量设置" :visible.sync="dialogBatchPrice" :top="mgTop+'px'" :close-on-click-modal="false">        
           <vue-form :state="formstate3" @submit.prevent="onSubmit3" class="form-horizontal">
               <div class="form-group" v-if='skuMsg.goods_retail==true||(skuMsg.goods_wholesale==false && skuMsg.goods_retail==false)'>
                 <label class="col-sm-3 control-label">售价：</label>
@@ -570,7 +570,8 @@ import UnderScore from 'underscore'
                 this.$confirm('您确定要删除此规格吗？', '提示', {
                   confirmButtonText: '确认',
                   cancelButtonText: '取消',
-                  type: 'warning'
+                  type: 'warning',
+                  closeOnClickModal:false
                 }).then(() => {
                   that.$http({
                     method:'post',

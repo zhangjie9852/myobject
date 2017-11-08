@@ -199,7 +199,8 @@
 		        this.$confirm('确认删除此信息吗？', '提示', {
 		          confirmButtonText: '确认',
 		          cancelButtonText: '取消',
-		          type: 'warning'
+		          type: 'warning',
+		          closeOnClickModal:false
 		        }).then(() => {
 		          that.$http({
 		            method:'post',
@@ -217,10 +218,7 @@
 		            console.log(error);
 		          });
 		        }).catch(() => {
-		          this.$message({
-		            type: 'info',
-		            message: '已取消删除'
-		          });
+		          //已取消
 		        });
 		    },
 		    delAll:function(){

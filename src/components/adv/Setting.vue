@@ -217,7 +217,8 @@
             this.$confirm('确认删除此广告位吗？', '提示', {
               confirmButtonText: '确认',
               cancelButtonText: '取消',
-              type: 'warning'
+              type: 'warning',
+              closeOnClickModal:false
             }).then(() => {
               that.$http({
                 method:'post',

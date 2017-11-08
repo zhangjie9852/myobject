@@ -5,8 +5,10 @@ body,html{min-height:100%;_height:100%;}
  body{font-family: "Microsoft YaHei","open sans", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px; background-color: #2f4050;}
  ul,li{list-style:none;padding:0;margin:0;}
  i,em{font-style:normal;}
+ .footer{font-size: 12px}
  .login_body{ background-image: url("../img/bj.jpg"); background-size:100% 100%; -moz-background-size:100% 100%; }
-.el-message-box{box-shadow: 0 1px 3px rgba(0,0,0,.3);}
+
+.btn.btn-radius{border-radius: 3px;}
 .hj_fl{float:left;}
 .hj_fr{float:right;}
 .clearfix:after,.clearfix:before{content: "";clear:both;display:table;}
@@ -16,7 +18,7 @@ body,html{min-height:100%;_height:100%;}
 .btn{border-radius:0;}
 .float-e-margins .btn{margin-bottom:0;}
 .float-e-margins .icon-shanchu{display:inline-block;margin:25px 0 0 15px;}
-.table-responsive{ overflow-x: inherit;}
+.table-responsive{ overflow-x: inherit; min-height: 280px;}
 .icheckbox.checked {background-position: -48px 0;}
 textarea{resize:none;}
 .f-c-r{color:#F00;}
@@ -36,6 +38,7 @@ ul,li{list-style:none;}
 input:focus,button:focus{
 	border:1px solid #b7bec7;
 }
+.el-message-box{box-shadow: 0 1px 3px rgba(0,0,0,.3);}
 .el-checkbox,.el-radio-button {font-weight: normal;}
 .col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5{position:relative;}
 .units{position: absolute; top: 2px; right: 25px; line-height: 30px;}
@@ -280,7 +283,7 @@ body.mini-navbar .nav-third-level li a,body.mini-navbar .nav-second-level li a{ 
 .opt{text-align:right; position:relative;}
 .opt-down{ cursor:pointer; white-space: nowrap;color:#9da7c0;}
 .opt span>i{font-size:16px;}
-.opt ul{padding:10px 20px; border:#E7E7E7 1px solid; position:absolute; right:20px;  background:#FFF; z-index:1;}
+.opt ul{padding:10px 20px; border:#E7E7E7 1px solid; position:absolute; right:20px;box-shadow: 0 1px 6px rgba(0,0,0,.3);  background:#FFF; z-index:1;}
 .opt ul li{text-align:left; height:30px; line-height:30px; padding:0; margin:0}
 .opt ul li a{color:#676a6c; white-space: nowrap;font-size: 14px;}
 .opt:hover span.icon-guanli,.opt span.active,.opt ul li a:hover{color:#2c99ff}
